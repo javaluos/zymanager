@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelBandMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannelBand" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_SCORE" property="channelScore" jdbcType="INTEGER" />
+    <result column="THRESHOLD_VALUE" property="thresholdValue" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.zy.cms.vo.channel.SmsChannelBandVo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_TYPE" property="channelType" jdbcType="INTEGER" />
+    <result column="OPERATOR_TYPE" property="operatorType" jdbcType="INTEGER" />
+    <result column="CHANNEL_PROPERTY" property="channelProperty" jdbcType="VARCHAR" />
+    <result column="SIGNER_AUDIT" property="signerAudit" jdbcType="INTEGER" />
+    <result column="TEMPLATE_AUDIT" property="templateAudit" jdbcType="INTEGER" />
+    <result column="DTN_PROVINCE" property="dtnProvince" jdbcType="VARCHAR" />
+    <result column="USE_PROVINCE" property="useProvince" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CHANNEL_SCORE" property="channelScore" jdbcType="INTEGER" />
+    <result column="THRESHOLD_VALUE" property="thresholdValue" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, CHANNEL_ID, CHANNEL_SCORE, THRESHOLD_VALUE, REMARK, STATUS, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_channel_band
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_merchant_channel_band
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.channel.SmsChannelBand" >
+    insert into sms_merchant_channel_band (ID, API_ACCOUNT, CHANNEL_ID, 
+      CHANNEL_SCORE, THRESHOLD_VALUE, REMARK, STATUS, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{apiAccount,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, 
+      #{channelScore,jdbcType=INTEGER}, #{thresholdValue,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.channel.SmsChannelBand" >
+    insert into sms_merchant_channel_band
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="channelScore != null" >
+        CHANNEL_SCORE,
+      </if>
+      <if test="thresholdValue != null" >
+        THRESHOLD_VALUE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelScore != null" >
+        #{channelScore,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdValue != null" >
+        #{thresholdValue,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannelBand" >
+    update sms_merchant_channel_band
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelScore != null" >
+        CHANNEL_SCORE = #{channelScore,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdValue != null" >
+        THRESHOLD_VALUE = #{thresholdValue,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.channel.SmsChannelBand" >
+    update sms_merchant_channel_band
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      CHANNEL_SCORE = #{channelScore,jdbcType=INTEGER},
+      THRESHOLD_VALUE = #{thresholdValue,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCountByQuery" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM 
+  		sms_channel sc, sms_merchant_channel_band smcb,voice_merchant_account vmc
+  	 <include refid="queryCondition"/>
+  </select>
+  <select id="selectListByQuery" resultMap="BaseResultVoMap">
+  	SELECT
+  		smcb.ID,
+  		vmc.API_ACCOUNT,
+		vmc.MERCHANT_PHONE,
+		vmc.BUSINESS_NAME,
+		sc.CHANNEL_NAME,
+		sc.CHANNEL_ID,
+		sc.CHANNEL_TYPE,
+		sc.OPERATOR_TYPE,
+		sc.CHANNEL_PROPERTY,
+		sc.SIGNER_AUDIT,
+		sc.TEMPLATE_AUDIT,
+		sc.STATUS,
+		sc.DTN_PROVINCE,
+		sc.USE_PROVINCE,
+		smcb.THRESHOLD_VALUE,
+		smcb.CHANNEL_SCORE,
+		smcb.CREATE_TIME,
+		smcb.UPDATE_TIME,
+		smcb.REMARK
+	FROM
+		sms_channel sc,
+		sms_merchant_channel_band smcb,
+		voice_merchant_account vmc
+	<include refid="queryCondition"/>
+	order by smcb.CHANNEL_SCORE desc
+	limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByApiAccount" parameterType="java.lang.String" resultMap="BaseResultVoMap">
+  	SELECT sc.CHANNEL_NAME,sc.CHANNEL_ID,sc.CHANNEL_TYPE,smcb.CHANNEL_SCORE,
+  	sc.DTN_PROVINCE,sc.USE_PROVINCE,smcb.THRESHOLD_VALUE
+  	FROM sms_merchant_channel_band smcb 
+  	INNER JOIN sms_channel sc 
+  	ON smcb.CHANNEL_ID= sc.CHANNEL_ID 
+    WHERE smcb.API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+    AND sc.STATUS = 1
+  </select>
+  <select id="selectByAccountAndChannel" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_channel_band
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+    and CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByApiAccount" parameterType="java.lang.String">
+  	delete from sms_merchant_channel_band
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </delete>
+  
+  <sql id="queryCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	     		sc.CHANNEL_ID = smcb.CHANNEL_ID AND smcb.API_ACCOUNT = vmc.API_ACCOUNT
+		    <if test="channelName != null and channelName !=''">
+				AND sc.CHANNEL_NAME like CONCAT('%','${channelName}','%') 
+			</if>
+			<if test="channelId != null and channelId != ''">
+				AND sc.CHANNEL_ID like CONCAT('%','${channelId}','%')
+			</if>
+			<if test="channelType != null and channelType !=''">
+			    AND sc.CHANNEL_TYPE = #{channelType, jdbcType=INTEGER}
+			</if>
+             <if test="channelProperty != null and channelProperty !='' and channelProperty != '0'">
+                 AND sc.CHANNEL_PROPERTY = #{channelProperty, jdbcType=VARCHAR}
+             </if>
+			<if test="merchantPhone != null and merchantPhone !=''">
+			    AND vmc.MERCHANT_PHONE = #{merchantPhone, jdbcType=VARCHAR}
+			</if>
+			<if test="businessName != null and businessName != ''">
+			    AND vmc.BUSINESS_NAME like CONCAT('%','${businessName}','%') 
+			</if>
+			<if test="starttime != null and starttime !=''">
+			    AND <![CDATA[ DATE_FORMAT(smcb.UPDATE_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{starttime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="endtime != null and endtime !=''">
+			   AND <![CDATA[ DATE_FORMAT(smcb.UPDATE_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{endtime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+		</trim>	
+	</sql>
+</mapper>

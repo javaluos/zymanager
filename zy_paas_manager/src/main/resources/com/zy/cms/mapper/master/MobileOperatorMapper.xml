@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.MobileOperatorMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.MobileOperator" >
+    <id column="OPERATOR_CODE" property="operatorCode" jdbcType="VARCHAR" />
+    <id column="OPERATOR_NAME" property="operatorName" jdbcType="VARCHAR" />
+    <result column="NUMBER_PREFIX" property="numberPrefix" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    OPERATOR_CODE, OPERATOR_NAME, NUMBER_PREFIX
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zy.cms.vo.MobileOperator" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_operator
+    where OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR}
+      and OPERATOR_NAME = #{operatorName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zy.cms.vo.MobileOperator" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_operator
+  </select>
+  
+   <select id="selectAllMobileCity" resultType="String">
+      SELECT DISTINCT PROVINCE FROM mobile_city ORDER BY CONVERT(PROVINCE USING gbk) ASC
+  </select>
+  
+</mapper>

@@ -1,0 +1,212 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+				        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+				        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+				        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+ 	<!-- 开启注解配置,使Spring关注Annotation -->
+	<context:annotation-config />
+	<context:component-scan base-package="com" />
+ 	<!-- jdbc配置文件 -->
+	<bean name="common-properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:config/jdbc.properties</value>
+                <value>classpath:config/customization.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:config/customization.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="zy_db_sms_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${zydbsms.alias}" />
+		<property name="driver" value="${zydbsms.driver}" />
+		<property name="driverUrl" value="${zydbsms.driverUrl}" />
+		<property name="user" value="${zydbsms.db_user}" />
+		<property name="password" value="${zydbsms.db_password}" />
+		<property name="houseKeepingTestSql" value="${zydbsms.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${zydbsms.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${zydbsms.minimum-connection-count}" />
+		<property name="prototypeCount" value="${zydbsms.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${zydbsms.simultaneous-build-throttle}" />
+		<property name="trace" value="${zydbsms.trace}" />
+	</bean>
+	<bean id="zy_db_sms_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zy_db_sms_dataSource"/>
+	</bean>
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean name="zy_db_sms_mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.sms" />
+		<property name="sqlSessionFactoryBeanName" value="zy_db_sms_sqlSessionFactory" />
+	</bean>
+	
+	<!-- proxool连接池 -->
+	<bean id="zymanager_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${zymanager.alias}" />
+		<property name="driver" value="${zymanager.driver}" />
+		<property name="driverUrl" value="${zymanager.driverUrl}" />
+		<property name="user" value="${zymanager.db_user}" />
+		<property name="password" value="${zymanager.db_password}" />
+		<property name="houseKeepingTestSql" value="${zymanager.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${zymanager.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${zymanager.minimum-connection-count}" />
+		<property name="prototypeCount" value="${zymanager.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${zymanager.simultaneous-build-throttle}" />
+		<property name="trace" value="${zymanager.trace}" />
+	</bean>
+	<bean id="zymanager_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zymanager_dataSource" />
+	</bean>
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean name="zymanager_mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.manager" />
+		<property name="sqlSessionFactoryBeanName" value="zymanager_sqlSessionFactory" />
+	</bean>
+	<!-- 对数据源进行事务管理 -->
+	<bean id="zymanager_transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="zymanager_dataSource" />
+	</bean>
+	<!-- 事务注解配置 -->
+	<tx:annotation-driven transaction-manager="zymanager_transactionManager" />
+
+	<!-- proxool连接池 -->
+	<bean id="smsmanager_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${smsmanager.alias}" />
+		<property name="driver" value="${smsmanager.driver}" />
+		<property name="driverUrl" value="${smsmanager.driverUrl}" />
+		<property name="user" value="${smsmanager.db_user}" />
+		<property name="password" value="${smsmanager.db_password}" />
+		<property name="houseKeepingTestSql" value="${smsmanager.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${smsmanager.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${smsmanager.minimum-connection-count}" />
+		<property name="prototypeCount" value="${smsmanager.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${smsmanager.simultaneous-build-throttle}" />
+		<property name="trace" value="${smsmanager.trace}" />
+	</bean>
+	<bean id="smsmanager_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="smsmanager_dataSource" />
+	</bean>
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean name="smsmanager_mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.smsmanager" />
+		<property name="sqlSessionFactoryBeanName" value="smsmanager_sqlSessionFactory" />
+	</bean>
+
+	<!-- proxool连接池 -->
+	<bean id="zypaas_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${zypaas.alias}" />
+		<property name="driver" value="${zypaas.driver}" />
+		<property name="driverUrl" value="${zypaas.driverUrl}" />
+		<property name="user" value="${zypaas.db_user}" />
+		<property name="password" value="${zypaas.db_password}" />
+		<property name="houseKeepingTestSql" value="${zypaas.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${zypaas.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${zypaas.minimum-connection-count}" />
+		<property name="prototypeCount" value="${zypaas.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${zypaas.simultaneous-build-throttle}" />
+		<property name="trace" value="${zypaas.trace}" />
+	</bean>
+	<bean id="zypaas_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zypaas_dataSource"/>
+	</bean>
+	<!-- 对数据源进行事务管理 -->  
+    <bean id="zypaas_transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="zypaas_dataSource"/>
+    </bean>
+    <!-- 事务注解配置 -->
+	<tx:annotation-driven transaction-manager="zypaas_transactionManager" />
+	
+	<!-- mybatis文件配置，扫描所有mapper文件 -->      
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.master"/>
+		<property name="sqlSessionFactoryBeanName" value="zypaas_sqlSessionFactory" />
+	</bean>
+	
+	
+	<!-- proxool连接池 -->
+	<bean id="zycdrs_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${zycdrs.alias}" />
+		<property name="driver" value="${zycdrs.driver}" />
+		<property name="driverUrl" value="${zycdrs.driverUrl}" />
+		<property name="user" value="${zycdrs.db_user}" />
+		<property name="password" value="${zycdrs.db_password}" />
+		<property name="houseKeepingTestSql" value="${zycdrs.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${zycdrs.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${zycdrs.minimum-connection-count}" />
+		<property name="prototypeCount" value="${zycdrs.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${zycdrs.simultaneous-build-throttle}" />
+		<property name="trace" value="${zycdrs.trace}" />
+	</bean>
+	<bean id="zycdrs_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zycdrs_dataSource" />
+	</bean>
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean name="zycdrs_mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.cdrs" />
+		<property name="sqlSessionFactoryBeanName" value="zycdrs_sqlSessionFactory" />
+	</bean>
+	<!-- 对数据源进行事务管理 -->
+	<bean id="zycdrs_transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="zycdrs_dataSource" />
+	</bean>
+	<!-- 事务注解配置 -->
+	<tx:annotation-driven transaction-manager="zycdrs_transactionManager" />
+	
+	
+	<!-- proxool连接池 -->
+	<bean id="zysms2_dataSource" class="com.zy.cms.common.MyProxoolDataSource">
+		<property name="alias" value="${zysms.alias}" />
+		<property name="driver" value="${zysms.driver}" />
+		<property name="driverUrl" value="${zysms.driverUrl}" />
+		<property name="user" value="${zysms.db_user}" />
+		<property name="password" value="${zysms.db_password}" />
+		<property name="houseKeepingTestSql" value="${zysms.house-keeping-test-sql}" />
+		<property name="maximumConnectionCount" value="${zysms.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${zysms.minimum-connection-count}" />
+		<property name="prototypeCount" value="${zysms.prototype-count}" />
+		<property name="simultaneousBuildThrottle" value="${zysms.simultaneous-build-throttle}" />
+		<property name="trace" value="${zysms.trace}" />
+	</bean>
+	<bean id="zysms2_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="zysms2_dataSource" />
+	</bean>
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean name="zysms2_mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zy.cms.mapper.sms2" />
+		<property name="sqlSessionFactoryBeanName" value="zysms2_sqlSessionFactory" />
+	</bean>
+	<!-- 对数据源进行事务管理 -->
+	<bean id="zysms2_transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="zysms2_dataSource" />
+	</bean>
+	<!-- 事务注解配置 -->
+	<tx:annotation-driven transaction-manager="zysms2_transactionManager" />
+	
+	<bean id="elasticsearch" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:config/elasticsearch.properties"/>
+    </bean>
+	
+	<import resource="spring-redis.xml"/>
+	<import resource="spring-quartz.xml"/>
+</beans>

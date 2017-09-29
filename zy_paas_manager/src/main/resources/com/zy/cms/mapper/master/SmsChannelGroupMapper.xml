@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelGroupMapper">
+
+	<resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannelGroup">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+		<result column="GROUP_TYPE" property="groupType" jdbcType="INTEGER" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<collection property="smsChannelGroupBindList" ofType="com.zy.cms.vo.channel.SmsChannelGroupBind"
+			column="{group_id=ID}" select="selectBindList"  javaType="ArrayList" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, GROUP_NAME, GROUP_TYPE, REMARK, STATUS, CREATE_TIME, UPDATE_TIME
+	</sql>
+
+	<resultMap id="bindBaseResultMap" type="com.zy.cms.vo.channel.SmsChannelGroupBind">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="CHANNEL_GROUP_ID" property="channelGroupId"
+			jdbcType="VARCHAR" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+		<result column="CHANNEL_SCORE" property="channelScore"
+			jdbcType="INTEGER" />
+		<result column="THRESHOLD_VALUE" property="thresholdValue"
+			jdbcType="INTEGER" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Bind_Base_Column_List">
+		ID, CHANNEL_GROUP_ID, CHANNEL_ID, CHANNEL_SCORE, THRESHOLD_VALUE, REMARK,
+		STATUS,CREATE_TIME, UPDATE_TIME
+	</sql>
+	
+	<sql id="querySmsChannelGroupCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	        <if test="channelGroupName != null and channelGroupName !=''">
+				AND scg.GROUP_NAME like CONCAT('%','${channelGroupName}','%') 
+			</if>
+			<if test="channelGroupIds!= null and channelGroupIds.size() > 0">  
+	            and ID in  
+	            <foreach  collection="channelGroupIds" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+                </foreach>  
+            </if>  
+		</trim>	
+    </sql>
+	
+	<select id="listSmsChannelGroupCount" parameterType="com.zy.cms.vo.query.SmsChannelGroupQuery" resultType="java.lang.Integer">
+  	   SELECT COUNT(*) from SMS_CHANNEL_GROUP scg
+  		   <include refid="querySmsChannelGroupCondition"/>
+    </select>
+
+	<select id="listSmsChannelGroup" parameterType="com.zy.cms.vo.query.SmsChannelGroupQuery"  resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SMS_CHANNEL_GROUP scg
+		<include refid="querySmsChannelGroupCondition"/>
+	  	ORDER BY  scg.UPDATE_TIME DESC 
+	  	<if test="pageOffset != null and pageSize != null">
+			limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="listSmsChannelGroupNoPage"  resultType="com.zy.cms.vo.channel.SmsChannelGroup">
+		SELECT
+			ID id, GROUP_NAME groupName, GROUP_TYPE groupType, REMARK remark, STATUS status, CREATE_TIME createTime,UPDATE_TIME updateTime
+		FROM SMS_CHANNEL_GROUP WHERE STATUS = 1 
+	  	ORDER BY  UPDATE_TIME DESC 
+	</select>
+
+	<select id="selectBindList" resultMap="bindBaseResultMap">
+		SELECT 
+		<include refid="Bind_Base_Column_List" /> 
+		FROM SMS_CHANNEL_GROUP_BIND WHERE CHANNEL_GROUP_ID = #{group_id} ORDER BY CHANNEL_SCORE DESC 
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sms_channel_group
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectGroupNameCount" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		SELECT COUNT(ID) 
+		FROM SMS_CHANNEL_GROUP
+		where GROUP_NAME = #{groupName,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insert" parameterType="com.zy.cms.vo.channel.SmsChannelGroup">
+		insert into sms_channel_group (ID, GROUP_NAME, GROUP_TYPE,
+		REMARK, STATUS, CREATE_TIME,
+		UPDATE_TIME)
+		values (#{id,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR},
+		#{groupType,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, current_timestamp(),
+		current_timestamp())
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		DELETE FROM SMS_CHANNEL_GROUP  WHERE ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.zy.cms.vo.channel.SmsChannelGroup">
+		insert into sms_channel_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="groupType != null">
+				GROUP_TYPE,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="groupType != null">
+				#{GROUP_TYPE,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannelGroup">
+		update sms_channel_group
+		<set>
+			<if test="groupName != null">
+				GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="groupType != null">
+				GROUP_TYPE = #{groupType,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.channel.SmsChannelGroup">
+		update sms_channel_group
+		set GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+		GROUP_TYPE = #{groupType,jdbcType=INTEGER},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="getSmsChannelSelect" resultType="java.util.Map">
+		SELECT CHANNEL_ID ,CHANNEL_NAME , 
+			case status when 0 then '新创建' when '1' then '运营中' when 2 then '对接中' when 3 then '作废' else '未知' end STATUS 
+		FROM SMS_CHANNEL
+	</select>
+	
+	<select id="getSmsChannelGroupSelect" resultType="java.util.Map">
+		SELECT ID,GROUP_NAME FROM SMS_CHANNEL_GROUP WHERE STATUS = 1 
+	</select>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.SmsChannelBalMonitorSettingMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsChannelBalMonitorSetting" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="MONITOR_BALANCE" property="monitorBalance" jdbcType="INTEGER" />
+    <result column="BALANCE_UNIT" property="balanceUnit" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="ChannelInfoResultMap" type="com.zy.cms.vo.channel.SmsChannel" >
+    <id column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_MAIN_CODE" property="channelMainCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CODE" property="channelCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL_TYPE" property="channelType" jdbcType="INTEGER" />
+    <result column="CHANNEL_PROPERTY" property="channelProperty" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operateType" jdbcType="INTEGER" />
+    <result column="MO_FLAG" property="moFlag" jdbcType="INTEGER" />
+    <result column="LONGSMS_FLAG" property="longSmsFlag" jdbcType="INTEGER" />
+    <result column="SIGNER_AUDIT" property="signerAudit" jdbcType="INTEGER" />
+    <result column="TEMPLATE_AUDIT" property="templateAudit" jdbcType="INTEGER" />
+    <result column="DTN_PROVINCE" property="dtnProvince" jdbcType="VARCHAR" />
+    <result column="USE_PROVINCE" property="useProvince" jdbcType="INTEGER" />
+    <result column="CREST_VALUE" property="crestValue" jdbcType="INTEGER" />
+    <result column="CHARGE_TYPE" property="chargeType" jdbcType="INTEGER" />
+    <result column="CHANNEL_BALANCE" property="channelBalance" jdbcType="INTEGER" />
+    <result column="BALANCE_UNIT" property="balanceUnit" jdbcType="INTEGER" />
+    <result column="BALANCE_MONITOR_FLAG" property="balanceMonitorFlag" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CHANNEL_SCORE" property="channelScore" jdbcType="INTEGER" />
+    <result column="CHANNEL_USERID" property="channelUserId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ACCOUNT" property="channelAccount" jdbcType="VARCHAR" />
+    <result column="CHANNEL_PASSWORD" property="channelPassword" jdbcType="VARCHAR" />
+    <result column="CHANNEL_URL" property="channelUrl" jdbcType="VARCHAR" />
+    <result column="CHANNEL_COMMENT" property="channelComment" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="MONITOR_BALANCE" property="monitorBalance" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CHANNEL_ID, MONITOR_BALANCE, BALANCE_UNIT, UPDATE_TIME, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel_balance_monitor_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByChannelId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sms_channel_balance_monitor_setting
+    where CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_channel_balance_monitor_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByChannelId" parameterType="java.lang.String" >
+    delete from sms_channel_balance_monitor_setting
+    where CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zy.cms.vo.SmsChannelBalMonitorSetting" >
+    insert into sms_channel_balance_monitor_setting (ID, CHANNEL_ID, MONITOR_BALANCE, 
+      BALANCE_UNIT, UPDATE_TIME, CREATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{channelId,jdbcType=VARCHAR}, #{monitorBalance,jdbcType=INTEGER}, 
+      #{balanceUnit,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsChannelBalMonitorSetting" >
+    insert into sms_channel_balance_monitor_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="monitorBalance != null" >
+        MONITOR_BALANCE,
+      </if>
+      <if test="balanceUnit != null" >
+        BALANCE_UNIT,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorBalance != null" >
+        #{monitorBalance,jdbcType=INTEGER},
+      </if>
+      <if test="balanceUnit != null" >
+        #{balanceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsChannelBalMonitorSetting" >
+    update sms_channel_balance_monitor_setting
+    <set >
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorBalance != null" >
+        MONITOR_BALANCE = #{monitorBalance,jdbcType=INTEGER},
+      </if>
+      <if test="balanceUnit != null" >
+        BALANCE_UNIT = #{balanceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsChannelBalMonitorSetting" >
+    update sms_channel_balance_monitor_setting
+    set CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      MONITOR_BALANCE = #{monitorBalance,jdbcType=INTEGER},
+      BALANCE_UNIT = #{balanceUnit,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCountByQuery" parameterType="com.zy.cms.vo.query.SmsChannelQuery" resultType="java.lang.Integer">
+    select COUNT(*) FROM zy_db_manager.sms_channel_balance_monitor_setting scbms, zy_db_paas.sms_channel sc
+    <include refid="conditions"/>
+  </select>
+  <select id="selectListByQuery"  parameterType="com.zy.cms.vo.query.SmsChannelQuery" resultMap="ChannelInfoResultMap">
+    SELECT
+      sc.CHANNEL_MAIN_CODE,
+      sc.CHANNEL_NAME,
+      sc.CHANNEL_ID,
+      sc.CHANNEL_CODE,
+      sc.CHANNEL_TYPE,
+      sc.OPERATOR_TYPE,
+      sc.CHANNEL_PROPERTY,
+      sc.DTN_PROVINCE,
+      sc.USE_PROVINCE,
+      sc.STATUS,
+      sc.CHARGE_TYPE,
+      sc.CHANNEL_BALANCE,
+      scbms.MONITOR_BALANCE,
+      scbms.BALANCE_UNIT,
+      sc.CHANNEL_COMMENT
+      FROM
+      zy_db_manager.sms_channel_balance_monitor_setting scbms,
+      zy_db_paas.sms_channel sc
+    <include refid="conditions"/>
+    order by scbms.ID desc
+    limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <sql id="conditions">
+    <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+      scbms.CHANNEL_ID = sc.CHANNEL_ID
+      <if test="channelName != null and channelName !=''">
+        AND sc.CHANNEL_NAME like CONCAT('%','${channelName}','%')
+      </if>
+      <if test="channelId != null and channelId !=''">
+        AND sc.CHANNEL_ID like CONCAT('%','${channelId}','%')
+      </if>
+    </trim>
+  </sql>
+
+</mapper>

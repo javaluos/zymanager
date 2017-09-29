@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelPolicyMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannelPolicy" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="POLICY_NAME" property="policyName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    ID, POLICY_NAME, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel_policy
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sms_channel_policy
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.channel.SmsChannelPolicy" >
+    insert into sms_channel_policy
+     (ID, POLICY_NAME, CREATE_TIME,UPDATE_TIME)
+    values
+     (#{id,jdbcType=VARCHAR}, #{policyName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.channel.SmsChannelPolicy" >
+    insert into sms_channel_policy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="policyName != null" >
+        POLICY_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="policyName != null" >
+        #{policyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannelPolicy" >
+    update sms_channel_policy
+    <set >
+      <if test="policyName != null" >
+        POLICY_NAME = #{policyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.channel.SmsChannelPolicy" >
+    update sms_channel_policy
+    set POLICY_NAME = #{policyName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="querySmsChannelPolicyCount" parameterType="com.zy.cms.vo.query.SmsChannelPolicyQuery" resultType="java.lang.Integer">
+  	 select COUNT(*) from sms_channel_policy sc
+  	 where 1=1
+  	 <if test="policyName != null and policyName !=''" >
+        and POLICY_NAME like CONCAT('%','${policyName}','%')
+     </if>
+  </select>
+  
+  
+  <select id="querySmsChannelPolicyByEntity" parameterType="com.zy.cms.vo.query.SmsChannelPolicyQuery" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List"/>
+  	from 
+  	sms_channel_policy sc
+  	 where 1=1
+  	<if test="policyName != null and policyName !=''" >
+        and POLICY_NAME like CONCAT('%','${policyName}','%')
+    </if>
+  	<if test="pageOffset != null and pageSize != null">
+		limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <select id="selectSmsChannelByPolicyName"  parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+  	 <include refid="Base_Column_List"/>
+     from sms_channel_policy sc
+  	 where 1=1
+     and POLICY_NAME=#{policyName,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.BlackKeyListInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.BlackKeyListInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+     <result column="POLICY_ID" property="policyId" jdbcType="INTEGER" />
+    <result column="BLACK_KEY" property="black_key" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, POLICY_ID,BLACK_KEY, INDUSTRY, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_black_key
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.BlackKeyListInfo" >
+    insert into sms_black_key
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="policyId != null" >
+        POLICY_ID,
+      </if>
+      <if test="black_key != null" >
+        BLACK_KEY,
+      </if>
+      <if test="industry != null" >
+        INDUSTRY,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="policyId != null" >
+        #{policyId,jdbcType=INTEGER},
+      </if>
+      <if test="black_key != null" >
+        #{black_key,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.BlackKeyListInfo">
+	  update 
+	  	  sms_black_key 
+	  set 
+		  BLACK_KEY=#{black_key,jdbcType=VARCHAR},
+		  INDUSTRY=#{industry,jdbcType=VARCHAR}, 
+		  REMARK=#{remark,jdbcType=VARCHAR},
+		  UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP} 
+	  where ID=#{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectListByQuery" parameterType="Map" resultMap="BaseResultMap">
+  	select * from sms_black_key 
+  	<include refid="query_where_clause"/>
+  	order by ID desc
+  	limit
+	 #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getInfoByid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select * from sms_black_key where ID=#{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getInfoByblack_key" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from sms_black_key 
+  	where 
+  	BLACK_KEY=#{black_key,jdbcType=VARCHAR}
+  	and
+  	POLICY_ID=#{policyId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <delete id="deleteByPolicyId" parameterType="INTEGER" >
+    delete 
+    from 
+      sms_black_key
+    where 
+      POLICY_ID = #{policyId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="queryCountByQuery" parameterType="Map" resultType="java.lang.Integer">
+  	select count(1) from sms_black_key 
+  	<include refid="query_where_clause"/>
+  </select>
+  <sql id="query_where_clause">
+		<where>
+		    <if test="policyId != null and policyId !=''">
+		        and POLICY_ID = #{policyId,jdbcType=INTEGER}
+		    </if>
+			<if test="black_key != null and black_key !=''">
+				and BLACK_KEY like concat('%', #{black_key}, '%')
+			</if>
+			<if test="industry != null and industry !=''">
+				and INDUSTRY = #{industry,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime !=''">
+			    AND <![CDATA[ DATE_FORMAT(CREATE_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{starttime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="endtime != null and endtime !=''">
+			   AND <![CDATA[ DATE_FORMAT(CREATE_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{endtime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+		</where>
+  </sql>
+</mapper>

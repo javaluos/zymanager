@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrMonitorSetting" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="INTEGER" />
+    <result column="CALL_COUNTA_UP" property="callCountaUp" jdbcType="INTEGER" />
+    <result column="CALL_COUNTB_UP" property="callCountbUp" jdbcType="INTEGER" />
+    <result column="CALL_COUNTA_DOWN" property="callCountaDown" jdbcType="INTEGER" />
+    <result column="CALL_COUNTB_DOWN" property="callCountbDown" jdbcType="INTEGER" />
+    <result column="SUCCESS_RATEA_DOWN" property="successRateaDown" jdbcType="INTEGER" />
+    <result column="SUCCESS_RATEB_DOWN" property="successRatebDown" jdbcType="INTEGER" />
+    <result column="RESPONSE_RATEA_DOWN" property="responseRateaDown" jdbcType="INTEGER" />
+    <result column="RESPONSE_RATEB_DOWN" property="responseRatebDown" jdbcType="INTEGER" />
+    <result column="AVERAGE_TALK_TIMEA_DOWN" property="averageTalkTimeaDown" jdbcType="INTEGER" />
+    <result column="AVERAGE_TALK_TIMEB_DOWN" property="averageTalkTimebDown" jdbcType="INTEGER" />
+    <result column="AVERAGE_TURN_ON_DELAYA_UP" property="averageTurnOnDelayaUp" jdbcType="INTEGER" />
+    <result column="AVERAGE_TURN_ON_DELAYB_UP" property="averageTurnOnDelaybUp" jdbcType="INTEGER" />
+    <result column="AVERAGE_IN_TIMEA_UP" property="averageInTimeaUp" jdbcType="INTEGER" />
+    <result column="AVERAGE_IN_TIMEB_UP" property="averageInTimebUp" jdbcType="INTEGER" />
+    <result column="MEASURE_TIME" property="measureTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="START_FLAG" property="startFlag" jdbcType="INTEGER" />
+    <result column="GLOBAL_FLAG" property="globalFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, APP_ID, BUSINESS_ID, CALL_COUNTA_UP, CALL_COUNTB_UP, CALL_COUNTA_DOWN, 
+    CALL_COUNTB_DOWN, SUCCESS_RATEA_DOWN, SUCCESS_RATEB_DOWN, RESPONSE_RATEA_DOWN, RESPONSE_RATEB_DOWN, 
+    AVERAGE_TALK_TIMEA_DOWN, AVERAGE_TALK_TIMEB_DOWN, AVERAGE_TURN_ON_DELAYA_UP, AVERAGE_TURN_ON_DELAYB_UP, 
+    AVERAGE_IN_TIMEA_UP, AVERAGE_IN_TIMEB_UP, MEASURE_TIME, UPDATE_TIME, CREATE_TIME, 
+    START_FLAG, GLOBAL_FLAG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cdr_monitor_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.manager.CdrMonitorSetting" >
+    insert into cdr_monitor_setting (ID, API_ACCOUNT, APP_ID, 
+      BUSINESS_ID, CALL_COUNTA_UP, CALL_COUNTB_UP, 
+      CALL_COUNTA_DOWN, CALL_COUNTB_DOWN, SUCCESS_RATEA_DOWN, 
+      SUCCESS_RATEB_DOWN, RESPONSE_RATEA_DOWN, RESPONSE_RATEB_DOWN, 
+      AVERAGE_TALK_TIMEA_DOWN, AVERAGE_TALK_TIMEB_DOWN, 
+      AVERAGE_TURN_ON_DELAYA_UP, AVERAGE_TURN_ON_DELAYB_UP, 
+      AVERAGE_IN_TIMEA_UP, AVERAGE_IN_TIMEB_UP, MEASURE_TIME, 
+      UPDATE_TIME, CREATE_TIME, START_FLAG, 
+      GLOBAL_FLAG)
+    values (#{id,jdbcType=INTEGER}, #{apiAccount,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=INTEGER}, #{callCountaUp,jdbcType=INTEGER}, #{callCountbUp,jdbcType=INTEGER}, 
+      #{callCountaDown,jdbcType=INTEGER}, #{callCountbDown,jdbcType=INTEGER}, #{successRateaDown,jdbcType=INTEGER}, 
+      #{successRatebDown,jdbcType=INTEGER}, #{responseRateaDown,jdbcType=INTEGER}, #{responseRatebDown,jdbcType=INTEGER}, 
+      #{averageTalkTimeaDown,jdbcType=INTEGER}, #{averageTalkTimebDown,jdbcType=INTEGER}, 
+      #{averageTurnOnDelayaUp,jdbcType=INTEGER}, #{averageTurnOnDelaybUp,jdbcType=INTEGER}, 
+      #{averageInTimeaUp,jdbcType=INTEGER}, #{averageInTimebUp,jdbcType=INTEGER}, #{measureTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{startFlag,jdbcType=INTEGER}, 
+      #{globalFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.CdrMonitorSetting" >
+    insert into cdr_monitor_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="appId != null" >
+        APP_ID,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="callCountaUp != null" >
+        CALL_COUNTA_UP,
+      </if>
+      <if test="callCountbUp != null" >
+        CALL_COUNTB_UP,
+      </if>
+      <if test="callCountaDown != null" >
+        CALL_COUNTA_DOWN,
+      </if>
+      <if test="callCountbDown != null" >
+        CALL_COUNTB_DOWN,
+      </if>
+      <if test="successRateaDown != null" >
+        SUCCESS_RATEA_DOWN,
+      </if>
+      <if test="successRatebDown != null" >
+        SUCCESS_RATEB_DOWN,
+      </if>
+      <if test="responseRateaDown != null" >
+        RESPONSE_RATEA_DOWN,
+      </if>
+      <if test="responseRatebDown != null" >
+        RESPONSE_RATEB_DOWN,
+      </if>
+      <if test="averageTalkTimeaDown != null" >
+        AVERAGE_TALK_TIMEA_DOWN,
+      </if>
+      <if test="averageTalkTimebDown != null" >
+        AVERAGE_TALK_TIMEB_DOWN,
+      </if>
+      <if test="averageTurnOnDelayaUp != null" >
+        AVERAGE_TURN_ON_DELAYA_UP,
+      </if>
+      <if test="averageTurnOnDelaybUp != null" >
+        AVERAGE_TURN_ON_DELAYB_UP,
+      </if>
+      <if test="averageInTimeaUp != null" >
+        AVERAGE_IN_TIMEA_UP,
+      </if>
+      <if test="averageInTimebUp != null" >
+        AVERAGE_IN_TIMEB_UP,
+      </if>
+      <if test="measureTime != null" >
+        MEASURE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG,
+      </if>
+      <if test="globalFlag != null" >
+        GLOBAL_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="callCountaUp != null" >
+        #{callCountaUp,jdbcType=INTEGER},
+      </if>
+      <if test="callCountbUp != null" >
+        #{callCountbUp,jdbcType=INTEGER},
+      </if>
+      <if test="callCountaDown != null" >
+        #{callCountaDown,jdbcType=INTEGER},
+      </if>
+      <if test="callCountbDown != null" >
+        #{callCountbDown,jdbcType=INTEGER},
+      </if>
+      <if test="successRateaDown != null" >
+        #{successRateaDown,jdbcType=INTEGER},
+      </if>
+      <if test="successRatebDown != null" >
+        #{successRatebDown,jdbcType=INTEGER},
+      </if>
+      <if test="responseRateaDown != null" >
+        #{responseRateaDown,jdbcType=INTEGER},
+      </if>
+      <if test="responseRatebDown != null" >
+        #{responseRatebDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTalkTimeaDown != null" >
+        #{averageTalkTimeaDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTalkTimebDown != null" >
+        #{averageTalkTimebDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTurnOnDelayaUp != null" >
+        #{averageTurnOnDelayaUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageTurnOnDelaybUp != null" >
+        #{averageTurnOnDelaybUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageInTimeaUp != null" >
+        #{averageInTimeaUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageInTimebUp != null" >
+        #{averageInTimebUp,jdbcType=INTEGER},
+      </if>
+      <if test="measureTime != null" >
+        #{measureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="globalFlag != null" >
+        #{globalFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.CdrMonitorSetting" >
+    update cdr_monitor_setting
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="callCountaUp != null" >
+        CALL_COUNTA_UP = #{callCountaUp,jdbcType=INTEGER},
+      </if>
+      <if test="callCountbUp != null" >
+        CALL_COUNTB_UP = #{callCountbUp,jdbcType=INTEGER},
+      </if>
+      <if test="callCountaDown != null" >
+        CALL_COUNTA_DOWN = #{callCountaDown,jdbcType=INTEGER},
+      </if>
+      <if test="callCountbDown != null" >
+        CALL_COUNTB_DOWN = #{callCountbDown,jdbcType=INTEGER},
+      </if>
+      <if test="successRateaDown != null" >
+        SUCCESS_RATEA_DOWN = #{successRateaDown,jdbcType=INTEGER},
+      </if>
+      <if test="successRatebDown != null" >
+        SUCCESS_RATEB_DOWN = #{successRatebDown,jdbcType=INTEGER},
+      </if>
+      <if test="responseRateaDown != null" >
+        RESPONSE_RATEA_DOWN = #{responseRateaDown,jdbcType=INTEGER},
+      </if>
+      <if test="responseRatebDown != null" >
+        RESPONSE_RATEB_DOWN = #{responseRatebDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTalkTimeaDown != null" >
+        AVERAGE_TALK_TIMEA_DOWN = #{averageTalkTimeaDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTalkTimebDown != null" >
+        AVERAGE_TALK_TIMEB_DOWN = #{averageTalkTimebDown,jdbcType=INTEGER},
+      </if>
+      <if test="averageTurnOnDelayaUp != null" >
+        AVERAGE_TURN_ON_DELAYA_UP = #{averageTurnOnDelayaUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageTurnOnDelaybUp != null" >
+        AVERAGE_TURN_ON_DELAYB_UP = #{averageTurnOnDelaybUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageInTimeaUp != null" >
+        AVERAGE_IN_TIMEA_UP = #{averageInTimeaUp,jdbcType=INTEGER},
+      </if>
+      <if test="averageInTimebUp != null" >
+        AVERAGE_IN_TIMEB_UP = #{averageInTimebUp,jdbcType=INTEGER},
+      </if>
+      <if test="measureTime != null" >
+        MEASURE_TIME = #{measureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG = #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="globalFlag != null" >
+        GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.CdrMonitorSetting" >
+    update cdr_monitor_setting
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      APP_ID = #{appId,jdbcType=VARCHAR},
+      BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      CALL_COUNTA_UP = #{callCountaUp,jdbcType=INTEGER},
+      CALL_COUNTB_UP = #{callCountbUp,jdbcType=INTEGER},
+      CALL_COUNTA_DOWN = #{callCountaDown,jdbcType=INTEGER},
+      CALL_COUNTB_DOWN = #{callCountbDown,jdbcType=INTEGER},
+      SUCCESS_RATEA_DOWN = #{successRateaDown,jdbcType=INTEGER},
+      SUCCESS_RATEB_DOWN = #{successRatebDown,jdbcType=INTEGER},
+      RESPONSE_RATEA_DOWN = #{responseRateaDown,jdbcType=INTEGER},
+      RESPONSE_RATEB_DOWN = #{responseRatebDown,jdbcType=INTEGER},
+      AVERAGE_TALK_TIMEA_DOWN = #{averageTalkTimeaDown,jdbcType=INTEGER},
+      AVERAGE_TALK_TIMEB_DOWN = #{averageTalkTimebDown,jdbcType=INTEGER},
+      AVERAGE_TURN_ON_DELAYA_UP = #{averageTurnOnDelayaUp,jdbcType=INTEGER},
+      AVERAGE_TURN_ON_DELAYB_UP = #{averageTurnOnDelaybUp,jdbcType=INTEGER},
+      AVERAGE_IN_TIMEA_UP = #{averageInTimeaUp,jdbcType=INTEGER},
+      AVERAGE_IN_TIMEB_UP = #{averageInTimebUp,jdbcType=INTEGER},
+      MEASURE_TIME = #{measureTime,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      START_FLAG = #{startFlag,jdbcType=INTEGER},
+      GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectGlobalSettings" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_setting
+    where GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER}
+    and START_FLAG = #{startFlag,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+  	SELECT MAX(id) FROM cdr_monitor_setting
+  </select>
+  
+  <select id="queryMonitorSettingForAll" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_setting
+    where GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER}
+    and  API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+    and  BUSINESS_ID = #{businessId,jdbcType=INTEGER}
+  </select>
+  
+
+   <select id="getCdrAccountMonitorSetting" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_setting
+    where START_FLAG = #{startFlag,jdbcType=INTEGER} and GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER} and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.MerchantAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.MerchantAccount" >
+    <id column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+    <result column="APPKEY" property="appkey" jdbcType="VARCHAR" />
+    <result column="MERCHANT_NAME" property="merchantName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_LINKMAN" property="merchantLinkman" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+    <result column="MERCHANT_EMAIL" property="merchantEmail" jdbcType="VARCHAR" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="SMALLINT" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="SMALLINT" />
+    <result column="MERCHANT_PWD" property="merchantPwd" jdbcType="VARCHAR" />
+    <result column="CURRENT_FEE" property="currentFee" jdbcType="INTEGER" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="FEE_EXPIRE_TIME" property="feeExpireTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+   MERCHANT_ACCOUNT, APPKEY, MERCHANT_NAME, MERCHANT_LINKMAN, MERCHANT_PHONE, MERCHANT_EMAIL, 
+    IS_LOCKED, AUDIT_STATUS, MERCHANT_PWD, CURRENT_FEE, COMMENT, UPDATE_TIME, CREATE_TIME, 
+    FEE_EXPIRE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_account
+    where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </select>
+  <!-- 通过appkey查询账户 -->
+  <select id="selectByAppKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_account
+    where APPKEY = #{appkey,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from merchant_account
+    where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.MerchantAccount" >
+    insert into merchant_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantAccount != null" >
+        MERCHANT_ACCOUNT,
+      </if>
+      <if test="appkey != null" >
+        APPKEY,
+      </if>
+      <if test="merchantName != null" >
+        MERCHANT_NAME,
+      </if>
+      <if test="merchantLinkman != null" >
+        MERCHANT_LINKMAN,
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE,
+      </if>
+      <if test="merchantEmail != null" >
+        MERCHANT_EMAIL,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS,
+      </if>
+      <if test="merchantPwd != null" >
+        MERCHANT_PWD,
+      </if>
+      <if test="currentFee != null" >
+        CURRENT_FEE,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="feeExpireTime != null" >
+        FEE_EXPIRE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantAccount != null" >
+        #{merchantAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null" >
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLinkman != null" >
+        #{merchantLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantEmail != null" >
+        #{merchantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=SMALLINT},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="merchantPwd != null" >
+        #{merchantPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="currentFee != null" >
+        #{currentFee,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeExpireTime != null" >
+        #{feeExpireTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.MerchantAccount" >
+    insert into merchant_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantAccount != null" >
+        MERCHANT_ACCOUNT,
+      </if>
+      <if test="appkey != null" >
+        APPKEY,
+      </if>
+      <if test="merchantName != null" >
+        MERCHANT_NAME,
+      </if>
+      <if test="merchantLinkman != null" >
+        MERCHANT_LINKMAN,
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE,
+      </if>
+      <if test="merchantEmail != null" >
+        MERCHANT_EMAIL,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS,
+      </if>
+      <if test="merchantPwd != null" >
+        MERCHANT_PWD,
+      </if>
+      <if test="currentFee != null" >
+        CURRENT_FEE,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="feeExpireTime != null" >
+        FEE_EXPIRE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantAccount != null" >
+        #{merchantAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null" >
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLinkman != null" >
+        #{merchantLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantEmail != null" >
+        #{merchantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=SMALLINT},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="merchantPwd != null" >
+        #{merchantPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="currentFee != null" >
+        #{currentFee,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeExpireTime != null" >
+        #{feeExpireTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.MerchantAccount" >
+    update merchant_account
+    <set >
+      <if test="appkey != null" >
+        APPKEY = #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        MERCHANT_NAME = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLinkman != null" >
+        MERCHANT_LINKMAN = #{merchantLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantEmail != null" >
+        MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=SMALLINT},
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS = #{auditStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="merchantPwd != null" >
+        MERCHANT_PWD = #{merchantPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="currentFee != null" >
+        CURRENT_FEE = #{currentFee,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeExpireTime != null" >
+        FEE_EXPIRE_TIME = #{feeExpireTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.MerchantAccount" >
+    update merchant_account
+    <set >
+      <if test="appkey != null" >
+        APPKEY = #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null" >
+        MERCHANT_NAME = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLinkman != null" >
+        MERCHANT_LINKMAN = #{merchantLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantEmail != null" >
+        MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=SMALLINT},
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS = #{auditStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="merchantPwd != null" >
+        MERCHANT_PWD = #{merchantPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="currentFee != null" >
+        CURRENT_FEE = #{currentFee,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeExpireTime != null" >
+        FEE_EXPIRE_TIME = #{feeExpireTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateFeeExpireTimeByPrimaryKey" parameterType="com.zy.cms.vo.MerchantAccount" >
+    update merchant_account set  CURRENT_FEE = #{currentFee,jdbcType=INTEGER},FEE_EXPIRE_TIME = NULL
+    where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </update>
+  <!-- 调用短信接口扣款 -->
+  <update id="smsCutPayByAccountNm" parameterType="java.lang.String">
+      update merchant_account
+      set CURRENT_FEE = CURRENT_FEE - 5
+      where MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="getAccount" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_account
+    <where >
+      <if test="merchantAccount != null" >
+        and MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantPhone != null" > 
+        and MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantEmail != null" >
+        and MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+   <select id="selectExpireAccount" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_account
+    where <![CDATA[ DATEDIFF(now(), FEE_EXPIRE_TIME)<=7 ]]> and FEE_EXPIRE_TIME is not null 
+    limit 20000
+  </select>
+  
+  <select id="selectALLAccount" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_account
+  </select>
+</mapper>

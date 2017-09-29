@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsWhiteListInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsWhiteListInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BUSINESS_NAME, MOBILE, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_white_list_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_white_list_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.SmsWhiteListInfo" >
+    insert into sms_white_list_info (ID, BUSINESS_NAME, MOBILE, 
+      REMARK, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{businessName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsWhiteListInfo" >
+    insert into sms_white_list_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsWhiteListInfo" >
+    update sms_white_list_info
+    <set >
+      <if test="businessName != null" >
+        BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsWhiteListInfo" >
+    update sms_white_list_info
+    set BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryCountByEntity" resultType="INTEGER">
+    select
+    count(*)
+    from
+    sms_white_list_info
+    <include refid="query_where_clause"/>
+  </select>
+
+
+  <select id="queryListByEntity" parameterType="com.zy.cms.vo.query.SmsBlackListQuery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sms_white_list_info w
+    <include refid="query_where_clause"/>
+    order by w.CREATE_TIME desc
+    limit
+    #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="querySmsWhiteList" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sms_white_list_info w
+    where
+    w.MOBILE = #{mobile,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <delete id="deleteByMobile" parameterType="java.lang.String" >
+    delete
+    from
+    sms_white_list_info
+    where
+    MOBILE = #{mobile,jdbcType=VARCHAR}
+  </delete>
+
+  <sql id="query_where_clause">
+    <where>
+      <if test="businessname != null and businessname !=''">
+        and BUSINESS_NAME like concat('%', #{businessname}, '%')
+      </if>
+      <if test="mobile != null and mobile !=''">
+        and MOBILE = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="starttime != null and starttime !=''">
+        AND <![CDATA[ DATE_FORMAT(CREATE_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{starttime}, '%Y-%m-%d %H:%i:%s')]]>
+      </if>
+      <if test="endtime != null and endtime !=''">
+        AND <![CDATA[ DATE_FORMAT(CREATE_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{endtime}, '%Y-%m-%d %H:%i:%s')]]>
+      </if>
+    </where>
+  </sql>
+
+</mapper>

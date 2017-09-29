@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.BalanceUpdateRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.BalanceUpdateRecord" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+    <result column="UPDATE_FEE" property="updateFee" jdbcType="BIGINT" />
+    <result column="OP_TIME" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, BUSINESS_NAME, MERCHANT_ACCOUNT, UPDATE_FEE, OP_TIME, OPERATOR, 
+    COMMENT, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_mchbal_update_record
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from voice_mchbal_update_record
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.BalanceUpdateRecord" >
+    insert into voice_mchbal_update_record (ID, API_ACCOUNT, BUSINESS_NAME, 
+      MERCHANT_ACCOUNT, UPDATE_FEE, OP_TIME, 
+      OPERATOR, COMMENT, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{apiAccount,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, 
+      #{merchantAccount,jdbcType=VARCHAR}, #{updateFee,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP},
+      #{operator,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.BalanceUpdateRecord" >
+    insert into voice_mchbal_update_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME,
+      </if>
+      <if test="merchantAccount != null" >
+        MERCHANT_ACCOUNT,
+      </if>
+      <if test="updateFee != null" >
+        UPDATE_FEE,
+      </if>
+      <if test="opTime != null" >
+        OP_TIME,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantAccount != null" >
+        #{merchantAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFee != null" >
+        #{updateFee,jdbcType=INTEGER},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.BalanceUpdateRecord" >
+    update voice_mchbal_update_record
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantAccount != null" >
+        MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFee != null" >
+        UPDATE_FEE = #{updateFee,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null" >
+        OP_TIME = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.BalanceUpdateRecord" >
+    update voice_mchbal_update_record
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR},
+      UPDATE_FEE = #{updateFee,jdbcType=BIGINT},
+      OP_TIME = #{opTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      COMMENT = #{comment,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCountByQuery" parameterType="com.zy.cms.vo.query.AccBalUpdateRecordQuery" resultType="java.lang.Integer">
+  	select
+		count(ID)
+		from voice_mchbal_update_record a
+		where 1=1 
+		<if test="merchantAccount != ''">
+			and a.MERCHANT_ACCOUNT like CONCAT('%',#{merchantAccount},'%')
+		</if>
+		<if test="operator != ''">
+			and a.OPERATOR like CONCAT('%',#{operator},'%')
+		</if>
+		<if test="startDate != null and startDate !=''">
+			and <![CDATA[ a.OP_TIME >= CONCAT(#{startDate},' 00:00:00')]]>
+		</if>
+		<if test="endDate != null and endDate !=''">
+		  	and <![CDATA[ a.OP_TIME <= CONCAT(#{endDate},' 23:59:59')]]>
+		</if>
+		<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	        and a.api_account in  
+	        <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	           #{item}  
+	        </foreach>  
+         </if>  
+  </select>
+  <select id="selectByQuery" parameterType="com.zy.cms.vo.query.AccBalUpdateRecordQuery" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List" />
+		from voice_mchbal_update_record a
+		where 1=1 
+		<if test="merchantAccount != ''">
+			and a.MERCHANT_ACCOUNT like CONCAT('%',#{merchantAccount},'%')
+		</if>
+		<if test="operator != ''">
+			and a.OPERATOR like CONCAT('%',#{operator},'%')
+		</if>
+		<if test="startDate != null and startDate !=''">
+			and <![CDATA[ a.OP_TIME >= CONCAT(#{startDate},' 00:00:00')]]>
+		</if>
+		<if test="endDate != null and endDate !=''">
+		  	and <![CDATA[ a.OP_TIME <= CONCAT(#{endDate},' 23:59:59')]]>
+		</if>
+		<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	       and a.api_account in  
+	       <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	         #{item}  
+	       </foreach>  
+        </if>  
+        ORDER BY  a.UPDATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+</mapper>

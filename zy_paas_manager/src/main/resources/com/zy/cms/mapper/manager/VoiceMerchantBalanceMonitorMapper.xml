@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.cms.mapper.manager.VoiceMerchantBalanceMonitorMapper">
+	<!-- 结果集映射 -->
+	<resultMap id="voiceMerchantBalanceMonitorResultMap" type="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		<id column="ID" property="id" />
+		<result column="MERCHANT_ACCOUNT" property="merchantAccount" />
+		<result column="API_ACCOUNT" property="apiAccount" />
+		<result column="MONITOR_MIN_BALANCE" property="monitorMinBalance" />
+		<result column="MONITOR_TIME_RANGE" property="monitorTimeRange" />
+		<result column="NOTICE_TIME_RANGE1" property="noticeTimeRange1" />
+		<result column="NOTICE_WAY1" property="noticeWay1" />
+		<result column="NOTICE_EMAIL1" property="noticeEmail1" />
+		<result column="NOTICE_PHONE1" property="noticePhone1" />
+		<result column="NOTICE_TIME_RANGE2" property="noticeTimeRange2" />
+		<result column="NOTICE_WAY2" property="noticeWay2" />
+		<result column="NOTICE_EMAIL2" property="noticeEmail2" />
+		<result column="NOTICE_PHONE2" property="noticePhone2" />
+		<result column="NOTICE_TIME_RANGE3" property="noticeTimeRange3" />
+		<result column="NOTICE_WAY3" property="noticeWay3" />
+		<result column="NOTICE_EMAIL3" property="noticeEmail3" />
+		<result column="NOTICE_PHONE3" property="noticePhone3" />
+		<result column="NOTICE_FLAG" property="noticeFlag" />
+		<result column="NOTICE_TENTH_FLAG" property="noticeTenthFlag" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="CREATE_TIME" property="createTime" />
+	</resultMap>
+	
+	<resultMap id="voiceMerchantBalanceMonitorMap" type="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		<id column="ID" property="id" />
+		<result column="MERCHANT_ACCOUNT" property="merchantAccount" />
+		<result column="API_ACCOUNT" property="apiAccount" />
+		<result column="MONITOR_MIN_BALANCE" property="monitorMinBalance" />
+		<result column="MONITOR_TIME_RANGE" property="monitorTimeRange" />
+		<result column="NOTICE_TIME_RANGE1" property="noticeTimeRange1" />
+		<result column="NOTICE_WAY1" property="noticeWay1" />
+		<result column="NOTICE_EMAIL1" property="noticeEmail1" />
+		<result column="NOTICE_PHONE1" property="noticePhone1" />
+		<result column="NOTICE_TIME_RANGE2" property="noticeTimeRange2" />
+		<result column="NOTICE_WAY2" property="noticeWay2" />
+		<result column="NOTICE_EMAIL2" property="noticeEmail2" />
+		<result column="NOTICE_PHONE2" property="noticePhone2" />
+		<result column="NOTICE_TIME_RANGE3" property="noticeTimeRange3" />
+		<result column="NOTICE_WAY3" property="noticeWay3" />
+		<result column="NOTICE_EMAIL3" property="noticeEmail3" />
+		<result column="NOTICE_PHONE3" property="noticePhone3" />
+		<result column="NOTICE_FLAG" property="noticeFlag" />
+		<result column="NOTICE_TENTH_FLAG" property="noticeTenthFlag" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="MERCHANT_PHONE" property="merchantPhone" />
+		<result column="MERCHANT_EMAIL" property="merchantEmail" />
+		<result column="BALANCE" property="balance" />
+		<result column="BUSINESS_NAME" property="businessName" />
+	</resultMap>
+
+	
+	<!-- 实体对象查询条件SQL -->
+	<sql id="entityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides=",">
+			<if test="id != null and id !=''">
+				AND ID = #{id}
+			</if>
+			<if test="merchantAccount != null and merchantAccount !=''">
+				AND MERCHANT_ACCOUNT =#{merchantAccount}
+			</if>
+			<if test="businessName != null and businessName !=''">
+				AND BUSINESS_NAME like '%${businessName}%'
+			</if>
+			<if test="apiAccount != null and apiAccount !=''">
+				AND API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="monitorMinBalance != null and monitorMinBalance !=''">
+				AND MONITOR_MIN_BALANCE = #{monitorMinBalance}
+			</if>
+			<if test="monitorTimeRange != null and monitorTimeRange !=''">
+				AND MONITOR_TIME_RANGE = #{monitorTimeRange}
+			</if>
+			<if test="noticeTimeRange1 != null and noticeTimeRange1 !=''">
+				AND NOTICE_TIME_RANGE1 = #{noticeTimeRange1}
+			</if>
+			<if test="noticeWay1 != null and noticeWay1 !=''">
+				AND NOTICE_WAY1 = #{noticeWay1}
+			</if>
+			<if test="noticeEmail1 != null and noticeEmail1 !=''">
+				AND NOTICE_EMAIL1 = #{noticeEmail1}
+			</if>
+			<if test="noticePhone1 != null and noticePhone1 !=''">
+				AND NOTICE_PHONE1 = #{noticePhone1}
+			</if>
+			<if test="noticeTimeRange2 != null and noticeTimeRange2 !=''">
+				AND NOTICE_TIME_RANGE2 = #{noticeTimeRange2}
+			</if>
+			<if test="noticeWay2 != null and noticeWay2 !=''">
+				AND NOTICE_WAY2 = #{noticeWay2}
+			</if>
+			<if test="noticeEmail2 != null and noticeEmail2 !=''">
+				AND NOTICE_EMAIL2 = #{noticeEmail2}
+			</if>
+			<if test="noticePhone2 != null and noticePhone2 !=''">
+				AND NOTICE_PHONE2 = #{noticePhone2}
+			</if>
+			<if test="noticeTimeRange3 != null and noticeTimeRange3 !=''">
+				AND NOTICE_TIME_RANGE3 = #{noticeTimeRange3}
+			</if>
+			<if test="noticeWay3 != null and noticeWay3 !=''">
+				AND NOTICE_WAY3 = #{noticeWay3}
+			</if>
+			<if test="noticeEmail3 != null and noticeEmail3 !=''">
+				AND NOTICE_EMAIL3 = #{noticeEmail3}
+			</if>
+			<if test="noticePhone3 != null and noticePhone3 !=''">
+				AND NOTICE_PHONE3 = #{noticePhone3}
+			</if>
+			<if test="noticeFlag != null and noticeFlag !=''">
+				AND NOTICE_FLAG = #{noticeFlag}
+			</if>
+			<if test="noticeTenthFlag != null and noticeTenthFlag !=''">
+				AND NOTICE_TENTH_FLAG = #{noticeTenthFlag}
+			</if>
+			<if test="updateTime != null and updateTime !=''">
+				AND UPDATE_TIME = #{updateTime}
+			</if>
+			<if test="createTime != null and createTime !=''">
+				AND CREATE_TIME = #{createTime}
+			</if>
+			<if test="merchantPhone != null and merchantPhone !=''">
+				AND MERCHANT_PHONE like  '%${merchantPhone}%'
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 查询列表 -->
+	<select id="queryVoiceMerchantBalanceMonitorList" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor"  resultMap="voiceMerchantBalanceMonitorMap">
+	select t.* from	(SELECT
+		  `b`.`ID`                  AS `ID`,
+		  `a`.`MERCHANT_ACCOUNT`    AS `MERCHANT_ACCOUNT`,
+		  `a`.`MERCHANT_PHONE`      AS `MERCHANT_PHONE`,
+		  `a`.`MERCHANT_EMAIL`      AS `MERCHANT_EMAIL`,
+		  `a`.`API_ACCOUNT`         AS `API_ACCOUNT`,
+		  `a`.`BALANCE`             AS `BALANCE`,
+		  `a`.`BUSINESS_NAME`       AS `BUSINESS_NAME`,
+		  `b`.`MONITOR_MIN_BALANCE` AS `MONITOR_MIN_BALANCE`,
+		  `b`.`MONITOR_TIME_RANGE`  AS `MONITOR_TIME_RANGE`,
+		  `b`.`NOTICE_TIME_RANGE1`  AS `NOTICE_TIME_RANGE1`,
+		  `b`.`NOTICE_WAY1`         AS `NOTICE_WAY1`,
+		  `b`.`NOTICE_EMAIL1`       AS `NOTICE_EMAIL1`,
+		  `b`.`NOTICE_PHONE1`       AS `NOTICE_PHONE1`,
+		  `b`.`NOTICE_TIME_RANGE2`  AS `NOTICE_TIME_RANGE2`,
+		  `b`.`NOTICE_WAY2`         AS `NOTICE_WAY2`,
+		  `b`.`NOTICE_EMAIL2`       AS `NOTICE_EMAIL2`,
+		  `b`.`NOTICE_PHONE2`       AS `NOTICE_PHONE2`,
+		  `b`.`NOTICE_TIME_RANGE3`  AS `NOTICE_TIME_RANGE3`,
+		  `b`.`NOTICE_WAY3`         AS `NOTICE_WAY3`,
+		  `b`.`NOTICE_EMAIL3`       AS `NOTICE_EMAIL3`,
+		  `b`.`NOTICE_PHONE3`       AS `NOTICE_PHONE3`,
+		  `b`.`NOTICE_FLAG`         AS `NOTICE_FLAG`,
+		  `b`.`NOTICE_TENTH_FLAG`   AS `NOTICE_TENTH_FLAG`,
+		  `b`.`UPDATE_TIME`         AS `UPDATE_TIME`,
+		  `b`.`CREATE_TIME`         AS `CREATE_TIME`,
+		  `b`.`START_FLAG`          AS `START_FLAG`
+		FROM (SELECT
+		  `ac`.`API_ACCOUNT`      AS `API_ACCOUNT`,
+		  `ac`.`API_KEY`          AS `API_KEY`,
+		  `ac`.`MERCHANT_ACCOUNT` AS `MERCHANT_ACCOUNT`,
+		  `ac`.`MERCHANT_PHONE`   AS `MERCHANT_PHONE`,
+		  `ac`.`MERCHANT_EMAIL`   AS `MERCHANT_EMAIL`,
+		  `ac`.`MERCHANT_PWD`     AS `MERCHANT_PWD`,
+		  `ac`.`BUSINESS_NAME`    AS `BUSINESS_NAME`,
+		  `ac`.`MERCHANT_TYPE`    AS `MERCHANT_TYPE`,
+		  `ac`.`AUTH_FLAG`        AS `AUTH_FLAG`,
+		  `ac`.`IS_LOCKED`        AS `IS_LOCKED`,
+		  `ac`.`UPDATE_TIME`      AS `UPDATE_TIME`,
+		  `ac`.`CREATE_TIME`      AS `CREATE_TIME`,
+		  `be`.`BALANCE`          AS `BALANCE`
+		FROM (`zy_db_paas`.`voice_merchant_account` `ac`
+		   JOIN `zy_db_paas`.`voice_merchant_account_balance` `be`)
+		WHERE (`ac`.`API_ACCOUNT` = `be`.`API_ACCOUNT`)) `a`
+		   LEFT JOIN `zy_db_manager`.`voice_merchant_balance_monitor` `b`
+		     ON (`a`.`API_ACCOUNT` = `b`.`API_ACCOUNT`)) t
+		
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides=",">
+			<if test="businessName != null and businessName !=''">
+				AND t.BUSINESS_NAME like '%${businessName}%'
+			</if>
+			<if test="apiAccount != null and apiAccount !=''">
+				AND t.API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="merchantPhone != null and merchantPhone !=''">
+				AND t.MERCHANT_PHONE like  '%${merchantPhone}%'
+			</if>
+			<if test="apiAccounts != null and apiAccounts.size() > 0">
+				AND t.API_ACCOUNT in
+				<foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryVoiceMerchantBalanceMonitorListByEntity" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor"   resultMap="voiceMerchantBalanceMonitorMap">
+	<![CDATA[  
+				SELECT t.* FROM	(SELECT
+		  `b`.`ID`                  AS `ID`,
+		  `a`.`MERCHANT_ACCOUNT`    AS `MERCHANT_ACCOUNT`,
+		  `a`.`MERCHANT_PHONE`      AS `MERCHANT_PHONE`,
+		  `a`.`MERCHANT_EMAIL`      AS `MERCHANT_EMAIL`,
+		  `a`.`API_ACCOUNT`         AS `API_ACCOUNT`,
+		  `a`.`BALANCE`             AS `BALANCE`,
+		  `a`.`BUSINESS_NAME`       AS `BUSINESS_NAME`,
+		  `b`.`MONITOR_MIN_BALANCE` AS `MONITOR_MIN_BALANCE`,
+		  `b`.`MONITOR_TIME_RANGE`  AS `MONITOR_TIME_RANGE`,
+		  `b`.`NOTICE_TIME_RANGE1`  AS `NOTICE_TIME_RANGE1`,
+		  `b`.`NOTICE_WAY1`         AS `NOTICE_WAY1`,
+		  `b`.`NOTICE_EMAIL1`       AS `NOTICE_EMAIL1`,
+		  `b`.`NOTICE_PHONE1`       AS `NOTICE_PHONE1`,
+		  `b`.`NOTICE_TIME_RANGE2`  AS `NOTICE_TIME_RANGE2`,
+		  `b`.`NOTICE_WAY2`         AS `NOTICE_WAY2`,
+		  `b`.`NOTICE_EMAIL2`       AS `NOTICE_EMAIL2`,
+		  `b`.`NOTICE_PHONE2`       AS `NOTICE_PHONE2`,
+		  `b`.`NOTICE_TIME_RANGE3`  AS `NOTICE_TIME_RANGE3`,
+		  `b`.`NOTICE_WAY3`         AS `NOTICE_WAY3`,
+		  `b`.`NOTICE_EMAIL3`       AS `NOTICE_EMAIL3`,
+		  `b`.`NOTICE_PHONE3`       AS `NOTICE_PHONE3`,
+		  `b`.`NOTICE_FLAG`         AS `NOTICE_FLAG`,
+		  `b`.`NOTICE_TENTH_FLAG`   AS `NOTICE_TENTH_FLAG`,
+		  `b`.`UPDATE_TIME`         AS `UPDATE_TIME`,
+		  `b`.`CREATE_TIME`         AS `CREATE_TIME`,
+		  `b`.`START_FLAG`          AS `START_FLAG`
+		FROM (SELECT
+		  `ac`.`API_ACCOUNT`      AS `API_ACCOUNT`,
+		  `ac`.`API_KEY`          AS `API_KEY`,
+		  `ac`.`MERCHANT_ACCOUNT` AS `MERCHANT_ACCOUNT`,
+		  `ac`.`MERCHANT_PHONE`   AS `MERCHANT_PHONE`,
+		  `ac`.`MERCHANT_EMAIL`   AS `MERCHANT_EMAIL`,
+		  `ac`.`MERCHANT_PWD`     AS `MERCHANT_PWD`,
+		  `ac`.`BUSINESS_NAME`    AS `BUSINESS_NAME`,
+		  `ac`.`MERCHANT_TYPE`    AS `MERCHANT_TYPE`,
+		  `ac`.`AUTH_FLAG`        AS `AUTH_FLAG`,
+		  `ac`.`IS_LOCKED`        AS `IS_LOCKED`,
+		  `ac`.`UPDATE_TIME`      AS `UPDATE_TIME`,
+		  `ac`.`CREATE_TIME`      AS `CREATE_TIME`,
+		  `be`.`BALANCE`          AS `BALANCE`
+		FROM (`zy_db_paas`.`voice_merchant_account` `ac`
+		   JOIN `zy_db_paas`.`voice_merchant_account_balance` `be`)
+		WHERE (`ac`.`API_ACCOUNT` = `be`.`API_ACCOUNT`)) `a`
+		   LEFT JOIN `zy_db_manager`.`voice_merchant_balance_monitor` `b`
+		     ON (`a`.`API_ACCOUNT` = `b`.`API_ACCOUNT`)) t
+		 WHERE t.START_FLAG=1  AND t.BALANCE<=t.MONITOR_MIN_BALANCE AND t.ID IS NOT NULL
+	]]>  
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryVoiceMerchantBalanceMonitorCountByEntity" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor" resultType="int">
+		SELECT COUNT(*) FROM VOICE_MERCHANT_BALANCE_MONITOR
+		<include refid="entityCondition"/>
+	</select>
+	<select id="updateNeedNoticeBalanceMonitor">
+	<![CDATA[  
+		UPDATE 
+              voice_merchant_balance_monitor 
+         SET
+           NOTICE_TENTH_FLAG = 0,
+           NOTICE_FLAG = 0 
+        WHERE id IN 
+      	 (SELECT 
+       		   	t.id 
+          		 FROM
+             (SELECT 
+			     `b`.`ID` AS `ID`,
+			     `a`.`API_ACCOUNT` AS `API_ACCOUNT`,
+			     `a`.`BALANCE` AS `BALANCE`,
+			     `b`.`MONITOR_MIN_BALANCE` AS `MONITOR_MIN_BALANCE`,
+			     `b`.`NOTICE_FLAG` AS `NOTICE_FLAG`,
+			     `b`.`NOTICE_TENTH_FLAG` AS `NOTICE_TENTH_FLAG`,
+			     `b`.`START_FLAG` AS `START_FLAG` 
+	    		FROM
+			      (SELECT 
+			        `ac`.`API_ACCOUNT` AS `API_ACCOUNT`,
+			        `ac`.`IS_LOCKED` AS `IS_LOCKED`,
+			        `be`.`BALANCE` AS `BALANCE` 
+				      FROM
+				        (
+				          `zy_db_paas`.`voice_merchant_account` `ac` 
+				          JOIN `zy_db_paas`.`voice_merchant_account_balance` `be`
+				        ) 
+				      WHERE (
+				          `ac`.`API_ACCOUNT` = `be`.`API_ACCOUNT` 
+				          AND `ac`.`IS_LOCKED` = 0
+				        )) `a` 
+			      LEFT JOIN `zy_db_manager`.`voice_merchant_balance_monitor` `b` 
+			        ON (
+			          `a`.`API_ACCOUNT` = `b`.`API_ACCOUNT`
+			        )) t 
+			     WHERE t.START_FLAG = 1 
+				    AND t.BALANCE >t.MONITOR_MIN_BALANCE/10 
+				    AND NOTICE_TENTH_FLAG = 1 
+				    AND t.ID IS NOT NULL)
+    ]]>  
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findVoiceMerchantBalanceMonitor" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor" resultMap="voiceMerchantBalanceMonitorMap">
+		select t.* from	(SELECT
+		  `b`.`ID`                  AS `ID`,
+		  `a`.`MERCHANT_ACCOUNT`    AS `MERCHANT_ACCOUNT`,
+		  `a`.`MERCHANT_PHONE`      AS `MERCHANT_PHONE`,
+		  `a`.`MERCHANT_EMAIL`      AS `MERCHANT_EMAIL`,
+		  `a`.`API_ACCOUNT`         AS `API_ACCOUNT`,
+		  `a`.`BALANCE`             AS `BALANCE`,
+		  `a`.`BUSINESS_NAME`       AS `BUSINESS_NAME`,
+		  `b`.`MONITOR_MIN_BALANCE` AS `MONITOR_MIN_BALANCE`,
+		  `b`.`MONITOR_TIME_RANGE`  AS `MONITOR_TIME_RANGE`,
+		  `b`.`NOTICE_TIME_RANGE1`  AS `NOTICE_TIME_RANGE1`,
+		  `b`.`NOTICE_WAY1`         AS `NOTICE_WAY1`,
+		  `b`.`NOTICE_EMAIL1`       AS `NOTICE_EMAIL1`,
+		  `b`.`NOTICE_PHONE1`       AS `NOTICE_PHONE1`,
+		  `b`.`NOTICE_TIME_RANGE2`  AS `NOTICE_TIME_RANGE2`,
+		  `b`.`NOTICE_WAY2`         AS `NOTICE_WAY2`,
+		  `b`.`NOTICE_EMAIL2`       AS `NOTICE_EMAIL2`,
+		  `b`.`NOTICE_PHONE2`       AS `NOTICE_PHONE2`,
+		  `b`.`NOTICE_TIME_RANGE3`  AS `NOTICE_TIME_RANGE3`,
+		  `b`.`NOTICE_WAY3`         AS `NOTICE_WAY3`,
+		  `b`.`NOTICE_EMAIL3`       AS `NOTICE_EMAIL3`,
+		  `b`.`NOTICE_PHONE3`       AS `NOTICE_PHONE3`,
+		  `b`.`NOTICE_FLAG`         AS `NOTICE_FLAG`,
+		  `b`.`NOTICE_TENTH_FLAG`   AS `NOTICE_TENTH_FLAG`,
+		  `b`.`UPDATE_TIME`         AS `UPDATE_TIME`,
+		  `b`.`CREATE_TIME`         AS `CREATE_TIME`,
+		  `b`.`START_FLAG`          AS `START_FLAG`
+		FROM (SELECT
+		  `ac`.`API_ACCOUNT`      AS `API_ACCOUNT`,
+		  `ac`.`API_KEY`          AS `API_KEY`,
+		  `ac`.`MERCHANT_ACCOUNT` AS `MERCHANT_ACCOUNT`,
+		  `ac`.`MERCHANT_PHONE`   AS `MERCHANT_PHONE`,
+		  `ac`.`MERCHANT_EMAIL`   AS `MERCHANT_EMAIL`,
+		  `ac`.`MERCHANT_PWD`     AS `MERCHANT_PWD`,
+		  `ac`.`BUSINESS_NAME`    AS `BUSINESS_NAME`,
+		  `ac`.`MERCHANT_TYPE`    AS `MERCHANT_TYPE`,
+		  `ac`.`AUTH_FLAG`        AS `AUTH_FLAG`,
+		  `ac`.`IS_LOCKED`        AS `IS_LOCKED`,
+		  `ac`.`UPDATE_TIME`      AS `UPDATE_TIME`,
+		  `ac`.`CREATE_TIME`      AS `CREATE_TIME`,
+		  `be`.`BALANCE`          AS `BALANCE`
+		FROM (`zy_db_paas`.`voice_merchant_account` `ac`
+		   JOIN `zy_db_paas`.`voice_merchant_account_balance` `be`)
+		WHERE (`ac`.`API_ACCOUNT` = `be`.`API_ACCOUNT`)) `a`
+		   LEFT JOIN `zy_db_manager`.`voice_merchant_balance_monitor` `b`
+		     ON (`a`.`API_ACCOUNT` = `b`.`API_ACCOUNT`)) t
+		WHERE t.API_ACCOUNT = #{apiAccount} limit 1
+	</select>
+	<select id="findVoiceMerchantBalanceMonitorSelf" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor" resultMap="voiceMerchantBalanceMonitorResultMap">
+		SELECT  *
+		FROM VOICE_MERCHANT_BALANCE_MONITOR WHERE API_ACCOUNT = #{apiAccount} limit 1
+	</select>
+	
+	<!-- 新增并设置主键ID至参数对象 -->
+	<insert id="insertVoiceMerchantBalanceMonitor" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		INSERT INTO VOICE_MERCHANT_BALANCE_MONITOR
+			(ID, MERCHANT_ACCOUNT, API_ACCOUNT, MONITOR_MIN_BALANCE, MONITOR_TIME_RANGE, NOTICE_TIME_RANGE1, NOTICE_WAY1, NOTICE_EMAIL1, NOTICE_PHONE1, NOTICE_TIME_RANGE2, NOTICE_WAY2, NOTICE_EMAIL2, NOTICE_PHONE2, NOTICE_TIME_RANGE3, NOTICE_WAY3, NOTICE_EMAIL3, NOTICE_PHONE3, NOTICE_FLAG, NOTICE_TENTH_FLAG, UPDATE_TIME, CREATE_TIME)
+		VALUES
+			(#{id}, #{merchantAccount}, #{apiAccount}, #{monitorMinBalance}, #{monitorTimeRange}, #{noticeTimeRange1}, #{noticeWay1}, #{noticeEmail1}, #{noticePhone1}, #{noticeTimeRange2}, #{noticeWay2}, #{noticeEmail2}, #{noticePhone2}, #{noticeTimeRange3}, #{noticeWay3}, #{noticeEmail3}, #{noticePhone3}, #{noticeFlag}, #{noticeTenthFlag}, #{updateTime}, #{createTime})
+	</insert>
+	
+	<!-- 修改-->
+	<update id="updateVoiceMerchantBalanceMonitor" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		UPDATE VOICE_MERCHANT_BALANCE_MONITOR 
+		<trim prefix="SET" suffixOverrides=",">
+<!-- 			<if test="noticeWay1 != null"> -->
+				NOTICE_WAY1 = #{noticeWay1},
+<!-- 			</if> -->
+<!-- 			<if test="noticeWay2 != null"> -->
+				NOTICE_WAY2 = #{noticeWay2},
+<!-- 			</if> -->
+<!-- 			<if test="noticeWay3 != null"> -->
+				NOTICE_WAY3 = #{noticeWay3},
+<!-- 			</if> -->
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT = #{merchantAccount},
+			</if>
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount},
+			</if>
+			<if test="monitorMinBalance != null">
+				MONITOR_MIN_BALANCE = #{monitorMinBalance},
+			</if>
+			<if test="monitorTimeRange != null">
+				MONITOR_TIME_RANGE = #{monitorTimeRange},
+			</if>
+			<if test="noticeTimeRange1 != null">
+				NOTICE_TIME_RANGE1 = #{noticeTimeRange1},
+			</if>
+			<if test="noticeEmail1 != null">
+				NOTICE_EMAIL1 = #{noticeEmail1},
+			</if>
+			<if test="noticePhone1 != null">
+				NOTICE_PHONE1 = #{noticePhone1},
+			</if>
+			<if test="noticeTimeRange2 != null">
+				NOTICE_TIME_RANGE2 = #{noticeTimeRange2},
+			</if>
+			
+			<if test="noticeEmail2 != null">
+				NOTICE_EMAIL2 = #{noticeEmail2},
+			</if>
+			<if test="noticePhone2 != null">
+				NOTICE_PHONE2 = #{noticePhone2},
+			</if>
+			<if test="noticeTimeRange3 != null">
+				NOTICE_TIME_RANGE3 = #{noticeTimeRange3},
+			</if>
+			<if test="noticeEmail3 != null">
+				NOTICE_EMAIL3 = #{noticeEmail3},
+			</if>
+			<if test="noticePhone3 != null">
+				NOTICE_PHONE3 = #{noticePhone3},
+			</if>
+			<if test="noticeFlag != null">
+				NOTICE_FLAG = #{noticeFlag},
+			</if>
+			<if test="noticeTenthFlag != null">
+				NOTICE_TENTH_FLAG = #{noticeTenthFlag},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+	<!-- 修改-->
+	<update id="updateVoiceMerchantBalanceMonitorStatu" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		UPDATE VOICE_MERCHANT_BALANCE_MONITOR 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="noticeFlag != null">
+				NOTICE_FLAG = #{noticeFlag},
+			</if>
+			<if test="noticeTenthFlag != null">
+				NOTICE_TENTH_FLAG = #{noticeTenthFlag},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteVoiceMerchantBalanceMonitor" parameterType="com.zy.cms.vo.VoiceMerchantBalanceMonitor">
+		DELETE FROM VOICE_MERCHANT_BALANCE_MONITOR
+		WHERE ID = #{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.UserMapper">
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.User" >
+    <id column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="FULLNAME" property="fullname" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="LEVAL" property="leval" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DEPT_NO" property="deptNo" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, USER_NAME, PASSWORD, FULLNAME, PHONE, EMAIL, DEPARTMENT, LEVAL, STATE, LAST_LOGIN_IP, LAST_LOGIN_TIME, CREATE_TIME, DEPT_NO
+  </sql>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_user
+  </select>
+  
+  <insert id="insertUser" parameterType="com.zy.cms.vo.User" >
+    insert into cms_user (
+      USER_NAME, PASSWORD,FULLNAME, PHONE, EMAIL, DEPARTMENT, LEVAL, STATE, DEPT_NO, CREATE_TIME
+    )
+    values (
+      #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, 
+      #{fullname,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, 
+      #{leval,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER},
+      #{deptNo,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  
+  <update id="updateUserForLogin" parameterType="com.zy.cms.vo.User" >
+    update cms_user
+    set LAST_LOGIN_IP = #{LAST_LOGIN_IP,jdbcType=VARCHAR},
+        LAST_LOGIN_TIME = #{LAST_LOGIN_TIME,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findUserForLogin" parameterType="Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from cms_user
+    where  1=1
+    and   USER_NAME = #{userName}
+    limit 1
+  </select>
+  
+  <select id="selectUserCount" parameterType="com.zy.cms.vo.query.UserQuery" resultType="Integer">
+  	select
+		count(USER_ID)
+	from cms_user
+	where STATE = #{state,jdbcType=INTEGER}
+	<if test="username != null and username != ''">
+		and USER_NAME LIKE CONCAT('%',#{username},'%')
+	</if>
+	<if test="fullname != null and fullname != ''">
+		and FULLNAME = #{fullname,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <select id="selectUsers" parameterType="com.zy.cms.vo.query.UserQuery" resultMap="BaseResultMap">
+  	select
+		<include refid="Base_Column_List" />
+	from cms_user
+	where STATE = #{state,jdbcType=INTEGER}
+	<if test="username != null and username != ''">
+		and USER_NAME LIKE CONCAT('%',#{username},'%')
+	</if>
+	<if test="fullname != null and fullname != ''">
+		and FULLNAME = #{fullname,jdbcType=VARCHAR}
+	</if>
+	<if test="pageOffset != null and pageSize != null">
+		limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.User" >
+    update cms_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null" >
+        FULLNAME = #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test= "department != null" >
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="leval != null" >
+        LEVAL = #{leval,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

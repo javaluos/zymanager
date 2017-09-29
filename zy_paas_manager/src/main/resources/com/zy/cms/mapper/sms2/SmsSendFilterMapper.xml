@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.sms2.SmsSendFilterMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsSendFilter" >
+    <id column="SMS_ID" property="smsId" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+    <result column="SMS_CATEGORY" property="smsCategory" jdbcType="VARCHAR" />
+    <result column="SMS_SIGNER_ID" property="smsSignerId" jdbcType="VARCHAR" />
+    <result column="SMS_TEMPLATE_ID" property="smsTemplateId" jdbcType="VARCHAR" />
+    <result column="RECEIVE_MOBILE" property="receiveMobile" jdbcType="VARCHAR" />
+    <result column="SMS_CONTENT" property="smsContent" jdbcType="VARCHAR" />
+    <result column="SMS_NUMS" property="smsNums" jdbcType="INTEGER" />
+    <result column="SMS_FEE" property="smsFee" jdbcType="INTEGER" />
+    <result column="SMS_TYPE" property="smsType" jdbcType="INTEGER" />
+    <result column="RESOURCE" property="resource" jdbcType="INTEGER" />
+    <result column="PROTOCOL_TYPE" property="protocolType" jdbcType="INTEGER" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="CARRIERS" property="carriers" jdbcType="VARCHAR" />
+    <result column="BLACK_CONTENT" property="blackContent" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_DATA" property="userData" jdbcType="VARCHAR" />
+    <result column="STATUS_PUSH_ADDR" property="statusPushAddr" jdbcType="VARCHAR" />
+    <result column="UID" property="uId" jdbcType="VARCHAR" />
+    <result column="SIGN_CONTENT" property="signContent" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SMS_ID, API_ACCOUNT, APP_ID, SMS_CATEGORY, SMS_SIGNER_ID, SMS_TEMPLATE_ID, RECEIVE_MOBILE, 
+    SMS_CONTENT, SMS_NUMS, SMS_FEE, SMS_TYPE, RESOURCE, PROTOCOL_TYPE, PROVINCE, CITY, 
+    CARRIERS, BLACK_CONTENT, STATUS, CREATE_TIME, UPDATE_TIME,USER_DATA,STATUS_PUSH_ADDR,UID,SIGN_CONTENT
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_send_filter
+    where SMS_ID = #{smsId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sms_merchant_send_filter
+    where SMS_ID = #{smsId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.SmsSendFilter" >
+    insert into sms_merchant_send_filter 
+     (
+      SMS_ID, API_ACCOUNT, APP_ID, 
+      SMS_CATEGORY, SMS_SIGNER_ID, SMS_TEMPLATE_ID, 
+      RECEIVE_MOBILE, SMS_CONTENT, SMS_NUMS, 
+      SMS_FEE, SMS_TYPE, RESOURCE, 
+      PROTOCOL_TYPE, PROVINCE, CITY, 
+      CARRIERS, BLACK_CONTENT, STATUS, 
+      USER_DATA,STATUS_PUSH_ADDR,UID,SIGN_CONTENT
+      )
+    values 
+    ( 
+      #{smsId,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{smsCategory,jdbcType=VARCHAR}, #{smsSignerId,jdbcType=VARCHAR}, #{smsTemplateId,jdbcType=VARCHAR}, 
+      #{receiveMobile,jdbcType=VARCHAR}, #{smsContent,jdbcType=VARCHAR}, #{smsNums,jdbcType=INTEGER}, 
+      #{smsFee,jdbcType=INTEGER}, #{smsType,jdbcType=INTEGER}, #{resource,jdbcType=INTEGER}, 
+      #{protocolType,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{carriers,jdbcType=VARCHAR}, #{blackContent,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userData,jdbcType=VARCHAR},#{statusPushAddr,jdbcType=VARCHAR},
+      #{uId,jdbcType=VARCHAR},#{signContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsSendFilter" >
+    insert into sms_merchant_send_filter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smsId != null" >
+        SMS_ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="appId != null" >
+        APP_ID,
+      </if>
+      <if test="smsCategory != null" >
+        SMS_CATEGORY,
+      </if>
+      <if test="smsSignerId != null" >
+        SMS_SIGNER_ID,
+      </if>
+      <if test="smsTemplateId != null" >
+        SMS_TEMPLATE_ID,
+      </if>
+      <if test="receiveMobile != null" >
+        RECEIVE_MOBILE,
+      </if>
+      <if test="smsContent != null" >
+        SMS_CONTENT,
+      </if>
+      <if test="smsNums != null" >
+        SMS_NUMS,
+      </if>
+      <if test="smsFee != null" >
+        SMS_FEE,
+      </if>
+      <if test="smsType != null" >
+        SMS_TYPE,
+      </if>
+      <if test="resource != null" >
+        RESOURCE,
+      </if>
+      <if test="protocolType != null" >
+        PROTOCOL_TYPE,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="carriers != null" >
+        CARRIERS,
+      </if>
+      <if test="blackContent != null" >
+        BLACK_CONTENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smsId != null" >
+        #{smsId,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCategory != null" >
+        #{smsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSignerId != null" >
+        #{smsSignerId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsTemplateId != null" >
+        #{smsTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null" >
+        #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContent != null" >
+        #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smsNums != null" >
+        #{smsNums,jdbcType=INTEGER},
+      </if>
+      <if test="smsFee != null" >
+        #{smsFee,jdbcType=INTEGER},
+      </if>
+      <if test="smsType != null" >
+        #{smsType,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null" >
+        #{resource,jdbcType=INTEGER},
+      </if>
+      <if test="protocolType != null" >
+        #{protocolType,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="carriers != null" >
+        #{carriers,jdbcType=VARCHAR},
+      </if>
+      <if test="blackContent != null" >
+        #{blackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsSendFilter" >
+    update sms_merchant_send_filter
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCategory != null" >
+        SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSignerId != null" >
+        SMS_SIGNER_ID = #{smsSignerId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsTemplateId != null" >
+        SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobile != null" >
+        RECEIVE_MOBILE = #{receiveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContent != null" >
+        SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smsNums != null" >
+        SMS_NUMS = #{smsNums,jdbcType=INTEGER},
+      </if>
+      <if test="smsFee != null" >
+        SMS_FEE = #{smsFee,jdbcType=INTEGER},
+      </if>
+      <if test="smsType != null" >
+        SMS_TYPE = #{smsType,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null" >
+        RESOURCE = #{resource,jdbcType=INTEGER},
+      </if>
+      <if test="protocolType != null" >
+        PROTOCOL_TYPE = #{protocolType,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="carriers != null" >
+        CARRIERS = #{carriers,jdbcType=VARCHAR},
+      </if>
+      <if test="blackContent != null" >
+        BLACK_CONTENT = #{blackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SMS_ID = #{smsId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsSendFilter" >
+    update sms_merchant_send_filter
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      APP_ID = #{appId,jdbcType=VARCHAR},
+      SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+      SMS_SIGNER_ID = #{smsSignerId,jdbcType=VARCHAR},
+      SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+      RECEIVE_MOBILE = #{receiveMobile,jdbcType=VARCHAR},
+      SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      SMS_NUMS = #{smsNums,jdbcType=INTEGER},
+      SMS_FEE = #{smsFee,jdbcType=INTEGER},
+      SMS_TYPE = #{smsType,jdbcType=INTEGER},
+      RESOURCE = #{resource,jdbcType=INTEGER},
+      PROTOCOL_TYPE = #{protocolType,jdbcType=INTEGER},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      CARRIERS = #{carriers,jdbcType=VARCHAR},
+      BLACK_CONTENT = #{blackContent,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where SMS_ID = #{smsId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="queryListByEntity" parameterType="com.zy.cms.vo.query.SmsSendFilterQuery"  resultMap="BaseResultMap">
+  	select 
+  	   API_ACCOUNT as apiAccount,
+  	   SMS_CONTENT as smsContent,
+  	   BLACK_CONTENT as blackContent,
+  	   count(*) as smsNums,
+  	   CREATE_TIME as createTime,
+  	   SIGN_CONTENT as signContent
+    from 
+       sms_merchant_send_filter 
+       <include refid="query_where_clause"/>
+    GROUP BY API_ACCOUNT,SMS_CONTENT
+    Order By smsNums 
+    <if test="orderRule== '0'.toString()" >
+        DESC
+    </if>
+    <if test="orderRule== '1'.toString()" >
+        ASC
+    </if>
+  	limit
+	 #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="queryCountByEntity" parameterType="com.zy.cms.vo.query.SmsSendFilterQuery"  resultType="java.lang.Integer">
+  	select 
+  		count(1) 
+  	from 
+  		sms_merchant_send_filter 
+  	<include refid="query_where_clause"/>
+  </select>
+  
+  <select id="queryListDetailByEntity" parameterType="com.zy.cms.vo.query.SmsSendFilterQuery"  resultMap="BaseResultMap">
+  	select 
+  	   *
+    from 
+       sms_merchant_send_filter 
+  	<include refid="query_where_clause"/>
+  	limit
+	 #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  	<sql id="query_where_clause">
+		<where>
+			<if test="apiAccount != null and apiAccount != ''" >
+        and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="appId != null and appId != ''" >
+        and APP_ID = #{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="smsCategory != null and smsCategory != ''" >
+        and SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR}
+      </if>
+      <if test="smsSignerId != null  and smsSignerId != ''" >
+        and SMS_SIGNER_ID = #{smsSignerId,jdbcType=VARCHAR}
+      </if>
+      <if test="smsTemplateId != null  and smsTemplateId != ''" >
+        and SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR}
+      </if>
+      <if test="receiveMobile != null  and receiveMobile != ''" >
+        and RECEIVE_MOBILE = #{receiveMobile,jdbcType=VARCHAR}
+      </if>
+      <if test="smsNums != null and smsNums != ''" >
+        and SMS_NUMS = #{smsNums,jdbcType=INTEGER}
+      </if>
+      <if test="smsFee != null and smsFee != ''" >
+        and SMS_FEE = #{smsFee,jdbcType=INTEGER}
+      </if>
+      <if test="smsType != null and smsType != ''" >
+        and SMS_TYPE = #{smsType,jdbcType=INTEGER}
+      </if>
+      <if test="resource != null and resource != ''" >
+        and RESOURCE = #{resource,jdbcType=INTEGER}
+      </if>
+      <if test="protocolType != null and protocolType != ''" >
+        and PROTOCOL_TYPE = #{protocolType,jdbcType=INTEGER}
+      </if>
+      <if test="province != null and province != ''" >
+        and PROVINCE = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null and city != ''" >
+       and CITY = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="carriers != null and carriers != ''" >
+       and CARRIERS = #{carriers,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="smsContent != null  and smsContent != ''" >
+        and SMS_CONTENT like CONCAT('%',#{smsContent},'%')
+      </if>
+      <if test="blackContent != null and blackContent != ''" >
+        and BLACK_CONTENT like CONCAT('%',#{blackContent},'%')
+      </if>
+       <if test="smsContentDetail != null  and smsContentDetail != ''" >
+        and SMS_CONTENT = #{smsContentDetail,jdbcType=VARCHAR}
+      </if>
+      <if test="blackContentDetail != null and blackContentDetail != ''" >
+        and BLACK_CONTENT = #{blackContentDetail,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="status != null and status != ''" >
+        and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null and createTime != ''" >
+        and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime != ''" >
+        and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeStart != null and createTimeStart !=''">
+		and <![CDATA[ UNIX_TIMESTAMP(CREATE_TIME)>=  UNIX_TIMESTAMP(#{createTimeStart})]]>
+	 </if>
+	 <if test="createTimeEnd != null and createTimeEnd !=''">
+		and <![CDATA[ UNIX_TIMESTAMP(CREATE_TIME)<=  UNIX_TIMESTAMP(#{createTimeEnd})]]>
+	 </if>
+
+	 <if test="apiAccounts != null and apiAccounts != ''">
+	    <if test="apiAccounts.size>0">
+	        and API_ACCOUNT in
+			<foreach item="item" index="index" collection="apiAccounts" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+	    </if>
+	 </if>
+	<if test="smsIdList!=null and smsIdList.size() > 0">
+		and SMS_ID in
+		<foreach collection="smsIdList" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	 </if>
+	</where>
+	</sql>
+  
+    <select id="queryAuditPaasSms" parameterType="com.zy.cms.vo.query.SmsSendFilterQuery"  resultMap="BaseResultMap">
+  	select 
+  	     SMS_ID,
+		  API_ACCOUNT,
+		  APP_ID,
+		  SMS_CATEGORY,
+		  SMS_SIGNER_ID,
+		  SMS_TEMPLATE_ID,
+		  RECEIVE_MOBILE,
+		  SMS_CONTENT,
+		  SMS_NUMS,
+		  SMS_FEE,
+		  SMS_TYPE,
+		  RESOURCE,
+		  PROTOCOL_TYPE,
+		  PROVINCE,
+		  CITY,
+		  CARRIERS,
+		  BLACK_CONTENT,
+		  STATUS,
+		  CREATE_TIME,
+		  UPDATE_TIME,
+		  USER_DATA,
+		  STATUS_PUSH_ADDR,
+		  UID,
+		  SIGN_CONTENT
+    from 
+       sms_merchant_send_filter 
+  <include refid="query_where_clause" />
+  </select>
+  
+    <delete id="deleteBySmsIdList" parameterType="com.zy.cms.vo.query.SmsSendFilterQuery" >
+    delete 
+    from 
+       sms_merchant_send_filter 
+  <include refid="query_where_clause" />
+  </delete>
+
+</mapper>

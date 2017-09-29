@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelPolicyRuleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannelPolicyRule" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="POLICY_ID" property="policyId" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="MOBILES" property="mobiles" jdbcType="VARCHAR" />
+    <result column="GROUP_TYPE" property="groupType" jdbcType="INTEGER" />
+    <result column="GROUP_YD" property="groupYD" jdbcType="VARCHAR" />
+    <result column="GROUP_LT" property="groupLT" jdbcType="VARCHAR" />
+    <result column="GROUP_DX" property="groupDX" jdbcType="VARCHAR" />
+    <result column="RULE_INDEX" property="ruleIndex" jdbcType="INTEGER" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    ID, POLICY_ID, KEYWORD, MOBILES, GROUP_TYPE, GROUP_YD, GROUP_LT, GROUP_DX, 
+    RULE_INDEX, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel_policy_rule
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sms_channel_policy_rule
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+   <delete id="deleteByPolicyId" parameterType="java.lang.String" >
+    delete from sms_channel_policy_rule
+    where POLICY_ID = #{policyId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" >
+    insert into sms_channel_policy_rule
+     (ID, POLICY_ID, KEYWORD, 
+      MOBILES, GROUP_TYPE, GROUP_YD, 
+      GROUP_LT, GROUP_DX, RULE_INDEX, 
+      CREATE_TIME, UPDATE_TIME)
+    values (
+      #{id,jdbcType=VARCHAR}, #{policyId,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
+      #{mobiles,jdbcType=VARCHAR}, #{groupType,jdbcType=INTEGER}, #{groupYD,jdbcType=VARCHAR}, 
+      #{groupLT,jdbcType=VARCHAR}, #{groupDX,jdbcType=VARCHAR}, #{ruleIndex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" >
+    insert into sms_channel_policy_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="policyId != null" >
+        POLICY_ID,
+      </if>
+      <if test="keyword != null" >
+        KEYWORD,
+      </if>
+      <if test="mobiles != null" >
+        MOBILES,
+      </if>
+      <if test="groupType != null" >
+        GROUP_TYPE,
+      </if>
+      <if test="groupYD != null" >
+        GROUP_YD,
+      </if>
+      <if test="groupLT != null" >
+        GROUP_LT,
+      </if>
+      <if test="groupDX != null" >
+        GROUP_DX,
+      </if>
+      <if test="policyIndex != null" >
+        RULE_INDEX,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="policyId != null" >
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="groupYD != null" >
+        #{groupYD,jdbcType=VARCHAR},
+      </if>
+      <if test="groupLT != null" >
+        #{groupLT,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDX != null" >
+        #{groupDX,jdbcType=VARCHAR},
+      </if>
+      <if test="policyIndex != null" >
+        #{ruleIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" >
+    update sms_shunting_strategy
+    <set >
+      <if test="policyId != null" >
+        POLICY_ID = #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        KEYWORD = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        MOBILES = #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="groupType != null" >
+        GROUP_TYPE = #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="groupYD != null" >
+        GROUP_YD = #{groupYD,jdbcType=VARCHAR},
+      </if>
+      <if test="groupLT != null" >
+        GROUP_LT = #{groupLT,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDX != null" >
+        GROUP_DX = #{groupDX,jdbcType=VARCHAR},
+      </if>
+      <if test="policyIndex != null" >
+        RULE_INDEX = #{ruleIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" >
+    update sms_channel_policy_rule
+    set 
+      POLICY_ID = #{policyId,jdbcType=VARCHAR},
+      KEYWORD = #{keyword,jdbcType=VARCHAR},
+      MOBILES = #{mobiles,jdbcType=VARCHAR},
+      GROUP_TYPE = #{groupType,jdbcType=INTEGER},
+      GROUP_YD = #{groupYD,jdbcType=VARCHAR},
+      GROUP_LT = #{groupLT,jdbcType=VARCHAR},
+      GROUP_DX = #{groupDX,jdbcType=VARCHAR},
+      RULE_INDEX = #{ruleIndex,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryShuntingStrategyCount" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" resultType="java.lang.Integer">
+  	 select COUNT(*) from sms_channel_policy_rule sc
+  	 where 1=1
+  	<if test="policyId != null and policyId !=''" >
+        and POLICY_ID = #{policyId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  
+  <select id="queryShuntingStrategyByEntity" parameterType="com.zy.cms.vo.channel.SmsChannelPolicyRule" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List"/>
+  	from 
+  	sms_channel_policy_rule sc
+  	 where 1=1
+  	<if test="policyId != null and policyId !=''" >
+        and POLICY_ID = #{policyId,jdbcType=VARCHAR}
+    </if>
+    order by RULE_INDEX ASC
+  </select>
+  
+  <select id="queryListByGroupId" resultMap="BaseResultMap">
+  	SELECT  
+    <include refid="Base_Column_List"/>  
+  	FROM  SMS_CHANNEL_POLICY_RULE sc   WHERE 1=1  
+  	AND #{groupId,jdbcType=VARCHAR} IN (GROUP_YD,GROUP_LT,GROUP_DX)  
+    ORDER BY RULE_INDEX ASC
+  </select>
+  
+</mapper>

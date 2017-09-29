@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorChartMapper">
+    <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrMonitorStat">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR"/>
+        <result column="APP_ID" property="appId" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR"/>
+        <result column="TOTAL_CALL_COUNT" property="totalCallCount" jdbcType="INTEGER"/>
+        <result column="SUCCESS_RATEA" property="successRatea" jdbcType="INTEGER"/>
+        <result column="SUCCESS_RATEB" property="successRateb" jdbcType="INTEGER"/>
+        <result column="RESPONSE_RATEA" property="responseRatea" jdbcType="INTEGER"/>
+        <result column="RESPONSE_RATEB" property="responseRateb" jdbcType="INTEGER"/>
+        <result column="TALK_TIMEA" property="talkTimea" jdbcType="INTEGER"/>
+        <result column="TALK_TIMEB" property="talkTimeb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TALK_TIMEA" property="averageTalkTimea" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TALK_TIMEB" property="averageTalkTimeb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TURN_ON_DELAYA" property="averageTurnOnDelaya" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TURN_ON_DELAYB" property="averageTurnOnDelayb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_IN_TIMEA" property="averageInTimea" jdbcType="INTEGER"/>
+        <result column="AVERAGE_IN_TIMEB" property="averageInTimeb" jdbcType="INTEGER"/>
+        <result column="RING_COUNTA" property="ringCounta" jdbcType="INTEGER"/>
+        <result column="CALL_COUNTA" property="callCounta" jdbcType="INTEGER"/>
+        <result column="RESPONSE_COUNTA" property="responseCounta" jdbcType="INTEGER"/>
+        <result column="TOTAL_TURN_ON_DELAYA" property="totalTurnOnDelaya" jdbcType="INTEGER"/>
+        <result column="TOTAL_IN_TIMEA" property="totalInTimea" jdbcType="INTEGER"/>
+        <result column="RING_COUNTB" property="ringCountb" jdbcType="INTEGER"/>
+        <result column="CALL_COUNTB" property="callCountb" jdbcType="INTEGER"/>
+        <result column="RESPONSE_COUNTB" property="responseCountb" jdbcType="INTEGER"/>
+        <result column="TOTAL_TURN_ON_DELAYB" property="totalTurnOnDelayb" jdbcType="INTEGER"/>
+        <result column="TOTAL_IN_TIMEB" property="totalInTimeb" jdbcType="INTEGER"/>
+        <result column="STATISTICAL_TIME" property="statisticalTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="BaseResultMapForChart" type="com.zy.cms.vo.manager.CdrMonitorStat">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR"/>
+        <result column="APP_ID" property="appId" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR"/>
+        <result column="TOTAL_CALL_COUNT" property="totalCallCount" jdbcType="INTEGER"/>
+        <result column="SUCCESS_RATEA" property="successRatea" jdbcType="INTEGER"/>
+        <result column="SUCCESS_RATEB" property="successRateb" jdbcType="INTEGER"/>
+        <result column="RESPONSE_RATEA" property="responseRatea" jdbcType="INTEGER"/>
+        <result column="RESPONSE_RATEB" property="responseRateb" jdbcType="INTEGER"/>
+        <result column="TALK_TIMEA" property="talkTimea" jdbcType="INTEGER"/>
+        <result column="TALK_TIMEB" property="talkTimeb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TALK_TIMEA" property="averageTalkTimea" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TALK_TIMEB" property="averageTalkTimeb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TURN_ON_DELAYA" property="averageTurnOnDelaya" jdbcType="INTEGER"/>
+        <result column="AVERAGE_TURN_ON_DELAYB" property="averageTurnOnDelayb" jdbcType="INTEGER"/>
+        <result column="AVERAGE_IN_TIMEA" property="averageInTimea" jdbcType="INTEGER"/>
+        <result column="AVERAGE_IN_TIMEB" property="averageInTimeb" jdbcType="INTEGER"/>
+        <result column="RING_COUNTA" property="ringCounta" jdbcType="INTEGER"/>
+        <result column="CALL_COUNTA" property="callCounta" jdbcType="INTEGER"/>
+        <result column="RESPONSE_COUNTA" property="responseCounta" jdbcType="INTEGER"/>
+        <result column="TOTAL_TURN_ON_DELAYA" property="totalTurnOnDelaya" jdbcType="INTEGER"/>
+        <result column="TOTAL_IN_TIMEA" property="totalInTimea" jdbcType="INTEGER"/>
+        <result column="RING_COUNTB" property="ringCountb" jdbcType="INTEGER"/>
+        <result column="CALL_COUNTB" property="callCountb" jdbcType="INTEGER"/>
+        <result column="RESPONSE_COUNTB" property="responseCountb" jdbcType="INTEGER"/>
+        <result column="TOTAL_TURN_ON_DELAYB" property="totalTurnOnDelayb" jdbcType="INTEGER"/>
+        <result column="TOTAL_IN_TIMEB" property="totalInTimeb" jdbcType="INTEGER"/>
+        <result column="STATISTICAL_TIME" property="statisticalTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="SEND_TIME" property="sendTime" />
+		<result column="REPORT_TIME" property="reportTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB,
+        RESPONSE_RATEA, RESPONSE_RATEB,TALK_TIMEA, TALK_TIMEB,
+        AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB,
+        AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA,
+        TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB,
+        TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+    </sql>
+
+    <sql id="Base_Global_List">
+        ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB,
+        RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB,
+        AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB,
+        AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA,
+        TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB,
+        TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+    </sql>
+
+    <select id="queryMonitorStatForGlobal" parameterType="com.zy.cms.vo.query.ChartQuery" resultMap="BaseResultMapForChart">
+        SELECT
+        API_ACCOUNT AS API_ACCOUNT,
+        BUSINESS_ID AS BUSINESS_ID,
+        FLOOR(IF(CALL_COUNTA = 0, 0, ROUND(RING_COUNTA/CALL_COUNTA,4))*10000) AS SUCCESS_RATEA,
+        FLOOR(IF(CALL_COUNTB = 0, 0, ROUND(RING_COUNTB/CALL_COUNTB,4))*10000) AS SUCCESS_RATEB,
+        FLOOR(IF(CALL_COUNTA = 0, 0, ROUND(RESPONSE_COUNTA/CALL_COUNTA,4))*10000) AS RESPONSE_RATEA,
+        FLOOR(IF(CALL_COUNTB = 0, 0, ROUND(RESPONSE_COUNTB/CALL_COUNTB,4))*10000) AS RESPONSE_RATEB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(TALK_TIMEA/RESPONSE_COUNTA,1))) AS AVERAGE_TALK_TIMEA,
+        FLOOR(IF(RESPONSE_COUNTB = 0, 0, ROUND(TALK_TIMEB/RESPONSE_COUNTB,1))) AS AVERAGE_TALK_TIMEB,
+        FLOOR(IF(RING_COUNTA = 0, 0, ROUND(TOTAL_TURN_ON_DELAYA/RING_COUNTA,1))) AS AVERAGE_TURN_ON_DELAYA,
+        FLOOR(IF(RING_COUNTB = 0, 0, ROUND(TOTAL_TURN_ON_DELAYB/RING_COUNTB,1))) AS AVERAGE_TURN_ON_DELAYB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(TOTAL_IN_TIMEA/RESPONSE_COUNTA,1))) AS AVERAGE_IN_TIMEA,
+        FLOOR(IF(RESPONSE_COUNTB = 0, 0, ROUND(TOTAL_IN_TIMEB/RESPONSE_COUNTB,1))) AS AVERAGE_IN_TIMEB,
+        TOTAL_CALL_COUNT,
+        TALK_TIMEA,
+        TALK_TIMEB,
+        RING_COUNTA,
+        CALL_COUNTA,
+        RESPONSE_COUNTA,
+        TOTAL_TURN_ON_DELAYA,
+        TOTAL_IN_TIMEA,
+        RING_COUNTB,
+        CALL_COUNTB,
+        RESPONSE_COUNTB,
+        TOTAL_TURN_ON_DELAYB,
+        TOTAL_IN_TIMEB,
+        STATISTICAL_TIME AS STATISTICAL_TIME,
+        CREATE_TIME AS CREATE_TIME,
+        AVERAGE_TALK_TIMEA_SMS AS SEND_TIME,
+	    AVERAGE_TALK_TIMEB_SMS AS REPORT_TIME
+        FROM (
+        SELECT
+        '0' AS API_ACCOUNT,
+        c.BUSINESS_ID AS BUSINESS_ID,
+        SUM(IF(c.TOTAL_CALL_COUNT IS NULL, 0, TOTAL_CALL_COUNT)) AS TOTAL_CALL_COUNT,
+        SUM(IF(c.TALK_TIMEA IS NULL, 0, TALK_TIMEA)) AS TALK_TIMEA,
+        SUM(IF(c.TALK_TIMEB IS NULL, 0, TALK_TIMEB)) AS TALK_TIMEB,
+        SUM(IF(c.RING_COUNTA IS NULL, 0, RING_COUNTA)) AS RING_COUNTA,
+        SUM(IF(c.CALL_COUNTA IS NULL, 0, CALL_COUNTA)) AS CALL_COUNTA,
+        SUM(IF(c.RESPONSE_COUNTA IS NULL, 0, RESPONSE_COUNTA)) AS RESPONSE_COUNTA,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYA IS NULL, 0, TOTAL_TURN_ON_DELAYA)) AS TOTAL_TURN_ON_DELAYA,
+        SUM(IF(c.TOTAL_IN_TIMEA IS NULL, 0, TOTAL_IN_TIMEA)) AS TOTAL_IN_TIMEA,
+        SUM(IF(c.RING_COUNTB IS NULL, 0, RING_COUNTB)) AS RING_COUNTB,
+        SUM(IF(c.CALL_COUNTB IS NULL, 0, CALL_COUNTB)) AS CALL_COUNTB,
+        SUM(IF(c.RESPONSE_COUNTB IS NULL, 0, RESPONSE_COUNTB)) AS RESPONSE_COUNTB,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYB IS NULL, 0, TOTAL_TURN_ON_DELAYB)) AS TOTAL_TURN_ON_DELAYB,
+        SUM(IF(c.TOTAL_IN_TIMEB IS NULL, 0, TOTAL_IN_TIMEB)) AS TOTAL_IN_TIMEB,
+        SUM(IF(c.AVERAGE_TALK_TIMEA IS NULL, 0, AVERAGE_TALK_TIMEA)) AS AVERAGE_TALK_TIMEA_SMS, 
+	    SUM(IF(c.AVERAGE_TALK_TIMEB IS NULL, 0, AVERAGE_TALK_TIMEB)) AS AVERAGE_TALK_TIMEB_SMS, 
+        c.STATISTICAL_TIME AS STATISTICAL_TIME,
+        c.CREATE_TIME AS CREATE_TIME
+        FROM cdr_monitor_stat_${tableDate} c
+        WHERE 1 = 1
+        AND c.STATIS_TYPE=1
+        AND c.BUSINESS_ID = #{businessId}
+        GROUP BY c.STATISTICAL_TIME
+        ORDER BY c.CREATE_TIME ASC
+        ) t
+    </select>
+
+    <select id="queryMonitorStatForAccount" parameterType="com.zy.cms.vo.query.ChartQuery" resultMap="BaseResultMapForChart">
+        SELECT
+        API_ACCOUNT AS API_ACCOUNT,
+        BUSINESS_ID AS BUSINESS_ID,
+        FLOOR(IF(CALL_COUNTA = 0, 0, ROUND(RING_COUNTA/CALL_COUNTA,4))*10000) AS SUCCESS_RATEA,
+        FLOOR(IF(CALL_COUNTB = 0, 0, ROUND(RING_COUNTB/CALL_COUNTB,4))*10000) AS SUCCESS_RATEB,
+        FLOOR(IF(CALL_COUNTA = 0, 0, ROUND(RESPONSE_COUNTA/CALL_COUNTA,4))*10000) AS RESPONSE_RATEA,
+        FLOOR(IF(CALL_COUNTB = 0, 0, ROUND(RESPONSE_COUNTB/CALL_COUNTB,4))*10000) AS RESPONSE_RATEB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(TALK_TIMEA/RESPONSE_COUNTA,1))) AS AVERAGE_TALK_TIMEA,
+        FLOOR(IF(RESPONSE_COUNTB = 0, 0, ROUND(TALK_TIMEB/RESPONSE_COUNTB,1))) AS AVERAGE_TALK_TIMEB,
+        FLOOR(IF(RING_COUNTA = 0, 0, ROUND(TOTAL_TURN_ON_DELAYA/RING_COUNTA,1))) AS AVERAGE_TURN_ON_DELAYA,
+        FLOOR(IF(RING_COUNTB = 0, 0, ROUND(TOTAL_TURN_ON_DELAYB/RING_COUNTB,1))) AS AVERAGE_TURN_ON_DELAYB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(TOTAL_IN_TIMEA/RESPONSE_COUNTA,1))) AS AVERAGE_IN_TIMEA,
+        FLOOR(IF(RESPONSE_COUNTB = 0, 0, ROUND(TOTAL_IN_TIMEB/RESPONSE_COUNTB,1))) AS AVERAGE_IN_TIMEB,
+        TOTAL_CALL_COUNT,
+        TALK_TIMEA,
+        TALK_TIMEB,
+        RING_COUNTA,
+        CALL_COUNTA,
+        RESPONSE_COUNTA,
+        TOTAL_TURN_ON_DELAYA,
+        TOTAL_IN_TIMEA,
+        RING_COUNTB,
+        CALL_COUNTB,
+        RESPONSE_COUNTB,
+        TOTAL_TURN_ON_DELAYB,
+        TOTAL_IN_TIMEB,
+        STATISTICAL_TIME AS STATISTICAL_TIME,
+        CREATE_TIME AS CREATE_TIME,
+        AVERAGE_TALK_TIMEA_SMS AS SEND_TIME,
+	    AVERAGE_TALK_TIMEB_SMS AS REPORT_TIME 
+        FROM (
+        SELECT
+        c.API_ACCOUNT AS API_ACCOUNT,
+        c.BUSINESS_ID AS BUSINESS_ID,
+        SUM(IF(c.TOTAL_CALL_COUNT IS NULL, 0, TOTAL_CALL_COUNT)) AS TOTAL_CALL_COUNT,
+        SUM(IF(c.TALK_TIMEA IS NULL, 0, TALK_TIMEA)) AS TALK_TIMEA,
+        SUM(IF(c.TALK_TIMEB IS NULL, 0, TALK_TIMEB)) AS TALK_TIMEB,
+        SUM(IF(c.RING_COUNTA IS NULL, 0, RING_COUNTA)) AS RING_COUNTA,
+        SUM(IF(c.CALL_COUNTA IS NULL, 0, CALL_COUNTA)) AS CALL_COUNTA,
+        SUM(IF(c.RESPONSE_COUNTA IS NULL, 0, RESPONSE_COUNTA)) AS RESPONSE_COUNTA,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYA IS NULL, 0, TOTAL_TURN_ON_DELAYA)) AS TOTAL_TURN_ON_DELAYA,
+        SUM(IF(c.TOTAL_IN_TIMEA IS NULL, 0, TOTAL_IN_TIMEA)) AS TOTAL_IN_TIMEA,
+        SUM(IF(c.RING_COUNTB IS NULL, 0, RING_COUNTB)) AS RING_COUNTB,
+        SUM(IF(c.CALL_COUNTB IS NULL, 0, CALL_COUNTB)) AS CALL_COUNTB,
+        SUM(IF(c.RESPONSE_COUNTB IS NULL, 0, RESPONSE_COUNTB)) AS RESPONSE_COUNTB,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYB IS NULL, 0, TOTAL_TURN_ON_DELAYB)) AS TOTAL_TURN_ON_DELAYB,
+        SUM(IF(c.TOTAL_IN_TIMEB IS NULL, 0, TOTAL_IN_TIMEB)) AS TOTAL_IN_TIMEB,
+        SUM(IF(c.AVERAGE_TALK_TIMEA IS NULL, 0, AVERAGE_TALK_TIMEA)) AS AVERAGE_TALK_TIMEA_SMS, 
+	    SUM(IF(c.AVERAGE_TALK_TIMEB IS NULL, 0, AVERAGE_TALK_TIMEB)) AS AVERAGE_TALK_TIMEB_SMS, 
+        c.STATISTICAL_TIME AS STATISTICAL_TIME,
+        c.CREATE_TIME AS CREATE_TIME
+        FROM cdr_monitor_stat_${tableDate} c
+        WHERE 1 = 1
+        AND c.API_ACCOUNT = #{apiAccount }
+        AND c.BUSINESS_ID = #{businessId}
+        AND c.STATIS_TYPE=1
+        GROUP BY c.STATISTICAL_TIME, c.API_ACCOUNT
+        ORDER BY c.CREATE_TIME ASC
+        ) t
+    </select>
+
+    <select id="queryMonitorStatForChannel" parameterType="com.zy.cms.vo.query.ChartQuery" resultMap="BaseResultMap">
+        SELECT
+        API_ACCOUNT AS API_ACCOUNT,
+        BUSINESS_ID AS BUSINESS_ID,
+        FLOOR(IF(RING_COUNTA = 0, 0, ROUND(RING_COUNTA/TOTAL_CALL_COUNT,4))*10000) AS SUCCESS_RATEA,
+        FLOOR(IF(RING_COUNTB = 0, 0, ROUND(RING_COUNTB/TOTAL_CALL_COUNT,4))*10000) AS SUCCESS_RATEB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(RESPONSE_COUNTA/TOTAL_CALL_COUNT,4))*10000) AS RESPONSE_RATEA,
+        FLOOR(IF(AVERAGE_TALK_TIMEA = 0, 0, ROUND(AVERAGE_TALK_TIMEA/TOTAL_CALL_COUNT,0))) AS AVERAGE_TALK_TIMEA,
+        FLOOR(IF(AVERAGE_TALK_TIMEB = 0, 0, ROUND(AVERAGE_TALK_TIMEB/RING_COUNTA,0))) AS AVERAGE_TALK_TIMEB,
+        TOTAL_CALL_COUNT,
+        RING_COUNTA,
+        RING_COUNTB,
+        RESPONSE_COUNTA,
+        CALL_COUNTA,
+        CALL_COUNTB,
+        RESPONSE_COUNTB,
+        STATISTICAL_TIME AS STATISTICAL_TIME
+        FROM (
+        SELECT
+        c.API_ACCOUNT AS API_ACCOUNT,
+        c.BUSINESS_ID AS BUSINESS_ID,
+        SUM(IF(c.TOTAL_CALL_COUNT IS NULL, 0, TOTAL_CALL_COUNT)) AS TOTAL_CALL_COUNT,
+        SUM(IF(c.RING_COUNTA IS NULL, 0, RING_COUNTA)) AS RING_COUNTA,
+        SUM(IF(c.CALL_COUNTA IS NULL, 0, CALL_COUNTA)) AS CALL_COUNTA,
+        SUM(IF(c.RESPONSE_COUNTA IS NULL, 0, RESPONSE_COUNTA)) AS RESPONSE_COUNTA,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYA IS NULL, 0, TOTAL_TURN_ON_DELAYA)) AS TOTAL_TURN_ON_DELAYA,
+        SUM(IF(c.TOTAL_IN_TIMEA IS NULL, 0, TOTAL_IN_TIMEA)) AS TOTAL_IN_TIMEA,
+        SUM(IF(c.RING_COUNTB IS NULL, 0, RING_COUNTB)) AS RING_COUNTB,
+        SUM(IF(c.CALL_COUNTB IS NULL, 0, CALL_COUNTB)) AS CALL_COUNTB,
+        SUM(IF(c.AVERAGE_TALK_TIMEA IS NULL, 0, AVERAGE_TALK_TIMEA)) AS AVERAGE_TALK_TIMEA,
+        SUM(IF(c.AVERAGE_TALK_TIMEB IS NULL, 0, AVERAGE_TALK_TIMEB)) AS AVERAGE_TALK_TIMEB,
+        SUM(IF(c.RESPONSE_COUNTB IS NULL, 0, RESPONSE_COUNTB)) AS RESPONSE_COUNTB,
+        c.STATISTICAL_TIME AS STATISTICAL_TIME,
+        c.CREATE_TIME AS CREATE_TIME
+        FROM cdr_monitor_stat_${tableDate} c
+        WHERE c.STATIS_TYPE=2
+        AND c.APP_ID = #{channelId }
+        GROUP BY c.STATISTICAL_TIME
+        ORDER BY c.CREATE_TIME ASC
+        ) t
+    </select>
+
+    <select id="queryMainMonitorStaForChannel" parameterType="com.zy.cms.vo.query.ChartQuery" resultMap="BaseResultMap">
+        SELECT
+        API_ACCOUNT AS API_ACCOUNT,
+        BUSINESS_ID AS BUSINESS_ID,
+        FLOOR(IF(RING_COUNTA = 0, 0, ROUND(RING_COUNTA/TOTAL_CALL_COUNT,4))*10000) AS SUCCESS_RATEA,
+        FLOOR(IF(RING_COUNTB = 0, 0, ROUND(RING_COUNTB/TOTAL_CALL_COUNT,4))*10000) AS SUCCESS_RATEB,
+        FLOOR(IF(RESPONSE_COUNTA = 0, 0, ROUND(RESPONSE_COUNTA/TOTAL_CALL_COUNT,4))*10000) AS RESPONSE_RATEA,
+        FLOOR(IF(AVERAGE_TALK_TIMEA = 0, 0, ROUND(AVERAGE_TALK_TIMEA/TOTAL_CALL_COUNT,0))) AS AVERAGE_TALK_TIMEA,
+        FLOOR(IF(AVERAGE_TALK_TIMEB = 0, 0, ROUND(AVERAGE_TALK_TIMEB/RING_COUNTA,0))) AS AVERAGE_TALK_TIMEB,
+        TOTAL_CALL_COUNT,
+        RING_COUNTA,
+        RING_COUNTB,
+        RESPONSE_COUNTA,
+        CALL_COUNTA,
+        CALL_COUNTB,
+        RESPONSE_COUNTB,
+        STATISTICAL_TIME AS STATISTICAL_TIME
+        FROM (
+        SELECT
+        c.API_ACCOUNT AS API_ACCOUNT,
+        c.BUSINESS_ID AS BUSINESS_ID,
+        SUM(IF(c.TOTAL_CALL_COUNT IS NULL, 0, TOTAL_CALL_COUNT)) AS TOTAL_CALL_COUNT,
+        SUM(IF(c.RING_COUNTA IS NULL, 0, RING_COUNTA)) AS RING_COUNTA,
+        SUM(IF(c.CALL_COUNTA IS NULL, 0, CALL_COUNTA)) AS CALL_COUNTA,
+        SUM(IF(c.RESPONSE_COUNTA IS NULL, 0, RESPONSE_COUNTA)) AS RESPONSE_COUNTA,
+        SUM(IF(c.TOTAL_TURN_ON_DELAYA IS NULL, 0, TOTAL_TURN_ON_DELAYA)) AS TOTAL_TURN_ON_DELAYA,
+        SUM(IF(c.TOTAL_IN_TIMEA IS NULL, 0, TOTAL_IN_TIMEA)) AS TOTAL_IN_TIMEA,
+        SUM(IF(c.RING_COUNTB IS NULL, 0, RING_COUNTB)) AS RING_COUNTB,
+        SUM(IF(c.CALL_COUNTB IS NULL, 0, CALL_COUNTB)) AS CALL_COUNTB,
+        SUM(IF(c.AVERAGE_TALK_TIMEA IS NULL, 0, AVERAGE_TALK_TIMEA)) AS AVERAGE_TALK_TIMEA,
+        SUM(IF(c.AVERAGE_TALK_TIMEB IS NULL, 0, AVERAGE_TALK_TIMEB)) AS AVERAGE_TALK_TIMEB,
+        SUM(IF(c.RESPONSE_COUNTB IS NULL, 0, RESPONSE_COUNTB)) AS RESPONSE_COUNTB,
+        c.STATISTICAL_TIME AS STATISTICAL_TIME,
+        c.CREATE_TIME AS CREATE_TIME
+        FROM cdr_monitor_stat_${tableDate} c
+        WHERE c.STATIS_TYPE=2
+        AND c.APP_ID LIKE CONCAT('${channelMainCode}-','%')
+        GROUP BY c.STATISTICAL_TIME
+        ORDER BY c.CREATE_TIME ASC
+        ) t
+    </select>
+    
+</mapper>

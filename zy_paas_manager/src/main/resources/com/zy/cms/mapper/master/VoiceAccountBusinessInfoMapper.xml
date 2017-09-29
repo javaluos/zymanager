@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.VoiceAccountBusinessInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.VoiceAccountBusinessInfo" >
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="FEE_RULE" property="feeRule" jdbcType="INTEGER" />
+    <result column="FEERATE" property="feerate" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    API_ACCOUNT, BUSINESS_ID, FEE_RULE, FEERATE, REMARK,UPDATE_TIME, CREATE_TIME
+  </sql>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.VoiceAccountBusinessInfo" >
+    insert into voice_account_business_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="feeRule != null" >
+        FEE_RULE,
+      </if>
+      <if test="feerate != null" >
+        FEERATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRule != null" >
+        #{feeRule,jdbcType=INTEGER},
+      </if>
+      <if test="feerate != null" >
+        #{feerate,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 实体对象查询条件SQL -->
+	<sql id="queryVoiceAccountBusinessInfoEntityCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	         1=1
+	        <if test="apiAccount != null and apiAccount !=''">
+				AND w.api_account = #{apiAccount}
+			</if>
+			<if test="businessId != null and businessId !=''">
+				AND w.BUSINESS_ID = #{businessId}
+			</if>
+			<if test="feeRule != null and feeRule !=''">
+				AND w.FEE_RULE = #{feeRule}
+			</if>
+			<if test="feerate != null and feerate !=''">
+				AND w.FEERATE = #{feerate}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND w.REMARK = #{remark}
+			</if>
+			<if test="updateTimeStart != null and updateTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(w.UPDATE_TIME, '%Y%m%d')>=  DATE_FORMAT(#{updateTimeStart}, '%Y%m%d')]]>
+			</if>
+			<if test="updateTimeEnd != null and updateTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(w.UPDATE_TIME, '%Y%m%d')<=  DATE_FORMAT(#{updateTimeEnd}, '%Y%m%d')]]>
+			</if>
+			<if test="createTimeStart != null and createTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(w.CREATE_TIME, '%Y%m%d')>=  DATE_FORMAT(#{createTimeStart}, '%Y%m%d')]]>
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(w.CREATE_TIME, '%Y%m%d')<=  DATE_FORMAT(#{createTimeEnd}, '%Y%m%d')]]>
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	            and w.api_account in  
+	            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+                </foreach>  
+            </if>  
+		</trim>	
+	</sql>
+	
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryVoiceAccountBusinessInfoByAccount" parameterType="String" resultMap="BaseResultMap">
+	   SELECT *
+	   FROM voice_account_business_info w
+	   WHERE 
+		w.API_ACCOUNT = #{apiAccount}
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryVoiceAccountBusinessInfoByEntity" parameterType="com.zy.cms.vo.query.VoiceAccountBusinessInfoQuery" resultMap="BaseResultMap">
+		SELECT w.*,v.merchant_phone as merchantPhone,v.business_name as businessName,
+		     SUM(
+             CASE BUSINESS_ID
+			 WHEN '1' THEN w.FEERATE
+			 ELSE '0' END ) AS callBack,
+			 
+			 SUM(
+             CASE BUSINESS_ID
+			 WHEN '1' THEN 
+			  (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS callBackRule2,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN w.FEERATE 
+			 ELSE '0' END ) AS numberGuard,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  ) 
+			 ELSE '0' END ) AS numberGuardRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN w.FEERATE
+			 ELSE '0' END ) AS directDialTelephone,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS directDialTelephoneRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS voiceNotificationRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceVerificationCode,
+			 
+			  SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS voiceVerificationCodeRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN w.FEERATE
+			 ELSE '0' END ) AS callCenter,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN
+			  (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS callCenterRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN w.FEERATE
+			 ELSE '0' END ) AS multiTalk,
+			 
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS multiTalkRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '8' THEN w.FEERATE
+			 ELSE '0' END ) AS smsNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '9' THEN w.FEERATE
+			 ELSE '0' END ) AS smsVeriicationCode,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '10' THEN w.FEERATE
+			 ELSE '0' END ) AS soundRecording,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '11' THEN w.FEERATE
+			 ELSE '0' END ) AS smsMarket
+			 
+		FROM voice_account_business_info w inner join voice_merchant_account v on w.API_ACCOUNT=v.API_ACCOUNT
+		<include refid="queryVoiceAccountBusinessInfoEntityCondition"/>
+		GROUP BY w.API_ACCOUNT
+		ORDER BY  CREATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+  
+    <!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryVoiceAccountBusinessInfoCountByEntity" parameterType="com.zy.cms.vo.query.CdrDailyStatisticsQuery" resultType="int">
+		SELECT SUM(1) AS total_count
+		FROM
+		  ( SELECT 
+			   SUM(1) AS totalCount
+			FROM voice_account_business_info w
+			<include refid="queryVoiceAccountBusinessInfoEntityCondition"/>
+			GROUP BY w.API_ACCOUNT
+		  ) v
+	</select>
+	
+    <!-- 根据主键ID获取数据 -->
+	<select id="findVoiceAccountBusinessInfo" parameterType="com.zy.cms.vo.query.VoiceAccountBusinessInfoQuery" resultMap="BaseResultMap">
+		SELECT w.*,v.merchant_phone as merchantPhone,v.business_name as businessName,
+		     SUM(
+             CASE BUSINESS_ID
+			 WHEN '1' THEN w.FEERATE
+			 ELSE '0' END ) AS callBack,
+			 
+			 SUM(
+             CASE BUSINESS_ID
+			 WHEN '1' THEN w.FEE_RULE
+			 ELSE '0' END ) AS callBackRule,
+			 
+			 SUM(
+             CASE BUSINESS_ID
+			 WHEN '1' THEN 
+			  (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS callBackRule2,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN w.FEERATE 
+			 ELSE '0' END ) AS numberGuard,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN w.FEE_RULE 
+			 ELSE '0' END ) AS numberGuardRule,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  ) 
+			 ELSE '0' END ) AS numberGuardRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN w.FEERATE
+			 ELSE '0' END ) AS directDialTelephone,
+			 
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN w.FEE_RULE
+			 ELSE '0' END ) AS directDialTelephoneRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS directDialTelephoneRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN w.FEE_RULE
+			 ELSE '0' END ) AS voiceNotificationRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS voiceNotificationRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceVerificationCode,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN w.FEE_RULE
+			 ELSE '0' END ) AS voiceVerificationCodeRule,
+			 
+			  SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS voiceVerificationCodeRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN w.FEERATE
+			 ELSE '0' END ) AS callCenter,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN w.FEE_RULE
+			 ELSE '0' END ) AS callCenterRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN
+			  (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS callCenterRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN w.FEERATE
+			 ELSE '0' END ) AS multiTalk,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN w.FEE_RULE
+			 ELSE '0' END ) AS multiTalkRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN 
+			 (
+			   CASE FEE_RULE
+			   WHEN '0' THEN 10
+			   WHEN '1' THEN 2
+			   ELSE 1 END
+			  )
+			 ELSE '0' END ) AS multiTalkRule2,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '8' THEN w.FEERATE
+			 ELSE '0' END ) AS smsNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '8' THEN w.FEE_RULE
+			 ELSE '0' END ) AS smsNotificationRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '9' THEN w.FEERATE
+			 ELSE '0' END ) AS smsVeriicationCode,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '9' THEN w.FEE_RULE
+			 ELSE '0' END ) AS smsVeriicationCodeRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '10' THEN w.FEERATE
+			 ELSE '0' END ) AS soundRecording,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '10' THEN w.FEE_RULE
+			 ELSE '0' END ) AS soundRecordingRule,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '11' THEN w.FEERATE
+			 ELSE '0' END ) AS smsMarket,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '11' THEN w.FEE_RULE
+			 ELSE '0' END ) AS smsMarketRule
+			 
+		FROM voice_account_business_info w left join voice_merchant_account v on w.API_ACCOUNT=v.API_ACCOUNT
+		WHERE 
+		w.API_ACCOUNT = #{apiAccount}
+	</select>
+  
+    <!-- 查找默认的配资资费-->
+	<select id="findVoiceBusinessInfo"  resultMap="BaseResultMap">
+		SELECT 
+		     SUM(
+			 CASE BUSINESS_ID
+			 WHEN '1' THEN w.FEERATE
+			 ELSE '0' END ) AS callBack,
+			 
+			 SUM(
+			 CASE BUSINESS_ID
+			 WHEN '2' THEN w.FEERATE 
+			 ELSE '0' END ) AS numberGuard,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '3' THEN w.FEERATE
+			 ELSE '0' END ) AS directDialTelephone,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '4' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '5' THEN w.FEERATE
+			 ELSE '0' END ) AS voiceVerificationCode,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '6' THEN w.FEERATE
+			 ELSE '0' END ) AS callCenter,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '7' THEN w.FEERATE
+			 ELSE '0' END ) AS multiTalk,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '8' THEN w.FEERATE
+			 ELSE '0' END ) AS smsNotification,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '9' THEN w.FEERATE
+			 ELSE '0' END ) AS smsVeriicationCode,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '10' THEN w.FEERATE
+			 ELSE '0' END ) AS soundRecording,
+			 
+			 SUM(CASE BUSINESS_ID
+			 WHEN '11' THEN w.FEERATE
+			 ELSE '0' END ) AS smsMarket
+			 
+		FROM voice_business_info w 
+	</select>
+  
+  
+    <insert id="batchInsert" parameterType="Map" >
+      insert into voice_account_business_info (
+        API_ACCOUNT,
+        BUSINESS_ID,
+        FEE_RULE,
+        FEERATE,
+        REMARK,
+        UPDATE_TIME,
+        CREATE_TIME
+      )
+      values
+      <foreach collection="list" item="record" index ="index" separator=",">
+      (
+       #{record.apiAccount,jdbcType=VARCHAR},
+       #{record.businessId,jdbcType=VARCHAR},
+       #{record.feeRule,jdbcType=INTEGER},
+       #{record.feerate,jdbcType=INTEGER},
+       #{record.remark,jdbcType=VARCHAR},
+       #{record.updateTime,jdbcType=TIMESTAMP},
+       #{record.createTime,jdbcType=TIMESTAMP}
+      )  
+    </foreach>  
+  </insert>
+  
+   
+  <update id="update" parameterType="com.zy.cms.vo.VoiceAccountBusinessInfo" >
+    update voice_account_business_info
+    <set >
+      <if test="feeRule != null" >
+        FEE_RULE = #{feeRule,jdbcType=INTEGER},
+      </if>
+      <if test="feerate != null" >
+        FEERATE = #{feerate,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+     where API_ACCOUNT = #{apiAccount} and  BUSINESS_ID = #{businessId}
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" index="index" item="item" open="" close="" separator=";">
+        update voice_account_business_info 
+        set 
+	        FEE_RULE = #{item.feeRule},
+	        FEERATE = #{item.feerate},
+	        UPDATE_TIME = #{item.updateTime}
+        where 
+        	API_ACCOUNT = #{item.apiAccount} and BUSINESS_ID = #{item.businessId}
+   </foreach>
+  </update>
+  
+</mapper>

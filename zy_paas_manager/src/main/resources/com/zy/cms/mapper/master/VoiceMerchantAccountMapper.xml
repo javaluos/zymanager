@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.VoiceMerchantAccountMapper">
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.MerchantAccount" >
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="API_KEY" property="apikey" jdbcType="VARCHAR" />
+    <result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+    <result column="MERCHANT_EMAIL" property="merchantEmail" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PWD" property="merchantPwd" jdbcType="VARCHAR" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+    <result column="AUTH_FLAG" property="authFlag" jdbcType="INTEGER" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="SMALLINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="BALANCE" property="currentFee" jdbcType="BIGINT" />
+  </resultMap>
+ 
+	<sql id="Base_Column_List">
+		API_ACCOUNT, API_KEY, MERCHANT_ACCOUNT, MERCHANT_PHONE,
+		MERCHANT_EMAIL, MERCHANT_PWD, BUSINESS_NAME, MERCHANT_TYPE, AUTH_FLAG,
+		IS_LOCKED, CREATE_TIME, UPDATE_TIME
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="where_clause">
+		<where>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="apikey != null">
+				and API_KEY = #{apikey,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantAccount != null">
+				and MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantPhone != null">
+				and MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantEmail != null">
+				and MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantPwd != null">
+				and MERCHANT_PWD = #{merchantPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="businessName != null">
+				and BUSINESS_NAME = #{businessName,jdbcType=VARCHAR}
+			</if>
+			<if test="isLocked != null">
+				and IS_LOCKED = #{isLocked,jdbcType=SMALLINT}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="where_clause_update">
+		<where>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="apikey != null">
+				and API_KEY = #{apikey,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantPhone != null">
+				and MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantEmail != null">
+				and MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="businessname != ''">
+				and BUSINESS_NAME = #{businessname,jdbcType=VARCHAR}
+			</if>
+			<if test="authflag != 0">
+				and AUTH_FLAG = #{authflag,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 批量查询条件 -->
+	<sql id="query_where_clause">
+		<where>
+			<if test="merchantphone != ''">
+				and MERCHANT_PHONE = #{merchantphone,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantemail != ''">
+				and MERCHANT_EMAIL = #{merchantemail,jdbcType=VARCHAR}
+			</if>
+			<if test="authflag != 0">
+				and AUTH_FLAG = #{authflag,jdbcType=INTEGER}
+			</if>
+		</where>
+		ORDER BY UPDATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</sql>
+	
+	<sql id="count_where_clause">
+		<where>
+			<if test="apiaccount != null and apiaccount != ''">
+				and API_ACCOUNT = #{apiaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="businessname != null and businessname != ''">
+				and BUSINESS_NAME like CONCAT('%',#{businessname},'%')
+			</if>
+			<if test="merchantphone != null and merchantphone != ''">
+				and MERCHANT_PHONE like CONCAT('%',#{merchantphone},'%')
+			</if>
+			<if test="merchantemail != null and merchantemail != ''">
+				and MERCHANT_EMAIL like CONCAT('%',#{merchantemail},'%')
+			</if>
+			<if test="authflag != null and authflag != 0">
+				and AUTH_FLAG = #{authflag,jdbcType=INTEGER}
+			</if>
+			<if test="isLocked != null">
+				and IS_LOCKED = #{isLocked,jdbcType=INTEGER}
+			</if>
+			<if test="regstarttime != null and regstarttime !=''">
+			    and <![CDATA[ UNIX_TIMESTAMP(CREATE_TIME)>=  UNIX_TIMESTAMP(#{regstarttime})]]>
+			</if>
+			<if test="regendtime != null and regendtime !=''">
+			    and <![CDATA[ UNIX_TIMESTAMP(CREATE_TIME)<=  UNIX_TIMESTAMP(#{regendtime})]]>
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	            and API_ACCOUNT in  
+	            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+                </foreach>  
+            </if>  
+		</where>
+	</sql>
+
+	<select id="selectByApiAccount" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+		where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getMerchantAccount" parameterType="String" resultMap="BaseResultMap">
+		select
+		  a.API_ACCOUNT, a.API_KEY, a.MERCHANT_ACCOUNT, a.MERCHANT_PHONE,
+		  a.MERCHANT_EMAIL, a.MERCHANT_PWD, a.BUSINESS_NAME, a.MERCHANT_TYPE,
+		  a.AUTH_FLAG, a.IS_LOCKED, a.UPDATE_TIME, a.CREATE_TIME,
+		  b.BALANCE
+		from voice_merchant_account a
+		left join voice_merchant_account_balance b
+		on  a.API_ACCOUNT = b.API_ACCOUNT
+		where a.API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+		limit 1
+	</select>
+	
+	<select id="getMerchantAccountByPhone" parameterType="String" resultMap="BaseResultMap">
+		select
+		  a.API_ACCOUNT, a.API_KEY, a.MERCHANT_ACCOUNT, a.MERCHANT_PHONE,
+		  a.MERCHANT_EMAIL, a.MERCHANT_PWD, a.BUSINESS_NAME, a.MERCHANT_TYPE,
+		  a.AUTH_FLAG, a.IS_LOCKED, a.UPDATE_TIME, a.CREATE_TIME
+		from voice_merchant_account a
+		where 
+		a.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getMerchantAccountCount" parameterType="com.zy.cms.vo.query.AccountQuery" resultType="Integer">
+		select
+		count(API_ACCOUNT)
+		from voice_merchant_account
+		<include refid="count_where_clause" />
+	</select>
+	
+    <select id="getMerchantAccounts" parameterType="com.zy.cms.vo.query.AccountQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+		<include refid="count_where_clause" />
+		ORDER BY UPDATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<select id="getMerchantAccountByCondition" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+		where 1= 1
+		<if test="businessName != null and businessName != ''" >
+			and BUSINESS_NAME like CONCAT('%',#{businessName},'%')
+		</if>
+		<if test="merchantPhone != null and merchantPhone != ''" >
+			and MERCHANT_PHONE like CONCAT('%',#{merchantPhone},'%')
+		</if>
+	</select>
+
+	<select id="getAllMerchantAccount" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+	</select>
+	
+	<select id="queryMerchantAcctBalanceCount" parameterType="com.zy.cms.vo.query.AccountBalanceQuery" resultType="Integer">
+		select
+		count(a.API_ACCOUNT)
+		from voice_merchant_account a
+		left join voice_merchant_account_balance b
+		on  a.API_ACCOUNT = b.API_ACCOUNT
+		<where>
+			<if test="businessname != ''">
+				and a.BUSINESS_NAME like CONCAT('%',#{businessname},'%')
+			</if>
+			<if test="merchantphone != ''">
+				and a.MERCHANT_PHONE like CONCAT('%',#{merchantphone},'%')
+			</if>
+			<if test="merchantAccount != ''">
+				and a.MERCHANT_ACCOUNT like CONCAT('%',#{merchantAccount},'%')
+			</if>
+			<if test="merchantemail != ''">
+				and a.MERCHANT_EMAIL like CONCAT('%',#{merchantemail},'%')
+			</if>
+			<if test="balancestart >0">
+			  <![CDATA[  and b.BALANCE >= #{balancestart,jdbcType=DOUBLE} ]]>
+			</if>
+			<if test="balanceend >0">
+			  <![CDATA[  and b.BALANCE <= #{balanceend,jdbcType=DOUBLE} ]]>
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	            and b.API_ACCOUNT in  
+	            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+                </foreach>  
+            </if>  
+		</where>
+	</select>
+	
+    <select id="queryMerchantAcctBalances" parameterType="com.zy.cms.vo.query.AccountBalanceQuery" resultMap="BaseResultMap">
+		select
+		a.API_ACCOUNT, a.API_KEY, a.MERCHANT_ACCOUNT, a.MERCHANT_PHONE,
+		a.MERCHANT_EMAIL, a.BUSINESS_NAME, a.MERCHANT_TYPE, a.AUTH_FLAG,
+		a.IS_LOCKED, a.UPDATE_TIME, a.CREATE_TIME, b.BALANCE
+		from voice_merchant_account a
+		left join voice_merchant_account_balance b
+		on  a.API_ACCOUNT = b.API_ACCOUNT
+		<where>
+			<if test="businessname != ''">
+				and a.BUSINESS_NAME like CONCAT('%',#{businessname},'%')
+			</if>
+			<if test="merchantphone != ''">
+				and a.MERCHANT_PHONE like CONCAT('%',#{merchantphone},'%')
+			</if>
+			<if test="merchantAccount != ''">
+				and a.MERCHANT_ACCOUNT like CONCAT('%',#{merchantAccount},'%')
+			</if>
+			<if test="merchantemail != ''">
+				and a.MERCHANT_EMAIL like CONCAT('%',#{merchantemail},'%')
+			</if>
+            <if test="balancestart >0">
+			  <![CDATA[  and b.BALANCE >= #{balancestart,jdbcType=DOUBLE} ]]>
+			</if>
+			<if test="balanceend >0">
+			  <![CDATA[  and b.BALANCE <= #{balanceend,jdbcType=DOUBLE} ]]>
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	            and b.API_ACCOUNT in  
+	            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+                </foreach>  
+            </if>  
+		</where>
+		ORDER BY b.UPDATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.MerchantAccount" >
+    update voice_merchant_account
+    <set >
+      <if test="apikey != null" >
+        API_KEY = #{apikey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantAccount != null" >
+        MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantEmail != null" >
+        MERCHANT_EMAIL = #{merchantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPwd != null and merchantPwd !=''" >
+        MERCHANT_PWD = #{merchantPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantType != null" >
+        MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      </if>
+      <if test="authFlag != null" >
+        AUTH_FLAG = #{authFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=SMALLINT},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </update>
+	
+   <select id="queryMerchantAccountListByApis" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+		where 1=1
+		<if test="array != '' and  array.length>0">
+			AND API_ACCOUNT in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+		</if>
+		 
+	</select>
+	
+	<select id="queryAccountlistLikeName" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from voice_merchant_account
+		where  1=1
+		<if test="businessName != ''">
+			and a.BUSINESS_NAME like CONCAT('%',#{businessName},'%')
+		</if>
+	</select>
+	
+	<select id="querylistByNameOrPhone" parameterType="String" resultType="String">
+		select
+		API_ACCOUNT
+		from voice_merchant_account a
+		where  1=1
+		<if test="name != null and name != ''">
+			and a.BUSINESS_NAME like CONCAT('%',#{name},'%')
+		</if>
+		<if test="phone != null and phone != ''">
+			and a.MERCHANT_PHONE like CONCAT('%',#{phone},'%')
+		</if>
+	</select>
+	
+	<select id="getInfoByMerchantAccount" parameterType="String" resultMap="BaseResultMap">
+		select
+		 *
+		from 
+		    voice_merchant_account a
+		where 
+			a.MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+		limit 1
+	</select>
+	
+	<select id="getInfoByMerchantPhone" parameterType="String" resultMap="BaseResultMap">
+		select
+		 *
+		from 
+		    voice_merchant_account a
+		where 
+			a.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+		limit 1
+	</select>
+	
+	<select id="getInfoByMerchantEmail" parameterType="String" resultMap="BaseResultMap">
+		select
+		 *
+		from 
+		    voice_merchant_account a
+		where 
+			a.MERCHANT_EMAIL = #{email,jdbcType=VARCHAR}
+		limit 1
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		insert into voice_merchant_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="API_ACCOUNT != null">
+				API_ACCOUNT,
+			</if>
+			<if test="API_KEY != null">
+				API_KEY,
+			</if>
+			<if test="MERCHANT_ACCOUNT != null">
+				MERCHANT_ACCOUNT,
+			</if>
+			<if test="MERCHANT_PHONE != null">
+				MERCHANT_PHONE,
+			</if>
+			<if test="MERCHANT_TYPE != null">
+				MERCHANT_TYPE,
+			</if>
+			<if test="MERCHANT_EMAIL != null">
+				MERCHANT_EMAIL,
+			</if>
+			<if test="MERCHANT_PWD != null">
+				MERCHANT_PWD,
+			</if>
+			<if test="BUSINESS_NAME != null">
+				BUSINESS_NAME,
+			</if>
+			<if test="IS_LOCKED != null">
+				IS_LOCKED,
+			</if>
+			<if test="AUTH_FLAG != null">
+				AUTH_FLAG,
+			</if>
+			<if test="UPDATE_TIME != null">
+				UPDATE_TIME,
+			</if>
+			<if test="CREATE_TIME != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="API_ACCOUNT != null">
+				#{API_ACCOUNT,jdbcType=VARCHAR},
+			</if>
+			<if test="API_KEY != null">
+				#{API_KEY,jdbcType=VARCHAR},
+			</if>
+			<if test="MERCHANT_ACCOUNT != null">
+				#{MERCHANT_ACCOUNT,jdbcType=VARCHAR},
+			</if>
+			<if test="MERCHANT_PHONE != null">
+				#{MERCHANT_PHONE,jdbcType=VARCHAR},
+			</if>
+			<if test="MERCHANT_TYPE != null">
+				#{MERCHANT_TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="MERCHANT_EMAIL != null">
+				#{MERCHANT_EMAIL,jdbcType=VARCHAR},
+			</if>
+			<if test="MERCHANT_PWD != null">
+				#{MERCHANT_PWD,jdbcType=VARCHAR},
+			</if>
+			<if test="BUSINESS_NAME != null">
+				#{BUSINESS_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="IS_LOCKED != null">
+				#{IS_LOCKED,jdbcType=SMALLINT},
+			</if>
+			<if test="AUTH_FLAG != null">
+				#{AUTH_FLAG,jdbcType=SMALLINT},
+			</if>
+			<if test="UPDATE_TIME != null">
+				#{UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="CREATE_TIME != null">
+				#{CREATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

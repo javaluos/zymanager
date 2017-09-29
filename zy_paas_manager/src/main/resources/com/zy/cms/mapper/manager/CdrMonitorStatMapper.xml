@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorStatMapper">
+	<!-- 结果集映射 -->
+	<resultMap id="cdrMonitorStatResultMap" type="com.zy.cms.vo.manager.CdrMonitorStat">
+		<id column="ID" property="id" />
+		<result column="API_ACCOUNT" property="apiAccount" />
+		<result column="APP_ID" property="appId" />
+		<result column="BUSINESS_ID" property="businessId" />
+		<result column="TOTAL_CALL_COUNT" property="totalCallCount" />
+		<result column="SUCCESS_RATEA" property="successRatea" />
+		<result column="SUCCESS_RATEB" property="successRateb" />
+		<result column="RESPONSE_RATEA" property="responseRatea" />
+		<result column="RESPONSE_RATEB" property="responseRateb" />
+		<result column="TALK_TIMEA" property="talkTimea" />
+		<result column="TALK_TIMEB" property="talkTimeb" />
+		<result column="AVERAGE_TALK_TIMEA" property="averageTalkTimea" />
+		<result column="AVERAGE_TALK_TIMEB" property="averageTalkTimeb" />
+		<result column="AVERAGE_TURN_ON_DELAYA" property="averageTurnOnDelaya" />
+		<result column="AVERAGE_TURN_ON_DELAYB" property="averageTurnOnDelayb" />
+		<result column="AVERAGE_IN_TIMEA" property="averageInTimea" />
+		<result column="AVERAGE_IN_TIMEB" property="averageInTimeb" />
+		<result column="RING_COUNTA" property="ringCounta" />
+		<result column="CALL_COUNTA" property="callCounta" />
+		<result column="RESPONSE_COUNTA" property="responseCounta" />
+		<result column="TOTAL_TURN_ON_DELAYA" property="totalTurnOnDelaya" />
+		<result column="TOTAL_IN_TIMEA" property="totalInTimea" />
+		<result column="RING_COUNTB" property="ringCountb" />
+		<result column="CALL_COUNTB" property="callCountb" />
+		<result column="RESPONSE_COUNTB" property="responseCountb" />
+		<result column="TOTAL_TURN_ON_DELAYB" property="totalTurnOnDelayb" />
+		<result column="TOTAL_IN_TIMEB" property="totalInTimeb" />
+		<result column="STATISTICAL_TIME" property="statisticalTime" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+	</resultMap>
+	
+	<!-- 分页对象查询条件SQL -->
+	<sql id="queryCdrMonitorStatPageCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+			<if test="params.id != null and params.id !=''">
+				AND ID = #{params.id}
+			</if>
+			<if test="params.apiAccount != null and params.apiAccount !=''">
+				AND API_ACCOUNT = #{params.apiAccount}
+			</if>
+			<if test="params.appId != null and params.appId !=''">
+				AND APP_ID = #{params.appId}
+			</if>
+			<if test="params.businessId != null and params.businessId !=''">
+				AND BUSINESS_ID = #{params.businessId}
+			</if>
+			<if test="params.totalCallCount != null and params.totalCallCount !=''">
+				AND TOTAL_CALL_COUNT = #{params.totalCallCount}
+			</if>
+			<if test="params.successRatea != null and params.successRatea !=''">
+				AND SUCCESS_RATEA = #{params.successRatea}
+			</if>
+			<if test="params.successRateb != null and params.successRateb !=''">
+				AND SUCCESS_RATEB = #{params.successRateb}
+			</if>
+			<if test="params.responseRatea != null and params.responseRatea !=''">
+				AND RESPONSE_RATEA = #{params.responseRatea}
+			</if>
+			<if test="params.responseRateb != null and params.responseRateb !=''">
+				AND RESPONSE_RATEB = #{params.responseRateb}
+			</if>
+			<if test="params.talkTimea != null and params.talkTimea !=''">
+				AND TALK_TIMEA = #{params.talkTimea}
+			</if>
+			<if test="params.talkTimeb != null and params.talkTimeb !=''">
+				AND TALK_TIMEB = #{params.talkTimeb}
+			</if>
+			<if test="params.averageTalkTimea != null and params.averageTalkTimea !=''">
+				AND AVERAGE_TALK_TIMEA = #{params.averageTalkTimea}
+			</if>
+			<if test="params.averageTalkTimeb != null and params.averageTalkTimeb !=''">
+				AND AVERAGE_TALK_TIMEB = #{params.averageTalkTimeb}
+			</if>
+			<if test="params.averageTurnOnDelaya != null and params.averageTurnOnDelaya !=''">
+				AND AVERAGE_TURN_ON_DELAYA = #{params.averageTurnOnDelaya}
+			</if>
+			<if test="params.averageTurnOnDelayb != null and params.averageTurnOnDelayb !=''">
+				AND AVERAGE_TURN_ON_DELAYB = #{params.averageTurnOnDelayb}
+			</if>
+			<if test="params.averageInTimea != null and params.averageInTimea !=''">
+				AND AVERAGE_IN_TIMEA = #{params.averageInTimea}
+			</if>
+			<if test="params.averageInTimeb != null and params.averageInTimeb !=''">
+				AND AVERAGE_IN_TIMEB = #{params.averageInTimeb}
+			</if>
+			<if test="params.ringCounta != null and params.ringCounta !=''">
+				AND RING_COUNTA = #{params.ringCounta}
+			</if>
+			<if test="params.callCounta != null and params.callCounta !=''">
+				AND CALL_COUNTA = #{params.callCounta}
+			</if>
+			<if test="params.responseCounta != null and params.responseCounta !=''">
+				AND RESPONSE_COUNTA = #{params.responseCounta}
+			</if>
+			<if test="params.totalTurnOnDelaya != null and params.totalTurnOnDelaya !=''">
+				AND TOTAL_TURN_ON_DELAYA = #{params.totalTurnOnDelaya}
+			</if>
+			<if test="params.totalInTimea != null and params.totalInTimea !=''">
+				AND TOTAL_IN_TIMEA = #{params.totalInTimea}
+			</if>
+			<if test="params.ringCountb != null and params.ringCountb !=''">
+				AND RING_COUNTB = #{params.ringCountb}
+			</if>
+			<if test="params.callCountb != null and params.callCountb !=''">
+				AND CALL_COUNTB = #{params.callCountb}
+			</if>
+			<if test="params.responseCountb != null and params.responseCountb !=''">
+				AND RESPONSE_COUNTB = #{params.responseCountb}
+			</if>
+			<if test="params.totalTurnOnDelayb != null and params.totalTurnOnDelayb !=''">
+				AND TOTAL_TURN_ON_DELAYB = #{params.totalTurnOnDelayb}
+			</if>
+			<if test="params.totalInTimeb != null and params.totalInTimeb !=''">
+				AND TOTAL_IN_TIMEB = #{params.totalInTimeb}
+			</if>
+			<if test="params.startStatisticalTime != null and params.startStatisticalTime !=''">
+				AND <![CDATA[ STATISTICAL_TIME >= TO_DATE(#{params.startStatisticalTime}||' 00:00:00','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.endStatisticalTime != null and params.endStatisticalTime !=''">
+				AND <![CDATA[ STATISTICAL_TIME <= TO_DATE(#{params.endStatisticalTime}||' 23:59:59','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.startCreateTime != null and params.startCreateTime !=''">
+				AND <![CDATA[ CREATE_TIME >= TO_DATE(#{params.startCreateTime}||' 00:00:00','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.endCreateTime != null and params.endCreateTime !=''">
+				AND <![CDATA[ CREATE_TIME <= TO_DATE(#{params.endCreateTime}||' 23:59:59','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.startUpdateTime != null and params.startUpdateTime !=''">
+				AND <![CDATA[ UPDATE_TIME >= TO_DATE(#{params.startUpdateTime}||' 00:00:00','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.endUpdateTime != null and params.endUpdateTime !=''">
+				AND <![CDATA[ UPDATE_TIME <= TO_DATE(#{params.endUpdateTime}||' 23:59:59','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 实体对象查询条件SQL -->
+	<sql id="queryCdrMonitorStatEntityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+			<if test="id != null and id !=''">
+				AND ID = #{id}
+			</if>
+			<if test="apiAccount != null and apiAccount !=''">
+				AND API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="appId != null and appId !=''">
+				AND APP_ID = #{appId}
+			</if>
+			<if test="businessId != null and businessId !=''">
+				AND BUSINESS_ID = #{businessId}
+			</if>
+			<if test="totalCallCount != null and totalCallCount !=''">
+				AND TOTAL_CALL_COUNT = #{totalCallCount}
+			</if>
+			<if test="successRatea != null and successRatea !=''">
+				AND SUCCESS_RATEA = #{successRatea}
+			</if>
+			<if test="successRateb != null and successRateb !=''">
+				AND SUCCESS_RATEB = #{successRateb}
+			</if>
+			<if test="responseRatea != null and responseRatea !=''">
+				AND RESPONSE_RATEA = #{responseRatea}
+			</if>
+			<if test="responseRateb != null and responseRateb !=''">
+				AND RESPONSE_RATEB = #{responseRateb}
+			</if>
+			<if test="talkTimea != null and talkTimea !=''">
+				AND TALK_TIMEA = #{talkTimea}
+			</if>
+			<if test="talkTimeb != null and talkTimeb !=''">
+				AND TALK_TIMEB = #{talkTimeb}
+			</if>
+			<if test="averageTalkTimea != null and averageTalkTimea !=''">
+				AND AVERAGE_TALK_TIMEA = #{averageTalkTimea}
+			</if>
+			<if test="averageTalkTimeb != null and averageTalkTimeb !=''">
+				AND AVERAGE_TALK_TIMEB = #{averageTalkTimeb}
+			</if>
+			<if test="averageTurnOnDelaya != null and averageTurnOnDelaya !=''">
+				AND AVERAGE_TURN_ON_DELAYA = #{averageTurnOnDelaya}
+			</if>
+			<if test="averageTurnOnDelayb != null and averageTurnOnDelayb !=''">
+				AND AVERAGE_TURN_ON_DELAYB = #{averageTurnOnDelayb}
+			</if>
+			<if test="averageInTimea != null and averageInTimea !=''">
+				AND AVERAGE_IN_TIMEA = #{averageInTimea}
+			</if>
+			<if test="averageInTimeb != null and averageInTimeb !=''">
+				AND AVERAGE_IN_TIMEB = #{averageInTimeb}
+			</if>
+			<if test="ringCounta != null and ringCounta !=''">
+				AND RING_COUNTA = #{ringCounta}
+			</if>
+			<if test="callCounta != null and callCounta !=''">
+				AND CALL_COUNTA = #{callCounta}
+			</if>
+			<if test="responseCounta != null and responseCounta !=''">
+				AND RESPONSE_COUNTA = #{responseCounta}
+			</if>
+			<if test="totalTurnOnDelaya != null and totalTurnOnDelaya !=''">
+				AND TOTAL_TURN_ON_DELAYA = #{totalTurnOnDelaya}
+			</if>
+			<if test="totalInTimea != null and totalInTimea !=''">
+				AND TOTAL_IN_TIMEA = #{totalInTimea}
+			</if>
+			<if test="ringCountb != null and ringCountb !=''">
+				AND RING_COUNTB = #{ringCountb}
+			</if>
+			<if test="callCountb != null and callCountb !=''">
+				AND CALL_COUNTB = #{callCountb}
+			</if>
+			<if test="responseCountb != null and responseCountb !=''">
+				AND RESPONSE_COUNTB = #{responseCountb}
+			</if>
+			<if test="totalTurnOnDelayb != null and totalTurnOnDelayb !=''">
+				AND TOTAL_TURN_ON_DELAYB = #{totalTurnOnDelayb}
+			</if>
+			<if test="totalInTimeb != null and totalInTimeb !=''">
+				AND TOTAL_IN_TIMEB = #{totalInTimeb}
+			</if>
+			<if test="statisticalTime != null and statisticalTime !=''">
+				AND STATISTICAL_TIME = #{statisticalTime}
+			</if>
+			<if test="createTime != null and createTime !=''">
+				AND CREATE_TIME = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime !=''">
+				AND UPDATE_TIME = #{updateTime}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 查询列表 -->
+	<select id="queryCdrMonitorStatList" resultMap="cdrMonitorStatResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB, RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB, AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB, AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA, TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB, TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+		FROM CDR_MONITOR_STAT
+		<include refid="queryCdrMonitorStatPageCondition"/>
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryCdrMonitorStatListByEntity" parameterType="com.zy.cms.vo.manager.CdrMonitorStat" resultMap="cdrMonitorStatResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB, RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB, AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB, AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA, TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB, TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+		FROM CDR_MONITOR_STAT
+		<include refid="queryCdrMonitorStatEntityCondition"/>
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryCdrMonitorStatCountByEntity" parameterType="com.zy.cms.vo.manager.CdrMonitorStat" resultType="int">
+		SELECT COUNT(*) FROM CDR_MONITOR_STAT
+		<include refid="queryCdrMonitorStatEntityCondition"/>
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findCdrMonitorStat" parameterType="com.zy.cms.vo.manager.CdrMonitorStat" resultMap="cdrMonitorStatResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB, RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB, AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB, AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA, TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB, TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+		FROM CDR_MONITOR_STAT WHERE ID = #{id}
+	</select>
+	
+	<!-- 新增并设置主键ID至参数对象 -->
+	<insert id="insertCdrMonitorStat" parameterType="com.zy.cms.vo.manager.CdrMonitorStat">
+		INSERT INTO CDR_MONITOR_STAT_${tablesuffix}
+			(ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB, RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB, AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB, AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA, TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB, TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME)
+		VALUES
+			(#{id}, #{apiAccount}, #{appId}, #{businessId}, #{totalCallCount}, #{successRatea}, #{successRateb}, #{responseRatea}, #{responseRateb}, #{talkTimea}, #{talkTimeb}, #{averageTalkTimea}, #{averageTalkTimeb}, #{averageTurnOnDelaya}, #{averageTurnOnDelayb}, #{averageInTimea}, #{averageInTimeb}, #{ringCounta}, #{callCounta}, #{responseCounta}, #{totalTurnOnDelaya}, #{totalInTimea}, #{ringCountb}, #{callCountb}, #{responseCountb}, #{totalTurnOnDelayb}, #{totalInTimeb}, #{statisticalTime}, #{createTime}, #{updateTime})
+	</insert>
+	
+	<!-- 修改-->
+	<update id="updateCdrMonitorStat" parameterType="com.zy.cms.vo.manager.CdrMonitorStat">
+		UPDATE CDR_MONITOR_STAT 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId},
+			</if>
+			<if test="businessId != null">
+				BUSINESS_ID = #{businessId},
+			</if>
+			<if test="totalCallCount != null">
+				TOTAL_CALL_COUNT = #{totalCallCount},
+			</if>
+			<if test="successRatea != null">
+				SUCCESS_RATEA = #{successRatea},
+			</if>
+			<if test="successRateb != null">
+				SUCCESS_RATEB = #{successRateb},
+			</if>
+			<if test="responseRatea != null">
+				RESPONSE_RATEA = #{responseRatea},
+			</if>
+			<if test="responseRateb != null">
+				RESPONSE_RATEB = #{responseRateb},
+			</if>
+			<if test="talkTimea != null">
+				TALK_TIMEA = #{talkTimea},
+			</if>
+			<if test="talkTimeb != null">
+				TALK_TIMEB = #{talkTimeb},
+			</if>
+			<if test="averageTalkTimea != null">
+				AVERAGE_TALK_TIMEA = #{averageTalkTimea},
+			</if>
+			<if test="averageTalkTimeb != null">
+				AVERAGE_TALK_TIMEB = #{averageTalkTimeb},
+			</if>
+			<if test="averageTurnOnDelaya != null">
+				AVERAGE_TURN_ON_DELAYA = #{averageTurnOnDelaya},
+			</if>
+			<if test="averageTurnOnDelayb != null">
+				AVERAGE_TURN_ON_DELAYB = #{averageTurnOnDelayb},
+			</if>
+			<if test="averageInTimea != null">
+				AVERAGE_IN_TIMEA = #{averageInTimea},
+			</if>
+			<if test="averageInTimeb != null">
+				AVERAGE_IN_TIMEB = #{averageInTimeb},
+			</if>
+			<if test="ringCounta != null">
+				RING_COUNTA = #{ringCounta},
+			</if>
+			<if test="callCounta != null">
+				CALL_COUNTA = #{callCounta},
+			</if>
+			<if test="responseCounta != null">
+				RESPONSE_COUNTA = #{responseCounta},
+			</if>
+			<if test="totalTurnOnDelaya != null">
+				TOTAL_TURN_ON_DELAYA = #{totalTurnOnDelaya},
+			</if>
+			<if test="totalInTimea != null">
+				TOTAL_IN_TIMEA = #{totalInTimea},
+			</if>
+			<if test="ringCountb != null">
+				RING_COUNTB = #{ringCountb},
+			</if>
+			<if test="callCountb != null">
+				CALL_COUNTB = #{callCountb},
+			</if>
+			<if test="responseCountb != null">
+				RESPONSE_COUNTB = #{responseCountb},
+			</if>
+			<if test="totalTurnOnDelayb != null">
+				TOTAL_TURN_ON_DELAYB = #{totalTurnOnDelayb},
+			</if>
+			<if test="totalInTimeb != null">
+				TOTAL_IN_TIMEB = #{totalInTimeb},
+			</if>
+			<if test="statisticalTime != null">
+				STATISTICAL_TIME = #{statisticalTime},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteCdrMonitorStat" parameterType="com.zy.cms.vo.manager.CdrMonitorStat">
+		DELETE FROM CDR_MONITOR_STAT
+		WHERE ID = #{id}
+	</delete>
+	
+		<insert id="batchInsert" parameterType="Map">
+	  <foreach collection="list" item="mapdata" index ="index" separator=";">
+		 INSERT INTO cdr_monitor_stat
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mapdata.ID != null">
+				ID,
+			</if>
+			<if test="mapdata.API_ACCOUNT != null">
+				API_ACCOUNT,
+			</if>
+			<if test="mapdata.APP_ID != null">
+				APP_ID,
+			</if>
+			<if test="mapdata.BUSINESS_ID != null">
+				BUSINESS_ID,
+			</if>
+			<if test="mapdata.TOTAL_CALL_COUNT != null">
+				TOTAL_CALL_COUNT,
+			</if>
+			<if test="mapdata.SUCCESS_RATEA != null">
+				SUCCESS_RATEA,
+			</if>
+			<if test="mapdata.SUCCESS_RATEB != null">
+				SUCCESS_RATEB,
+			</if>
+			<if test="mapdata.RESPONSE_RATEA != null">
+				RESPONSE_RATEA,
+			</if>
+			<if test="mapdata.RESPONSE_RATEB != null and mapdata.RESPONSE_RATEB!='' ">
+				RESPONSE_RATEB,
+			</if>
+			<if test="mapdata.TALK_TIMEA != null  and mapdata.TALK_TIMEA!='' ">
+				TALK_TIMEA,
+			</if>
+			<if test="mapdata.TALK_TIMEB!= null">
+				TALK_TIMEB,
+			</if>
+			<if test="mapdata.AVERAGE_TALK_TIMEA != null">
+				AVERAGE_TALK_TIMEA,
+			</if>
+			<if test="mapdata.AVERAGE_TALK_TIMEB != null">
+				AVERAGE_TALK_TIMEB,
+			</if>
+			<if test="mapdata.AVERAGE_TURN_ON_DELAYA != null">
+				AVERAGE_TURN_ON_DELAYA,
+			</if>
+			<if test="mapdata.AVERAGE_TURN_ON_DELAYB != null">
+				AVERAGE_TURN_ON_DELAYB,
+			</if>
+			<if test="mapdata.AVERAGE_IN_TIMEA != null  and mapdata.AVERAGE_IN_TIMEA!='' ">
+				AVERAGE_IN_TIMEA,
+			</if>
+			<if test="mapdata.AVERAGE_IN_TIMEB != null">
+				AVERAGE_IN_TIMEB,
+			</if>
+			<if test="mapdata.RING_COUNTA != null">
+				RING_COUNTA,
+			</if>
+			<if test="mapdata.CALL_COUNTA != null">
+				CALL_COUNTA,
+			</if>
+			<if test="mapdata.RESPONSE_COUNTA != null">
+				RESPONSE_COUNTA,
+			</if>
+			<if test="mapdata.TOTAL_TURN_ON_DELAYA != null">
+				TOTAL_TURN_ON_DELAYA,
+			</if>
+			<if test="mapdata.TOTAL_IN_TIMEA != null">
+				TOTAL_IN_TIMEA,
+			</if>
+			<if test="mapdata.RING_COUNTB != null">
+				RING_COUNTB,
+			</if>
+			<if test="mapdata.CALL_COUNTB != null">
+				CALL_COUNTB,
+			</if>
+			<if test="mapdata.RESPONSE_COUNTB != null">
+				RESPONSE_COUNTB,
+			</if>
+			<if test="mapdata.TOTAL_TURN_ON_DELAYB != null">
+				TOTAL_TURN_ON_DELAYB,
+			</if>
+			<if test="mapdata.TOTAL_IN_TIMEB != null">
+				TOTAL_IN_TIMEB,
+			</if>
+			<if test="mapdata.STATISTICAL_TIME != null">
+				STATISTICAL_TIME,
+			</if>
+			<if test="mapdata.CREATE_TIME != null">
+				CREATE_TIME,
+			</if>
+			<if test="mapdata.UPDATE_TIME != null">
+				UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mapdata.ID != null">
+				#{mapdata.ID,jdbcType=VARCHAR},
+			</if>
+			<if test="mapdata.API_ACCOUNT != null">
+				#{mapdata.API_ACCOUNT,jdbcType=VARCHAR},
+			</if>
+			<if test="mapdata.APP_ID != null">
+				#{mapdata.APP_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="mapdata.BUSINESS_ID != null">
+				#{mapdata.BUSINESS_ID,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TOTAL_CALL_COUNT != null">
+				#{mapdata.TOTAL_CALL_COUNT,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.SUCCESS_RATEA != null">
+				#{mapdata.SUCCESS_RATEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.SUCCESS_RATEB != null">
+				#{mapdata.SUCCESS_RATEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RESPONSE_RATEA != null">
+				#{mapdata.RESPONSE_RATEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RESPONSE_RATEB != null and mapdata.RESPONSE_RATEB!='' ">
+				#{mapdata.RESPONSE_RATEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TALK_TIMEA != null and mapdata.TALK_TIMEA!='' ">
+				#{mapdata.TALK_TIMEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TALK_TIMEB != null">
+				#{mapdata.TALK_TIMEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_TALK_TIMEA != null">
+				#{mapdata.AVERAGE_TALK_TIMEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_TALK_TIMEB != null">
+				#{mapdata.AVERAGE_TALK_TIMEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_TURN_ON_DELAYA!= null">
+				#{mapdata.AVERAGE_TURN_ON_DELAYA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_TURN_ON_DELAYB != null">
+				#{mapdata.AVERAGE_TURN_ON_DELAYB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_IN_TIMEA != null and mapdata.AVERAGE_IN_TIMEA!='' ">
+				#{mapdata.AVERAGE_IN_TIMEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.AVERAGE_IN_TIMEB != null">
+				#{mapdata.AVERAGE_IN_TIMEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RING_COUNTA != null">
+				#{mapdata.RING_COUNTA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.CALL_COUNTA != null">
+				#{mapdata.CALL_COUNTA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RESPONSE_COUNTA != null">
+				#{mapdata.RESPONSE_COUNTA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TOTAL_TURN_ON_DELAYA != null">
+				#{mapdata.TOTAL_TURN_ON_DELAYA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TOTAL_IN_TIMEA != null">
+				#{mapdata.TOTAL_IN_TIMEA,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RING_COUNTB != null">
+				#{mapdata.RING_COUNTB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.CALL_COUNTB != null">
+				#{mapdata.CALL_COUNTB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.RESPONSE_COUNTB != null">
+				#{mapdata.RESPONSE_COUNTB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TOTAL_TURN_ON_DELAYB != null">
+				#{mapdata.TOTAL_TURN_ON_DELAYB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.TOTAL_IN_TIMEB != null">
+				#{mapdata.TOTAL_IN_TIMEB,jdbcType=INTEGER},
+			</if>
+			<if test="mapdata.STATISTICAL_TIME != null">
+				#{mapdata.STATISTICAL_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mapdata.CREATE_TIME != null">
+				#{mapdata.CREATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mapdata.UPDATE_TIME != null">
+				#{mapdata.UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	  </foreach>
+	</insert>
+	<select id="getAllStatInPeriod" resultMap="cdrMonitorStatResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, BUSINESS_ID, TOTAL_CALL_COUNT, SUCCESS_RATEA, SUCCESS_RATEB, RESPONSE_RATEA, RESPONSE_RATEB, TALK_TIMEA, TALK_TIMEB, AVERAGE_TALK_TIMEA, AVERAGE_TALK_TIMEB, AVERAGE_TURN_ON_DELAYA, AVERAGE_TURN_ON_DELAYB, AVERAGE_IN_TIMEA, AVERAGE_IN_TIMEB, RING_COUNTA, CALL_COUNTA, RESPONSE_COUNTA, TOTAL_TURN_ON_DELAYA, TOTAL_IN_TIMEA, RING_COUNTB, CALL_COUNTB, RESPONSE_COUNTB, TOTAL_TURN_ON_DELAYB, TOTAL_IN_TIMEB, STATISTICAL_TIME, CREATE_TIME, UPDATE_TIME
+		FROM CDR_MONITOR_STAT WHERE CREATE_TIME BETWEEN #{stime,jdbcType=TIMESTAMP} AND #{etime,jdbcType=TIMESTAMP}
+	</select>
+</mapper>

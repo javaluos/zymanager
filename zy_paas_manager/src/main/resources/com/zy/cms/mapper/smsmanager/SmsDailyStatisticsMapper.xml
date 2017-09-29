@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.smsmanager.SmsDailyStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.SmsDailyStatistics">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR"/>
+        <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_SMS_ID" property="channelSmsId" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR"/>
+        <result column="SMS_CATEGORY" property="smsCategory" jdbcType="VARCHAR"/>
+        <result column="SEND_COUNT" property="sendCount" jdbcType="INTEGER"/>
+        <result column="SUCCESS_COUNT" property="successCount" jdbcType="INTEGER"/>
+        <result column="FAILED_COUNT" property="failedCount" jdbcType="INTEGER"/>
+        <result column="NOREPORT_COUNT" property="noreportCount" jdbcType="INTEGER"/>
+        <result column="FEE_COUNT" property="feeCount" jdbcType="INTEGER"/>
+        <result column="SD_US10S_COUNT" property="sdUs10sCount" jdbcType="INTEGER"/>
+        <result column="SD_US50S_COUNT" property="sdUs50sCount" jdbcType="INTEGER"/>
+        <result column="SD_USGT50S_COUNT" property="sdUsgt50sCount" jdbcType="INTEGER"/>
+        <result column="ST_BK24H_COUNT" property="stBk24hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK48H_COUNT" property="stBk48hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK72H_COUNT" property="stBk72hCount" jdbcType="INTEGER"/>
+        <result column="AVG_SEND_TIME" property="avgSendTime" jdbcType="INTEGER"/>
+        <result column="AVG_STATUS_TIME" property="avgStatusTime" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="successSendRate" property="successSendRate" jdbcType="DOUBLE"/>
+        <result column="failSendRate" property="failSendRate" jdbcType="DOUBLE"/>
+        <result column="noreportRate" property="noreportRate" jdbcType="DOUBLE"/>
+        <result column="sdUs10sCountRate" property="sdUs10sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUs50sCountRate" property="sdUs50sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUsgt50sCountRate" property="sdUsgt50sCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk24hCountRate" property="stBk24hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk48hCountRate" property="stBk48hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk72hCountRate" property="stBk72hCountRate" jdbcType="DOUBLE"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, DATE_TIME, API_ACCOUNT, CHANNEL_SMS_ID, SMS_CATEGORY, SEND_COUNT, SUCCESS_COUNT,
+        FAILED_COUNT, NOREPORT_COUNT, FEE_COUNT, SD_US10S_COUNT, SD_US50S_COUNT, SD_USGT50S_COUNT,
+        ST_BK24H_COUNT, ST_BK48H_COUNT, ST_BK72H_COUNT, AVG_SEND_TIME, AVG_STATUS_TIME, CREATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sms_daily_statistics
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sms_daily_statistics
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zy.cms.vo.manager.SmsDailyStatistics">
+        insert into sms_daily_statistics (ID, DATE_TIME, API_ACCOUNT,
+        CHANNEL_SMS_ID, SMS_CATEGORY, SEND_COUNT,
+        SUCCESS_COUNT, FAILED_COUNT, NOREPORT_COUNT,
+        FEE_COUNT, SD_US10S_COUNT, SD_US50S_COUNT,
+        SD_USGT50S_COUNT, ST_BK24H_COUNT, ST_BK48H_COUNT,
+        ST_BK72H_COUNT, AVG_SEND_TIME, AVG_STATUS_TIME,
+        CREATE_TIME)
+        values (#{id,jdbcType=INTEGER}, #{dateTime,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR},
+        #{channelSmsId,jdbcType=VARCHAR}, #{smsCategory,jdbcType=VARCHAR}, #{sendCount,jdbcType=INTEGER},
+        #{successCount,jdbcType=INTEGER}, #{failedCount,jdbcType=INTEGER}, #{noreportCount,jdbcType=INTEGER},
+        #{feeCount,jdbcType=INTEGER}, #{sdUs10sCount,jdbcType=INTEGER}, #{sdUs50sCount,jdbcType=INTEGER},
+        #{sdUsgt50sCount,jdbcType=INTEGER}, #{stBk24hCount,jdbcType=INTEGER}, #{stBk48hCount,jdbcType=INTEGER},
+        #{stBk72hCount,jdbcType=INTEGER}, #{avgSendTime,jdbcType=INTEGER}, #{avgStatusTime,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.SmsDailyStatistics">
+        insert into sms_daily_statistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="dateTime != null">
+                DATE_TIME,
+            </if>
+            <if test="apiAccount != null">
+                API_ACCOUNT,
+            </if>
+            <if test="channelSmsId != null">
+                CHANNEL_SMS_ID,
+            </if>
+            <if test="smsCategory != null">
+                SMS_CATEGORY,
+            </if>
+            <if test="sendCount != null">
+                SEND_COUNT,
+            </if>
+            <if test="successCount != null">
+                SUCCESS_COUNT,
+            </if>
+            <if test="failedCount != null">
+                FAILED_COUNT,
+            </if>
+            <if test="noreportCount != null">
+                NOREPORT_COUNT,
+            </if>
+            <if test="feeCount != null">
+                FEE_COUNT,
+            </if>
+            <if test="sdUs10sCount != null">
+                SD_US10S_COUNT,
+            </if>
+            <if test="sdUs50sCount != null">
+                SD_US50S_COUNT,
+            </if>
+            <if test="sdUsgt50sCount != null">
+                SD_USGT50S_COUNT,
+            </if>
+            <if test="stBk24hCount != null">
+                ST_BK24H_COUNT,
+            </if>
+            <if test="stBk48hCount != null">
+                ST_BK48H_COUNT,
+            </if>
+            <if test="stBk72hCount != null">
+                ST_BK72H_COUNT,
+            </if>
+            <if test="avgSendTime != null">
+                AVG_SEND_TIME,
+            </if>
+            <if test="avgStatusTime != null">
+                AVG_STATUS_TIME,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="dateTime != null">
+                #{dateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="apiAccount != null">
+                #{apiAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="channelSmsId != null">
+                #{channelSmsId,jdbcType=VARCHAR},
+            </if>
+            <if test="smsCategory != null">
+                #{smsCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="sendCount != null">
+                #{sendCount,jdbcType=INTEGER},
+            </if>
+            <if test="successCount != null">
+                #{successCount,jdbcType=INTEGER},
+            </if>
+            <if test="failedCount != null">
+                #{failedCount,jdbcType=INTEGER},
+            </if>
+            <if test="noreportCount != null">
+                #{noreportCount,jdbcType=INTEGER},
+            </if>
+            <if test="feeCount != null">
+                #{feeCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUs10sCount != null">
+                #{sdUs10sCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUs50sCount != null">
+                #{sdUs50sCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUsgt50sCount != null">
+                #{sdUsgt50sCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk24hCount != null">
+                #{stBk24hCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk48hCount != null">
+                #{stBk48hCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk72hCount != null">
+                #{stBk72hCount,jdbcType=INTEGER},
+            </if>
+            <if test="avgSendTime != null">
+                #{avgSendTime,jdbcType=INTEGER},
+            </if>
+            <if test="avgStatusTime != null">
+                #{avgStatusTime,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.SmsDailyStatistics">
+        update sms_daily_statistics
+        <set>
+            <if test="dateTime != null">
+                DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="apiAccount != null">
+                API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="channelSmsId != null">
+                CHANNEL_SMS_ID = #{channelSmsId,jdbcType=VARCHAR},
+            </if>
+            <if test="smsCategory != null">
+                SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="sendCount != null">
+                SEND_COUNT = #{sendCount,jdbcType=INTEGER},
+            </if>
+            <if test="successCount != null">
+                SUCCESS_COUNT = #{successCount,jdbcType=INTEGER},
+            </if>
+            <if test="failedCount != null">
+                FAILED_COUNT = #{failedCount,jdbcType=INTEGER},
+            </if>
+            <if test="noreportCount != null">
+                NOREPORT_COUNT = #{noreportCount,jdbcType=INTEGER},
+            </if>
+            <if test="feeCount != null">
+                FEE_COUNT = #{feeCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUs10sCount != null">
+                SD_US10S_COUNT = #{sdUs10sCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUs50sCount != null">
+                SD_US50S_COUNT = #{sdUs50sCount,jdbcType=INTEGER},
+            </if>
+            <if test="sdUsgt50sCount != null">
+                SD_USGT50S_COUNT = #{sdUsgt50sCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk24hCount != null">
+                ST_BK24H_COUNT = #{stBk24hCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk48hCount != null">
+                ST_BK48H_COUNT = #{stBk48hCount,jdbcType=INTEGER},
+            </if>
+            <if test="stBk72hCount != null">
+                ST_BK72H_COUNT = #{stBk72hCount,jdbcType=INTEGER},
+            </if>
+            <if test="avgSendTime != null">
+                AVG_SEND_TIME = #{avgSendTime,jdbcType=INTEGER},
+            </if>
+            <if test="avgStatusTime != null">
+                AVG_STATUS_TIME = #{avgStatusTime,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.SmsDailyStatistics">
+        update sms_daily_statistics
+        set DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+        CHANNEL_SMS_ID = #{channelSmsId,jdbcType=VARCHAR},
+        SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+        SEND_COUNT = #{sendCount,jdbcType=INTEGER},
+        SUCCESS_COUNT = #{successCount,jdbcType=INTEGER},
+        FAILED_COUNT = #{failedCount,jdbcType=INTEGER},
+        NOREPORT_COUNT = #{noreportCount,jdbcType=INTEGER},
+        FEE_COUNT = #{feeCount,jdbcType=INTEGER},
+        SD_US10S_COUNT = #{sdUs10sCount,jdbcType=INTEGER},
+        SD_US50S_COUNT = #{sdUs50sCount,jdbcType=INTEGER},
+        SD_USGT50S_COUNT = #{sdUsgt50sCount,jdbcType=INTEGER},
+        ST_BK24H_COUNT = #{stBk24hCount,jdbcType=INTEGER},
+        ST_BK48H_COUNT = #{stBk48hCount,jdbcType=INTEGER},
+        ST_BK72H_COUNT = #{stBk72hCount,jdbcType=INTEGER},
+        AVG_SEND_TIME = #{avgSendTime,jdbcType=INTEGER},
+        AVG_STATUS_TIME = #{avgStatusTime,jdbcType=INTEGER},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (SELECT sds.ID FROM sms_daily_statistics sds
+        where 1=1
+        AND sds.STATIS_TYPE=3
+        <include refid="outterConditions"/>
+        GROUP BY sds.SMS_CATEGORY, sds.API_ACCOUNT, sds.DATE_TIME
+        ) record
+    </select>
+    <select id="selectListByQuery" resultMap="BaseResultMap">
+        SELECT
+        sds.API_ACCOUNT,sds.DATE_TIME,sds.SMS_CATEGORY,
+        SUM(sds.FEE_COUNT) FEE_COUNT, SUM(sds.SEND_COUNT) SEND_COUNT,
+        SUM(sds.SUCCESS_COUNT) SUCCESS_COUNT, SUM(sds.FAILED_COUNT) FAILED_COUNT,
+        SUM(sds.NOREPORT_COUNT) NOREPORT_COUNT, (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRate,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRate,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRate,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_SEND_TIME,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_STATUS_TIME,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRate,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRate,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRate,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRate,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRate,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRate
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+        where 1=1
+        AND sds.STATIS_TYPE=3
+        <include refid="outterConditions"/>
+        GROUP BY sds.API_ACCOUNT, sds.DATE_TIME, sds.SMS_CATEGORY
+        ORDER BY
+        <if test="sortColumn != null and sortColumn != ''" >
+            <choose>
+                <when test="sortColumn == 0" >
+                    SEND_COUNT
+                </when>
+                <when test="sortColumn == 1" >
+                    SUCCESS_COUNT
+                </when>
+                <when test="sortColumn == 2" >
+                    FEE_COUNT
+                </when>
+                <when test="sortColumn == 3" >
+                    FAILED_COUNT
+                </when>
+                <when test="sortColumn == 4" >
+                    NOREPORT_COUNT
+                </when>
+                <when test="sortColumn == 5" >
+                    successSendRate
+                </when>
+                <when test="sortColumn == 6" >
+                    failSendRate
+                </when>
+                <when test="sortColumn == 7" >
+                    noreportRate
+                </when>
+            </choose>
+            <choose>
+                <when test="sortType == 0">
+                    ASC,
+                </when>
+                <otherwise>
+                    DESC,
+                </otherwise>
+            </choose>
+        </if>
+        sds.DATE_TIME ASC, sds.API_ACCOUNT ASC, sds.SMS_CATEGORY ASC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+    <select id="statSmsDailyTotal" resultMap="BaseResultMap">
+        SELECT
+        sds.DATE_TIME,sds.SMS_CATEGORY,
+        SUM(sds.FEE_COUNT) FEE_COUNT, SUM(sds.SEND_COUNT) SEND_COUNT,
+        SUM(sds.SUCCESS_COUNT) SUCCESS_COUNT, SUM(sds.FAILED_COUNT) FAILED_COUNT,
+        SUM(sds.NOREPORT_COUNT) NOREPORT_COUNT, (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRate,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRate,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRate,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_SEND_TIME,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_STATUS_TIME,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRate,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRate,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRate,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRate,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRate,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRate
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+        where 1=1
+        AND sds.STATIS_TYPE=3
+        <include refid="outterConditions"/>
+    </select>
+
+    <select id="selectViewTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (SELECT * FROM zy_db_manager.sms_daily_statistics sds
+        WHERE 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="outterConditions"/>
+        GROUP BY CHANNEL_SMS_ID, DATE_TIME ) record
+    </select>
+    <select id="selectViewListByQuery" resultMap="BaseResultMap">
+        SELECT
+        sds.API_ACCOUNT,sds.CHANNEL_SMS_ID,
+        sds.DATE_TIME,sds.SMS_CATEGORY,
+        SUM(sds.FEE_COUNT) FEE_COUNT, SUM(sds.SEND_COUNT) SEND_COUNT,
+        SUM(sds.SUCCESS_COUNT) SUCCESS_COUNT, SUM(sds.FAILED_COUNT) FAILED_COUNT,
+        SUM(sds.NOREPORT_COUNT) NOREPORT_COUNT, (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRate,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRate,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRate,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_SEND_TIME,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_STATUS_TIME,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRate,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRate,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRate,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRate,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRate,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRate
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+        where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="outterConditions"/>
+        GROUP BY sds.CHANNEL_SMS_ID, sds.DATE_TIME
+        order by sds.DATE_TIME ASC, CHANNEL_SMS_ID ASC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+    <sql id="outterConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sds.API_ACCOUNT = #{apiAccount}
+        </if>
+        <!--<if test="businessName != null and businessName !=''">
+            AND vmc.BUSINESS_NAME like CONCAT('%','${businessName}','%')
+        </if>
+        <if test="merchantPhone != null and merchantPhone !=''">
+            AND vmc.MERCHANT_PHONE = #{merchantPhone}
+        </if>-->
+        <if test="starttime != null and starttime !=''">
+            AND sds.DATE_TIME &gt;= #{starttime}
+        </if>
+        <if test="endtime != null and endtime !=''">
+            AND sds.DATE_TIME &lt;= #{endtime}
+        </if>
+        <if test="category != null and category !=''">
+            AND sds.SMS_CATEGORY = #{category}
+        </if>
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            and sds.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="getChannelSummarysByQuery" resultMap="BaseResultMap">
+        SELECT
+        sds.CHANNEL_SMS_ID,
+        sds.DATE_TIME,
+        sds.SMS_CATEGORY,
+        SUM(sds.FEE_COUNT) FEE_COUNT,
+        SUM(sds.SEND_COUNT) SEND_COUNT,
+        SUM(sds.SUCCESS_COUNT) SUCCESS_COUNT,
+        SUM(sds.FAILED_COUNT) FAILED_COUNT,
+        SUM(sds.NOREPORT_COUNT) NOREPORT_COUNT,
+        (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRate,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRate,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRate,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_SEND_TIME,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_STATUS_TIME,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRate,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRate,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRate,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRate,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRate,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRate
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+        where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+        GROUP BY sds.CHANNEL_SMS_ID,sds.DATE_TIME
+        ORDER BY DATE_TIME ASC,CHANNEL_SMS_ID ASC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getChannelSummaryResult" resultType="com.zy.cms.vo.manager.ChannelSummaryResult">
+        SELECT
+        SUM(sds.FEE_COUNT) feeCounts,
+        SUM(sds.SEND_COUNT) sendCounts,
+        SUM(sds.SUCCESS_COUNT) successCounts,
+        SUM(sds.FAILED_COUNT) failedCounts,
+        SUM(sds.NOREPORT_COUNT) noreportCounts,
+        (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRates,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRates,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRates,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) avgSendTimes,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) avgStatusTimes,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRates,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRates,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRates,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRates,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRates,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRates
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+         where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+    </select>
+
+    <select id="getChannelDetailByQuery" resultMap="BaseResultMap">
+        SELECT
+        sds.CHANNEL_SMS_ID,
+        sds.DATE_TIME,
+        sds.API_ACCOUNT,
+        SUM(sds.FEE_COUNT) FEE_COUNT,
+        SUM(sds.SEND_COUNT) SEND_COUNT,
+        SUM(sds.SUCCESS_COUNT) SUCCESS_COUNT,
+        SUM(sds.FAILED_COUNT) FAILED_COUNT,
+        SUM(sds.NOREPORT_COUNT) NOREPORT_COUNT,
+        (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRate,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRate,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRate,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_SEND_TIME,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) AVG_STATUS_TIME,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRate,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRate,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRate,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRate,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRate,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRate
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+         where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+        GROUP BY sds.API_ACCOUNT,sds.DATE_TIME
+        ORDER BY DATE_TIME ASC,FEE_COUNT DESC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getChannelDetailResult" resultType="com.zy.cms.vo.manager.ChannelSummaryResult">
+        SELECT
+        SUM(sds.FEE_COUNT) feeCounts,
+        SUM(sds.SEND_COUNT) sendCounts,
+        SUM(sds.SUCCESS_COUNT) successCounts,
+        SUM(sds.FAILED_COUNT) failedCounts,
+        SUM(sds.NOREPORT_COUNT) noreportCounts,
+        (SUM(sds.SUCCESS_COUNT) / SUM(sds.SEND_COUNT)) successSendRates,
+        (SUM(FAILED_COUNT) / SUM(SEND_COUNT)) failSendRates,
+        (SUM(NOREPORT_COUNT) / SUM(SEND_COUNT)) noreportRates,
+        (SUM(sds.SUM_SEND_TIME) / SUM(sds.SUCCESS_COUNT)) avgSendTimes,
+        (SUM(sds.SUM_STATUS_TIME) / SUM(sds.SUCCESS_COUNT)) avgStatusTimes,
+        (SUM(sds.SD_US10S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs10sCountRates,
+        (SUM(sds.SD_US50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUs50sCountRates,
+        (SUM(sds.SD_USGT50S_COUNT)/SUM(sds.SUCCESS_COUNT)) sdUsgt50sCountRates,
+        (SUM(sds.ST_BK24H_COUNT)/SUM(sds.SEND_COUNT)) stBk24hCountRates,
+        (SUM(sds.ST_BK48H_COUNT)/SUM(sds.SEND_COUNT)) stBk48hCountRates,
+        (SUM(sds.ST_BK72H_COUNT)/SUM(sds.SEND_COUNT)) stBk72hCountRates
+        FROM
+        zy_db_manager.sms_daily_statistics sds
+         where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+    </select>
+
+
+    <select id="channelTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM
+        ( SELECT sds.ID FROM zy_db_manager.sms_daily_statistics sds
+         where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+        GROUP BY sds.CHANNEL_SMS_ID,sds.DATE_TIME
+        ) record
+    </select>
+
+    <select id="channelDetailTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM
+        ( SELECT sds.ID FROM zy_db_manager.sms_daily_statistics sds
+         where 1=1
+        AND sds.STATIS_TYPE=4
+        <include refid="channelConditions"/>
+        GROUP BY sds.API_ACCOUNT,sds.DATE_TIME
+        ) record
+    </select>
+
+    <sql id="channelConditions">
+            <if test="apiAccounts!=null and apiAccounts.size() > 0">
+                and API_ACCOUNT in
+                <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="channelSmsId != null and channelSmsId !=''">
+                AND CHANNEL_SMS_ID = #{channelSmsId}
+            </if>
+            <if test="dateTimeStart != null and dateTimeStart !=''">
+                AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')>=  DATE_FORMAT(#{dateTimeStart}, '%Y%m%d')]]>
+            </if>
+            <if test="dateTimeEnd != null and dateTimeEnd !=''">
+                AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')<=  DATE_FORMAT(#{dateTimeEnd}, '%Y%m%d')]]>
+            </if>
+            <if test="channelSmsIds!=null and channelSmsIds.size() > 0">
+                AND CHANNEL_SMS_ID in
+                <foreach collection="channelSmsIds" item="channelSmsId" open="(" separator="," close=")">
+                    #{channelSmsId}
+                </foreach>
+            </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.MerchantSmsTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.MerchantSmsTemplate" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="AUTH_USER" property="authUser" jdbcType="VARCHAR" />
+    <result column="AUTH_SUBMIT_TIME" property="authSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="AUTH_RESULT_TIME" property="authResultTime" jdbcType="TIMESTAMP" />
+    <result column="IS_NOTICE" property="isNotice" jdbcType="INTEGER" />
+    <result column="NOTICE_PHONE" property="noticePhone" jdbcType="VARCHAR" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.zy.cms.vo.MerchantSmsTemplateVo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="AUTH_USER" property="authUser" jdbcType="VARCHAR" />
+    <result column="AUTH_SUBMIT_TIME" property="authSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="AUTH_RESULT_TIME" property="authResultTime" jdbcType="TIMESTAMP" />
+    <result column="IS_NOTICE" property="isNotice" jdbcType="INTEGER" />
+    <result column="NOTICE_PHONE" property="noticePhone" jdbcType="VARCHAR" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, NAME, CONTENT, CATEGORY, STATUS, REASON, AUTH_USER, AUTH_SUBMIT_TIME, 
+    AUTH_RESULT_TIME, IS_NOTICE, NOTICE_PHONE, IS_LOCKED, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_template
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sms_merchant_template
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.MerchantSmsTemplate" >
+    insert into sms_merchant_template (ID, API_ACCOUNT, NAME, 
+      CONTENT, CATEGORY, STATUS, 
+      REASON, AUTH_USER, AUTH_SUBMIT_TIME, 
+      AUTH_RESULT_TIME, IS_NOTICE, NOTICE_PHONE, 
+      IS_LOCKED, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR}, #{authUser,jdbcType=VARCHAR}, #{authSubmitTime,jdbcType=TIMESTAMP}, 
+      #{authResultTime,jdbcType=TIMESTAMP}, #{isNotice,jdbcType=INTEGER}, #{noticePhone,jdbcType=VARCHAR}, 
+      #{isLocked,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.MerchantSmsTemplate" >
+    insert into sms_merchant_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="authUser != null" >
+        AUTH_USER,
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME,
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME,
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE,
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="authUser != null" >
+        #{authUser,jdbcType=VARCHAR},
+      </if>
+      <if test="authSubmitTime != null" >
+        #{authSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authResultTime != null" >
+        #{authResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        #{isNotice,jdbcType=INTEGER},
+      </if>
+      <if test="noticePhone != null" >
+        #{noticePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.MerchantSmsTemplate" >
+    update sms_merchant_template
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        CATEGORY = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="authUser != null" >
+        AUTH_USER = #{authUser,jdbcType=VARCHAR},
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME = #{authSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME = #{authResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE = #{isNotice,jdbcType=INTEGER},
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE = #{noticePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.MerchantSmsTemplate" >
+    update sms_merchant_template
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      CATEGORY = #{category,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      REASON = #{reason,jdbcType=VARCHAR},
+      AUTH_USER = #{authUser,jdbcType=VARCHAR},
+      AUTH_SUBMIT_TIME = #{authSubmitTime,jdbcType=TIMESTAMP},
+      AUTH_RESULT_TIME = #{authResultTime,jdbcType=TIMESTAMP},
+      IS_NOTICE = #{isNotice,jdbcType=INTEGER},
+      NOTICE_PHONE = #{noticePhone,jdbcType=VARCHAR},
+      IS_LOCKED = #{isLocked,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectSmsTemplateCount" parameterType="com.zy.cms.vo.query.SmsTemplateAuditQuery" resultType="java.lang.Integer">
+  	select COUNT(*) from sms_merchant_template mt, voice_merchant_account ma
+  	<include refid="querySmsTemplateCondition"/>
+  </select>
+  <select id="selectSmsTemplateList" parameterType="com.zy.cms.vo.query.SmsTemplateAuditQuery" resultMap="BaseResultMap2">
+  	select ma.BUSINESS_NAME, ma.MERCHANT_PHONE,mt.*
+  	from sms_merchant_template mt, voice_merchant_account ma 
+  	<include refid="querySmsTemplateCondition"/>
+  	order by mt.UPDATE_TIME desc
+	limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  <sql id="querySmsTemplateCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	     	mt.API_ACCOUNT = ma.API_ACCOUNT AND mt.IS_LOCKED = 0
+		    <if test="businessName != null and businessName !=''">
+				AND ma.BUSINESS_NAME like CONCAT('%','${businessName}','%') 
+			</if>
+			<if test="merchantPhone != null and merchantPhone != ''">
+				AND ma.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="authResultTimeStart != null and authResultTimeStart !=''">
+			    AND mt.AUTH_RESULT_TIME &gt;=  #{authResultTimeStart}
+			</if>
+			<if test="authResultTimeEnd != null and authResultTimeEnd !=''">
+			    AND mt.AUTH_RESULT_TIME &lt;=  #{authResultTimeEnd}
+			</if>
+			<if test="authUser != null and authUser != ''">
+			    AND mt.AUTH_USER = #{authUser,jdbcType=INTEGER}
+			</if>
+			<if test="authStatus !=0">
+			    AND mt.STATUS = #{authStatus,jdbcType=INTEGER}
+			</if>
+			<if test="authStatus ==0">
+			    AND (mt.STATUS = 1 or mt.STATUS = 4 or mt.STATUS = 3) 
+			</if>
+			<if test="category != null and category != ''">
+			    AND mt.CATEGORY = #{category,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content !=''">
+				AND mt.CONTENT like CONCAT('%','${content}','%') 
+			</if>
+			<if test="id != null and id != ''">
+			    AND mt.ID = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+		        and mt.api_account in  
+		        <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+		           #{item}  
+		        </foreach>  
+           </if>  
+		</trim>	
+	</sql>
+	<select id="selectSmsTemplateVOById" resultMap="BaseResultMap2">
+		select ma.BUSINESS_NAME, ma.MERCHANT_PHONE,mt.*
+  		from sms_merchant_template mt, voice_merchant_account ma 
+  		where mt.API_ACCOUNT = ma.API_ACCOUNT
+  		and mt.ID =  #{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

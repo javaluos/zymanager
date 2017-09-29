@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrDailyStatisticsMapper">
+  <resultMap id="CdrDailyStatisticsMap" type="com.zy.cms.vo.manager.CdrDailyStatistics" >
+    <id column="MERCHANT_ACCOUNT" property="CdrDailyStatistics" jdbcType="VARCHAR" />
+	<result column="sum_holding_time" property="sum_holding_time" jdbcType="INTEGER" />
+    <result column="date_time" property="date_time" jdbcType="INTEGER" />
+    <result column="api_account" property="api_account" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="sum_call_times" property="sum_call_times" jdbcType="INTEGER" />
+    <result column="sum_a_call_times" property="sum_a_call_times" jdbcType="INTEGER" />
+    <result column="sum_b_call_times" property="sum_b_call_times" jdbcType="INTEGER" />
+    <result column="sum_holding_time" property="sum_holding_time" jdbcType="INTEGER" />
+    <result column="sum_a_holding_time" property="sum_a_holding_time" jdbcType="INTEGER" />
+    <result column="sum_b_holding_time" property="sum_b_holding_time" jdbcType="INTEGER" />
+    <result column="sum_calleepdd_time" property="sum_calleepdd_time" jdbcType="INTEGER" />
+    <result column="sum_a_calleepdd_time" property="sum_a_calleepdd_time" jdbcType="INTEGER" />
+    <result column="sum_b_calleepdd_time" property="sum_b_calleepdd_time" jdbcType="INTEGER" />
+    <result column="sum_call_suc_times" property="sum_call_suc_times" jdbcType="INTEGER" />
+	<result column="sum_a_call_suc_times" property="sum_a_call_suc_times" jdbcType="INTEGER" />
+    <result column="sum_b_call_suc_times" property="sum_b_call_suc_times" jdbcType="INTEGER" />
+    <result column="sum_response_times" property="sum_response_times" jdbcType="INTEGER" />
+    <result column="sum_a_response_times" property="sum_a_response_times" jdbcType="INTEGER" />
+    <result column="sum_b_response_times" property="sum_b_response_times" jdbcType="INTEGER" />
+    <result column="sum_fee_time" property="sum_fee_time" jdbcType="INTEGER" />
+    <result column="sum_fee" property="sum_fee" jdbcType="INTEGER" />
+    <result column="pct_call_suc" property="pct_call_sucdouble" jdbcType="DOUBLE" />
+    <result column="pct_a_call_suc" property="pct_a_call_sucdouble" jdbcType="DOUBLE" />
+    <result column="pct_b_call_suc" property="pct_b_call_sucdouble" jdbcType="DOUBLE" />
+    <result column="pct_response_suc" property="pct_response_sucdouble" jdbcType="DOUBLE" />
+    <result column="pct_a_response_suc" property="pct_a_response_sucdouble" jdbcType="DOUBLE" />
+    <result column="pct_b_response_suc" property="pct_b_response_sucdouble" jdbcType="DOUBLE"/>
+    <result column="avg_calleepdd_time" property="avg_calleepdd_time" jdbcType="INTEGER" />
+    <result column="avg_a_calleepdd_time" property="avg_a_calleepdd_time" jdbcType="INTEGER" />
+    <result column="avg_b_calleepdd_time" property="avg_b_calleepdd_time" jdbcType="INTEGER" />
+    <result column="avg_acd" property="avg_acd" jdbcType="INTEGER" />
+    <result column="avg_a_acd" property="avg_a_acd" jdbcType="INTEGER" />
+    <result column="avg_b_acd" property="avg_b_acd" jdbcType="INTEGER" />
+    <result column="create_time" property="create_time" jdbcType="VARCHAR" />
+    <result column="create_time" property="merchant_phone" jdbcType="VARCHAR" />
+    <result column="business_name" property="business_name" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+	<sql id="Base_Column_List">
+		DATE_TIME,API_ACCOUNT,TYPE,SUM_CALL_TIMES,SUM_A_CALL_TIMES,SUM_B_CALL_TIMES,SUM_HOLDING_TIME,
+		SUM_A_HOLDING_TIME,SUM_B_HOLDING_TIME,SUM_CALLEEPDD_TIME,SUM_A_CALLEEPDD_TIME,SUM_B_CALLEEPDD_TIME,
+		SUM_CALL_SUC_TIMES,SUM_A_CALL_SUC_TIMES,SUM_B_CALL_SUC_TIMES,SUM_RESPONSE_TIMES,SUM_A_RESPONSE_TIMES,
+		SUM_B_RESPONSE_TIMES,SUM_FEE_TIME,SUM_FEE,PCT_CALL_SUC,PCT_A_CALL_SUC,PCT_B_CALL_SUC,PCT_RESPONSE_SUC,
+		PCT_A_RESPONSE_SUC,PCT_B_RESPONSE_SUC,AVG_CALLEEPDD_TIME,AVG_A_CALLEEPDD_TIME,AVG_B_CALLEEPDD_TIME,
+		AVG_ACD,AVG_A_ACD,AVG_B_ACD,CREATE_TIME
+	</sql>
+
+	<!-- 实体对象查询条件SQL -->
+	<sql id="queryCdrDailyStatisticsEntityCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	        <if test="apiAccount != null and apiAccount !=''">
+				AND api_account = #{apiAccount}
+			</if>
+			<if test="querytype != null and querytype !=''">
+				AND type = #{querytype}
+			</if>
+			<if test="dateTimeStart != null and dateTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')>=  DATE_FORMAT(#{dateTimeStart}, '%Y%m%d')]]>
+			</if>
+			<if test="dateTimeEnd != null and dateTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')<=  DATE_FORMAT(#{dateTimeEnd}, '%Y%m%d')]]>
+			</if>
+			<if test="pctCallSucStart != null and pctCallSucStart !=''">
+			    AND <![CDATA[ PCT_CALL_SUC>=#{pctCallSucStart}]]>
+			</if>
+			<if test="pctCallSucEnd != null and pctCallSucEnd !=''">
+			    AND <![CDATA[ PCT_CALL_SUC<=#{pctCallSucEnd}]]>
+			</if>
+			<if test="pctResponseSucStart != null and pctResponseSucStart !=''">
+			    AND <![CDATA[ PCT_RESPONSE_SUC>=#{pctResponseSucStart}]]>
+			</if>
+			<if test="pctResponseSucEnd != null and pctResponseSucEnd !=''">
+			    AND <![CDATA[ PCT_RESPONSE_SUC<=#{pctResponseSucEnd}]]>
+			</if>
+			<!-- 回拨A路接通率和A路应答率查询条件 -->
+			<if test="pctCallSucStartA != null and pctCallSucStartA !=''">
+			    AND <![CDATA[ PCT_A_CALL_SUC>=#{pctCallSucStartA}]]>
+			</if>
+			<if test="pctCallSucEndA != null and pctCallSucEndA !=''">
+			    AND <![CDATA[ PCT_A_CALL_SUC<=#{pctCallSucEndA}]]>
+			</if>
+			<if test="pctResponseSucStartA != null and pctResponseSucStartA !=''">
+			    AND <![CDATA[ PCT_A_RESPONSE_SUC>=#{pctResponseSucStartA}]]>
+			</if>
+			<if test="pctResponseSucEndA != null and pctResponseSucEndA !=''">
+			    AND <![CDATA[ PCT_A_RESPONSE_SUC<=#{pctResponseSucEndA}]]>
+			</if>
+			<!-- 回拨B路接通率和B路应答率查询条件 -->
+			<if test="pctCallSucStartB != null and pctCallSucStartB !=''">
+			    AND <![CDATA[ PCT_B_CALL_SUC>=#{pctCallSucStartB}]]>
+			</if>
+			<if test="pctCallSucEndB != null and pctCallSucEndB !=''">
+			    AND <![CDATA[ PCT_B_CALL_SUC<=#{pctCallSucEndB}]]>
+			</if>
+			<if test="pctResponseSucStartB != null and pctResponseSucStartB !=''">
+			    AND <![CDATA[ PCT_B_RESPONSE_SUC>=#{pctResponseSucStartB}]]>
+			</if>
+			<if test="pctResponseSucEndB != null and pctResponseSucEndB !=''">
+			    AND <![CDATA[ PCT_B_RESPONSE_SUC<=#{pctResponseSucEndB}]]>
+			</if>
+			
+			<if test="avgAcdStart != null and avgAcdStart !=''">
+			    AND AVG_B_ACD = #{avgAcdStart}
+			</if>
+			
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	           and api_account in  
+	           <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	             #{item}  
+	           </foreach>  
+	        </if>  
+		</trim>	
+	</sql>
+	
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryCdrDailyStatisticsListByEntity" parameterType="com.zy.cms.vo.query.CdrDailyStatisticsQuery" resultMap="CdrDailyStatisticsMap">
+		SELECT *
+		FROM cdr_daily_statistics
+		<include refid="queryCdrDailyStatisticsEntityCondition"/>
+		ORDER BY  DATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryCdrDailyStatisticsCountByEntity" parameterType="com.zy.cms.vo.query.CdrDailyStatisticsQuery" resultType="com.zy.cms.vo.manager.CdrStatisticsResult">
+		SELECT 
+		   SUM(1) AS total_count ,
+		   SUM(sum_b_call_times) AS total_call_times ,
+		   SUM(SUM_FEE_TIME) AS total_fee_time, 
+		   SUM(SUM_CALL_SUC_TIMES) AS total_call_suc_times, 
+           SUM(sum_b_response_times) AS total_sum_response_times, 
+           SUM(SUM_HOLDING_TIME) AS sumHoldingTime,
+           SUM(sum_a_holding_time) AS sumBHoldingTimes,
+           ROUND((SUM(SUM_CALL_SUC_TIMES)/SUM(SUM_CALL_TIMES))*100,1) AS total_call_suc ,
+           ROUND((SUM(SUM_RESPONSE_TIMES)/SUM(SUM_CALL_TIMES))*100,1) AS total_response_suc ,
+           FLOOR(SUM(SUM_HOLDING_TIME)/SUM(SUM_RESPONSE_TIMES)) AS total_avg_acd 
+		FROM cdr_daily_statistics
+		<include refid="queryCdrDailyStatisticsEntityCondition"/>
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryCdrDailyStatisticsCountABByEntity" parameterType="com.zy.cms.vo.query.CdrDailyStatisticsQuery" resultType="com.zy.cms.vo.manager.CdrStatisticsResult">
+		SELECT 
+		   SUM(1) AS total_count ,
+		   SUM(sum_a_call_times) AS total_call_times ,
+		   SUM(SUM_FEE_TIME) AS total_fee_time, 
+		   SUM(sum_a_holding_time) AS sumAHoldingTimes, 
+		   SUM(sum_b_holding_time) AS sumBHoldingTimes, 
+           ROUND((SUM(SUM_A_CALL_SUC_TIMES)/SUM(SUM_A_CALL_TIMES))*100,1) AS pctACallSucdoubles , 
+           ROUND((SUM(SUM_B_CALL_SUC_TIMES)/SUM(SUM_B_CALL_TIMES))*100,1) AS pctBCallSucdoubles,
+           ROUND((SUM(SUM_A_RESPONSE_TIMES)/SUM(SUM_A_CALL_TIMES))*100,1) AS pctAResponseSucdouble, 
+           ROUND((SUM(SUM_B_RESPONSE_TIMES)/SUM(SUM_B_CALL_TIMES))*100,1) AS pctBResponseSucdouble,
+           FLOOR(SUM(SUM_A_CALLEEPDD_TIME)/SUM(SUM_A_CALL_SUC_TIMES)) AS avgACalleepddTime, 
+           FLOOR(SUM(SUM_B_CALLEEPDD_TIME)/SUM(SUM_B_CALL_SUC_TIMES)) AS avgBCalleepddTime,
+           FLOOR(SUM(SUM_B_HOLDING_TIME)/SUM(SUM_B_RESPONSE_TIMES)) AS total_avg_acd 
+		FROM cdr_daily_statistics
+		<include refid="queryCdrDailyStatisticsEntityCondition"/>
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findCdrDailyStatistics" parameterType="com.zy.cms.vo.query.CdrDailyStatisticsQuery" resultMap="CdrDailyStatisticsMap">
+		SELECT *
+		FROM cdr_daily_statistics
+		WHERE 
+		W.ID = #{id} AND W.API_ACCOUNT = #{apiAccount}
+	</select>
+	
+</mapper>

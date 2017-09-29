@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorNoticeSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrMonitorNoticeSetting" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME_RANGE1" property="noticeTimeRange1" jdbcType="VARCHAR" />
+    <result column="NOTICE_WAY1" property="noticeWay1" jdbcType="VARCHAR" />
+    <result column="NOTICE_EMAIL1" property="noticeEmail1" jdbcType="VARCHAR" />
+    <result column="NOTICE_PHONE1" property="noticePhone1" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME_RANGE2" property="noticeTimeRange2" jdbcType="VARCHAR" />
+    <result column="NOTICE_WAY2" property="noticeWay2" jdbcType="VARCHAR" />
+    <result column="NOTICE_EMAIL2" property="noticeEmail2" jdbcType="VARCHAR" />
+    <result column="NOTICE_PHONE2" property="noticePhone2" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME_RANGE3" property="noticeTimeRange3" jdbcType="VARCHAR" />
+    <result column="NOTICE_WAY3" property="noticeWay3" jdbcType="VARCHAR" />
+    <result column="NOTICE_EMAIL3" property="noticeEmail3" jdbcType="VARCHAR" />
+    <result column="NOTICE_PHONE3" property="noticePhone3" jdbcType="VARCHAR" />
+    <result column="GLOBAL_FLAG" property="globalFlag" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="START_FLAG" property="startFlag" jdbcType="INTEGER" />
+    <result column="NOTICE_FLAG" property="noticeFlag" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, NOTICE_TIME_RANGE1, NOTICE_WAY1, NOTICE_EMAIL1, NOTICE_PHONE1, NOTICE_TIME_RANGE2, 
+    NOTICE_WAY2, NOTICE_EMAIL2, NOTICE_PHONE2, NOTICE_TIME_RANGE3, NOTICE_WAY3, NOTICE_EMAIL3, 
+    NOTICE_PHONE3, GLOBAL_FLAG, CREATE_TIME, START_FLAG, NOTICE_FLAG, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_notice_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cdr_monitor_notice_setting
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeSetting" >
+    insert into cdr_monitor_notice_setting (ID, API_ACCOUNT, NOTICE_TIME_RANGE1, 
+      NOTICE_WAY1, NOTICE_EMAIL1, NOTICE_PHONE1, 
+      NOTICE_TIME_RANGE2, NOTICE_WAY2, NOTICE_EMAIL2, 
+      NOTICE_PHONE2, NOTICE_TIME_RANGE3, NOTICE_WAY3, 
+      NOTICE_EMAIL3, NOTICE_PHONE3, GLOBAL_FLAG, 
+      CREATE_TIME, START_FLAG, NOTICE_FLAG, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{apiAccount,jdbcType=VARCHAR}, #{noticeTimeRange1,jdbcType=VARCHAR}, 
+      #{noticeWay1,jdbcType=VARCHAR}, #{noticeEmail1,jdbcType=VARCHAR}, #{noticePhone1,jdbcType=VARCHAR}, 
+      #{noticeTimeRange2,jdbcType=VARCHAR}, #{noticeWay2,jdbcType=VARCHAR}, #{noticeEmail2,jdbcType=VARCHAR}, 
+      #{noticePhone2,jdbcType=VARCHAR}, #{noticeTimeRange3,jdbcType=VARCHAR}, #{noticeWay3,jdbcType=VARCHAR}, 
+      #{noticeEmail3,jdbcType=VARCHAR}, #{noticePhone3,jdbcType=VARCHAR}, #{globalFlag,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{startFlag,jdbcType=INTEGER}, #{noticeFlag,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeSetting" >
+    insert into cdr_monitor_notice_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        NOTICE_TIME_RANGE1,
+      </if>
+      <if test="noticeWay1 != null" >
+        NOTICE_WAY1,
+      </if>
+      <if test="noticeEmail1 != null" >
+        NOTICE_EMAIL1,
+      </if>
+      <if test="noticePhone1 != null" >
+        NOTICE_PHONE1,
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        NOTICE_TIME_RANGE2,
+      </if>
+      <if test="noticeWay2 != null" >
+        NOTICE_WAY2,
+      </if>
+      <if test="noticeEmail2 != null" >
+        NOTICE_EMAIL2,
+      </if>
+      <if test="noticePhone2 != null" >
+        NOTICE_PHONE2,
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        NOTICE_TIME_RANGE3,
+      </if>
+      <if test="noticeWay3 != null" >
+        NOTICE_WAY3,
+      </if>
+      <if test="noticeEmail3 != null" >
+        NOTICE_EMAIL3,
+      </if>
+      <if test="noticePhone3 != null" >
+        NOTICE_PHONE3,
+      </if>
+      <if test="globalFlag != null" >
+        GLOBAL_FLAG,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG,
+      </if>
+      <if test="noticeFlag != null" >
+        NOTICE_FLAG,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        #{noticeTimeRange1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay1 != null" >
+        #{noticeWay1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail1 != null" >
+        #{noticeEmail1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone1 != null" >
+        #{noticePhone1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        #{noticeTimeRange2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay2 != null" >
+        #{noticeWay2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail2 != null" >
+        #{noticeEmail2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone2 != null" >
+        #{noticePhone2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        #{noticeTimeRange3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay3 != null" >
+        #{noticeWay3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail3 != null" >
+        #{noticeEmail3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone3 != null" >
+        #{noticePhone3,jdbcType=VARCHAR},
+      </if>
+      <if test="globalFlag != null" >
+        #{globalFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="noticeFlag != null" >
+        #{noticeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeSetting" >
+    update cdr_monitor_notice_setting
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        NOTICE_TIME_RANGE1 = #{noticeTimeRange1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay1 != null" >
+        NOTICE_WAY1 = #{noticeWay1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail1 != null" >
+        NOTICE_EMAIL1 = #{noticeEmail1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone1 != null" >
+        NOTICE_PHONE1 = #{noticePhone1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        NOTICE_TIME_RANGE2 = #{noticeTimeRange2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay2 != null" >
+        NOTICE_WAY2 = #{noticeWay2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail2 != null" >
+        NOTICE_EMAIL2 = #{noticeEmail2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone2 != null" >
+        NOTICE_PHONE2 = #{noticePhone2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        NOTICE_TIME_RANGE3 = #{noticeTimeRange3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeWay3 != null" >
+        NOTICE_WAY3 = #{noticeWay3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeEmail3 != null" >
+        NOTICE_EMAIL3 = #{noticeEmail3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePhone3 != null" >
+        NOTICE_PHONE3 = #{noticePhone3,jdbcType=VARCHAR},
+      </if>
+      <if test="globalFlag != null" >
+        GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG = #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="noticeFlag != null" >
+        NOTICE_FLAG = #{noticeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeSetting" >
+    update cdr_monitor_notice_setting
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      NOTICE_TIME_RANGE1 = #{noticeTimeRange1,jdbcType=VARCHAR},
+      NOTICE_WAY1 = #{noticeWay1,jdbcType=VARCHAR},
+      NOTICE_EMAIL1 = #{noticeEmail1,jdbcType=VARCHAR},
+      NOTICE_PHONE1 = #{noticePhone1,jdbcType=VARCHAR},
+      NOTICE_TIME_RANGE2 = #{noticeTimeRange2,jdbcType=VARCHAR},
+      NOTICE_WAY2 = #{noticeWay2,jdbcType=VARCHAR},
+      NOTICE_EMAIL2 = #{noticeEmail2,jdbcType=VARCHAR},
+      NOTICE_PHONE2 = #{noticePhone2,jdbcType=VARCHAR},
+      NOTICE_TIME_RANGE3 = #{noticeTimeRange3,jdbcType=VARCHAR},
+      NOTICE_WAY3 = #{noticeWay3,jdbcType=VARCHAR},
+      NOTICE_EMAIL3 = #{noticeEmail3,jdbcType=VARCHAR},
+      NOTICE_PHONE3 = #{noticePhone3,jdbcType=VARCHAR},
+      GLOBAL_FLAG = #{globalFlag,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      START_FLAG = #{startFlag,jdbcType=INTEGER},
+      NOTICE_FLAG = #{noticeFlag,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="selectByApiaccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_notice_setting
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getGlobalNoticeSetting" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_notice_setting
+    where START_FLAG = #{startFlag,jdbcType=VARCHAR}
+    and GLOBAL_FLAG = #{globalFlag,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

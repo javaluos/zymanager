@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.SmsDailyRevenueStatisticsMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsDailyRevenueStatistics" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="SMS_CATEGORY" property="smsCategory" jdbcType="VARCHAR" />
+    <result column="FEE_COUNT" property="feeCount" jdbcType="INTEGER" />
+    <result column="IN_COME" property="inCome" jdbcType="DOUBLE" />
+    <result column="COST_FEE" property="costFee" jdbcType="DOUBLE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, DATE_TIME, API_ACCOUNT, CHANNEL_ID, SMS_CATEGORY, FEE_COUNT, IN_COME, COST_FEE, 
+    CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_daily_revenue_statistics
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sms_daily_revenue_statistics
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.SmsDailyRevenueStatistics" >
+    insert into sms_daily_revenue_statistics 
+     (ID, DATE_TIME, API_ACCOUNT, 
+      CHANNEL_ID, SMS_CATEGORY, FEE_COUNT, 
+      IN_COME, COST_FEE, CREATE_TIME
+      )
+    values 
+     (#{id,jdbcType=BIGINT}, #{dateTime,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=VARCHAR}, #{smsCategory,jdbcType=VARCHAR}, #{feeCount,jdbcType=INTEGER}, 
+      #{inCome,jdbcType=DOUBLE}, #{costFee,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsDailyRevenueStatistics" >
+    insert into sms_daily_revenue_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dateTime != null" >
+        DATE_TIME,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="smsCategory != null" >
+        SMS_CATEGORY,
+      </if>
+      <if test="feeCount != null" >
+        FEE_COUNT,
+      </if>
+      <if test="inCome != null" >
+        IN_COME,
+      </if>
+      <if test="costFee != null" >
+        COST_FEE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dateTime != null" >
+        #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCategory != null" >
+        #{smsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="feeCount != null" >
+        #{feeCount,jdbcType=INTEGER},
+      </if>
+      <if test="inCome != null" >
+        #{inCome,jdbcType=DOUBLE},
+      </if>
+      <if test="costFee != null" >
+        #{costFee,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsDailyRevenueStatistics" >
+    update sms_daily_revenue_statistics
+    <set >
+      <if test="dateTime != null" >
+        DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCategory != null" >
+        SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="feeCount != null" >
+        FEE_COUNT = #{feeCount,jdbcType=INTEGER},
+      </if>
+      <if test="inCome != null" >
+        IN_COME = #{inCome,jdbcType=DOUBLE},
+      </if>
+      <if test="costFee != null" >
+        COST_FEE = #{costFee,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsDailyRevenueStatistics" >
+    update sms_daily_revenue_statistics
+    set DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+      API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR},
+      FEE_COUNT = #{feeCount,jdbcType=INTEGER},
+      IN_COME = #{inCome,jdbcType=DOUBLE},
+      COST_FEE = #{costFee,jdbcType=DOUBLE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <sql id="where_clause">
+	<where>
+		<if test="apiAccount != null and apiAccount !=''">
+			AND API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+		</if>
+		<if test="channelId != null and channelId !=''">
+			AND CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+		</if>
+		<if test="smsCategory != null and smsCategory !=''">
+			AND SMS_CATEGORY = #{smsCategory,jdbcType=VARCHAR}
+		</if>
+        <if test="dateTimeStart != null and dateTimeStart !=''">
+			AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')>=  DATE_FORMAT(#{dateTimeStart}, '%Y%m%d')]]>
+		</if>
+		<if test="dateTimeEnd != null and dateTimeEnd !=''">
+		    AND <![CDATA[ DATE_FORMAT(DATE_TIME, '%Y%m%d')<=  DATE_FORMAT(#{dateTimeEnd}, '%Y%m%d')]]>
+		</if>
+		<if test="apiAccounts!=null and apiAccounts.size() > 0">
+            AND API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="channelIds!=null and channelIds.size() > 0">
+            AND CHANNEL_ID in
+            <foreach  collection="channelIds" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND FEE_COUNT>0
+	</where>
+  </sql>
+  
+  <!-- 根据实体对象查询列表 -->
+   <select id="listAccountRevenue" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultMap="BaseResultMap">
+	 SELECT 
+	 	ID as id, 
+	 	DATE_TIME as dateTime,
+	 	API_ACCOUNT as apiAccount, 
+	 	CHANNEL_ID as channelId, 
+	 	SMS_CATEGORY as smsCategory, 
+	 	sum(FEE_COUNT) as feeCount, 
+	 	sum(IN_COME) as inCome, 
+	 	sum(COST_FEE) as costFee, 
+        CREATE_TIME as createTime
+     FROM 
+     	sms_daily_revenue_statistics W 
+    <include refid="where_clause"/>
+     GROUP BY 
+        W.API_ACCOUNT,W.DATE_TIME,SMS_CATEGORY
+     ORDER BY 
+         W.DATE_TIME DESC,feeCount DESC
+	 limit
+	    #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="listAccountRevenueCount" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultType="int">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  (
+			  SELECT 
+				 * 
+			  FROM 
+				 sms_daily_revenue_statistics w
+			  <include refid="where_clause"/>
+			  GROUP BY W.API_ACCOUNT,W.DATE_TIME,SMS_CATEGORY
+		  ) F
+	</select>
+	
+   <!-- 根据实体对象查询列表 -->
+   <select id="listChannelRevenue" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultMap="BaseResultMap">
+	 SELECT 
+	 	ID as id, 
+	 	DATE_TIME as dateTime,
+	 	API_ACCOUNT as apiAccount, 
+	 	CHANNEL_ID as channelId, 
+	 	SMS_CATEGORY as smsCategory, 
+	 	sum(FEE_COUNT) as feeCount, 
+	 	sum(IN_COME) as inCome, 
+	 	sum(COST_FEE) as costFee, 
+        CREATE_TIME as createTime
+     FROM 
+     	sms_daily_revenue_statistics W 
+     <include refid="where_clause"/>
+     GROUP BY 
+        W.CHANNEL_ID,W.DATE_TIME
+     ORDER BY 
+         W.DATE_TIME DESC,feeCount DESC
+	 limit         
+	    #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="listChannelRevenueCount" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultType="int">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  (
+			SELECT 
+			  * 
+			FROM 
+			  sms_daily_revenue_statistics W
+			<include refid="where_clause"/>
+			 GROUP BY 
+	        W.CHANNEL_ID,W.DATE_TIME
+	      ) F
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+   <select id="listSummaryRevenue" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultMap="BaseResultMap">
+	 SELECT 
+	 	ID as id, 
+	 	DATE_TIME as dateTime,
+	 	API_ACCOUNT as apiAccount, 
+	 	CHANNEL_ID as channelId, 
+	 	SMS_CATEGORY as smsCategory, 
+	 	sum(FEE_COUNT) as feeCount, 
+	 	sum(IN_COME) as inCome, 
+	 	sum(COST_FEE) as costFee, 
+        CREATE_TIME as createTime
+     FROM 
+     	sms_daily_revenue_statistics W 
+     <include refid="where_clause"/>
+     GROUP BY 
+        W.DATE_TIME
+     ORDER BY 
+         W.DATE_TIME DESC,W.FEE_COUNT DESC
+	 limit
+	    #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="listSummaryRevenueCount" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultType="int">
+		SELECT 
+		  COUNT(*) 
+		FROM
+		  (
+			SELECT 
+			  * 
+			FROM 
+			   sms_daily_revenue_statistics W
+			<include refid="where_clause"/>
+			 GROUP BY 
+	           W.DATE_TIME
+	      ) F
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+   <select id="listRevenue" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultMap="BaseResultMap">
+	 SELECT 
+	 	ID as id, 
+	 	DATE_TIME as dateTime,
+	 	API_ACCOUNT as apiAccount, 
+	 	CHANNEL_ID as channelId, 
+	 	SMS_CATEGORY as smsCategory, 
+	 	FEE_COUNT as feeCount, 
+	 	IN_COME as inCome, 
+	 	COST_FEE as costFee, 
+        CREATE_TIME as createTime
+     FROM 
+     	sms_daily_revenue_statistics W 
+     <include refid="where_clause"/>
+     ORDER BY 
+        W.DATE_TIME DESC,W.FEE_COUNT DESC
+	 limit
+	    #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="listRevenueCount" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultType="int">
+		SELECT 
+		  COUNT(*)  
+		FROM 
+		   sms_daily_revenue_statistics W
+		<include refid="where_clause"/>
+	</select>
+	
+	<select id="getRevenueResult" parameterType="com.zy.cms.vo.query.SmsDailyRevenueStatisticsQuery" resultType="com.zy.cms.vo.manager.RevenueResult">
+		SELECT 
+		  sum(FEE_COUNT) as feeCount,
+		  sum(IN_COME) as inCome,
+		  sum(COST_FEE) as costFee,
+		  (sum(IN_COME)-sum(COST_FEE)) as profit,
+		  (sum(COST_FEE)/sum(FEE_COUNT)) costAveragePrice,
+		  (sum(IN_COME)-sum(COST_FEE))/sum(IN_COME) grossProfitRate
+		FROM 
+		   sms_daily_revenue_statistics W
+		<include refid="where_clause"/>
+	</select>
+	
+</mapper>

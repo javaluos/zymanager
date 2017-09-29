@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrFeeMonthSumMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrFeeMonthSum" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="SUM_FEE_BS_1" property="sumFeeBs1" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_2" property="sumFeeBs2" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_3" property="sumFeeBs3" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_4" property="sumFeeBs4" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_5" property="sumFeeBs5" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_6" property="sumFeeBs6" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_7" property="sumFeeBs7" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_8" property="sumFeeBs8" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_9" property="sumFeeBs9" jdbcType="INTEGER" />
+    <result column="SUM_FEE_BS_10" property="sumFeeBs10" jdbcType="INTEGER" />
+     <result column="SUM_FEE_BS_11" property="sumFeeBs11" jdbcType="INTEGER" />
+    <result column="FEE_RATE_1" property="feeRate1" jdbcType="INTEGER" />
+    <result column="FEE_RATE_2" property="feeRate2" jdbcType="INTEGER" />
+    <result column="FEE_RATE_3" property="feeRate3" jdbcType="INTEGER" />
+    <result column="FEE_RATE_4" property="feeRate4" jdbcType="INTEGER" />
+    <result column="FEE_RATE_5" property="feeRate5" jdbcType="INTEGER" />
+    <result column="FEE_RATE_6" property="feeRate6" jdbcType="INTEGER" />
+    <result column="FEE_RATE_7" property="feeRate7" jdbcType="INTEGER" />
+    <result column="FEE_RATE_8" property="feeRate8" jdbcType="INTEGER" />
+    <result column="FEE_RATE_9" property="feeRate9" jdbcType="INTEGER" />
+    <result column="FEE_RATE_10" property="feeRate10" jdbcType="INTEGER" />
+     <result column="FEE_RATE_11" property="feeRate11" jdbcType="INTEGER" />
+    <result column="FEE_count_1" property="feeCount1" jdbcType="INTEGER" />
+    <result column="FEE_count_2" property="feeCount2" jdbcType="INTEGER" />
+    <result column="FEE_count_3" property="feeCount3" jdbcType="INTEGER" />
+    <result column="FEE_count_4" property="feeCount4" jdbcType="INTEGER" />
+    <result column="FEE_count_5" property="feeCount5" jdbcType="INTEGER" />
+    <result column="FEE_count_6" property="feeCount6" jdbcType="INTEGER" />
+    <result column="FEE_count_7" property="feeCount7" jdbcType="INTEGER" />
+    <result column="FEE_count_8" property="feeCount8" jdbcType="INTEGER" />
+    <result column="FEE_count_9" property="feeCount9" jdbcType="INTEGER" />
+    <result column="FEE_count_10" property="feeCount10" jdbcType="INTEGER" />
+    <result column="FEE_count_11" property="feeCount11" jdbcType="INTEGER" />
+    <result column="FEE_TIME_1" property="feeTime1" jdbcType="INTEGER" />
+    <result column="FEE_TIME_2" property="feeTime2" jdbcType="INTEGER" />
+    <result column="FEE_TIME_3" property="feeTime3" jdbcType="INTEGER" />
+    <result column="FEE_TIME_4" property="feeTime4" jdbcType="INTEGER" />
+    <result column="FEE_TIME_5" property="feeTime5" jdbcType="INTEGER" />
+    <result column="FEE_TIME_6" property="feeTime6" jdbcType="INTEGER" />
+    <result column="FEE_TIME_7" property="feeTime7" jdbcType="INTEGER" />
+    <result column="FEE_TIME_8" property="feeTime8" jdbcType="INTEGER" />
+    <result column="FEE_TIME_9" property="feeTime9" jdbcType="INTEGER" />
+    <result column="FEE_TIME_10" property="feeTime10" jdbcType="INTEGER" />
+    <result column="FEE_TIME_11" property="feeTime11" jdbcType="INTEGER" />
+    <result column="SUM_FEE" property="sumFee" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, DATE_TIME, API_ACCOUNT, SUM_FEE_BS_1, SUM_FEE_BS_2, SUM_FEE_BS_3, SUM_FEE_BS_4, 
+    SUM_FEE_BS_5, SUM_FEE_BS_6, SUM_FEE_BS_7, SUM_FEE_BS_8, SUM_FEE_BS_9, SUM_FEE_BS_10, SUM_FEE_BS_11, 
+    FEE_RATE_1, FEE_RATE_2, FEE_RATE_3, FEE_RATE_4, FEE_RATE_5, FEE_RATE_6, FEE_RATE_7, 
+    FEE_RATE_8, FEE_RATE_9, FEE_RATE_10, FEE_RATE_11, FEE_COUNT_1, FEE_COUNT_2, FEE_COUNT_3, FEE_COUNT_4, 
+    FEE_COUNT_5, FEE_COUNT_6, FEE_COUNT_7, FEE_COUNT_8, FEE_COUNT_9, FEE_COUNT_10,FEE_COUNT_11, FEE_TIME_1, 
+    FEE_TIME_2, FEE_TIME_3, FEE_TIME_4, FEE_TIME_5, FEE_TIME_6, FEE_TIME_7, FEE_TIME_8, 
+    FEE_TIME_9, FEE_TIME_10, FEE_TIME_11, SUM_FEE, CREATE_TIME
+  </sql>
+  
+  <!-- 查询条件 -->
+  <sql id="queryCdrFeeMonthEntityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+		      <if test="businessName != null and businessName !=''" >
+		          R.BUSINESS_NAME like CONCAT('%','${businessName}','%' )
+		      </if>
+		      <if test="merchantPhone != null and merchantPhone !=''" >
+		         AND R.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	             and W.API_ACCOUNT in  
+	             <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	                #{item}  
+	             </foreach>  
+	          </if>  
+		</trim>
+	</sql>
+	
+	<!-- 查询条件 -->
+    <sql id="queryCdrFeeDailyEntityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+		       1=1
+		      <if test="apiAccount != null and apiAccount !=''" >
+		        AND W.API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+		      </if>
+		      <if test="businessName != null and businessName !=''" >
+		        AND R.BUSINESS_NAME like CONCAT('%','${businessName}','%' )
+		      </if>
+		      <if test="merchantPhone != null and merchantPhone !=''" >
+		        AND  R.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+		      </if> 
+			  <!-- <if test="dateTimeStart != null and dateTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.DATE_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{dateTimeStart}, '%Y-%m-%d %H:%i:%s')]]>
+			  </if>
+			  <if test="dateTimeEnd != null and dateTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.DATE_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{dateTimeEnd}, '%Y-%m-%d %H:%i:%s')]]>
+			  </if> -->
+		</trim>
+	</sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_fee_month_sum
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cdr_fee_month_sum
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.manager.CdrFeeMonthSum" >
+    insert into cdr_fee_month_sum (ID, DATE_TIME, API_ACCOUNT, 
+      SUM_FEE_BS_1, SUM_FEE_BS_2, SUM_FEE_BS_3, 
+      SUM_FEE_BS_4, SUM_FEE_BS_5, SUM_FEE_BS_6, 
+      SUM_FEE_BS_7, SUM_FEE_BS_8, SUM_FEE_BS_9, 
+      SUM_FEE_BS_10, SUM_FEE_BS_11, FEE_RATE_1, FEE_RATE_2, 
+      FEE_RATE_3, FEE_RATE_4, FEE_RATE_5, 
+      FEE_RATE_6, FEE_RATE_7, FEE_RATE_8, 
+      FEE_RATE_9, FEE_RATE_10,FEE_RATE_11, FEE_COUNT_1, 
+      FEE_COUNT_2, FEE_COUNT_3, FEE_COUNT_4, 
+      FEE_COUNT_5, FEE_COUNT_6, FEE_COUNT_7, 
+      FEE_COUNT_8, FEE_COUNT_9, FEE_COUNT_10, FEE_COUNT_11,
+      FEE_TIME_1, FEE_TIME_2, FEE_TIME_3, 
+      FEE_TIME_4, FEE_TIME_5, FEE_TIME_6, 
+      FEE_TIME_7, FEE_TIME_8, FEE_TIME_9, 
+      FEE_TIME_10, FEE_TIME_11, SUM_FEE, CREATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{dateTime,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR}, 
+      #{sumFeeBs1,jdbcType=INTEGER}, #{sumFeeBs2,jdbcType=INTEGER}, #{sumFeeBs3,jdbcType=INTEGER}, 
+      #{sumFeeBs4,jdbcType=INTEGER}, #{sumFeeBs5,jdbcType=INTEGER}, #{sumFeeBs6,jdbcType=INTEGER}, 
+      #{sumFeeBs7,jdbcType=INTEGER}, #{sumFeeBs8,jdbcType=INTEGER}, #{sumFeeBs9,jdbcType=INTEGER}, 
+      #{sumFeeBs10,jdbcType=INTEGER},#{sumFeeBs11,jdbcType=INTEGER}, #{feeRate1,jdbcType=INTEGER}, 
+      #{feeRate2,jdbcType=INTEGER}, 
+      #{feeRate3,jdbcType=INTEGER}, #{feeRate4,jdbcType=INTEGER}, #{feeRate5,jdbcType=INTEGER}, 
+      #{feeRate6,jdbcType=INTEGER}, #{feeRate7,jdbcType=INTEGER}, #{feeRate8,jdbcType=INTEGER}, 
+      #{feeRate9,jdbcType=INTEGER}, #{feeRate10,jdbcType=INTEGER},#{feeRate11,jdbcType=INTEGER}, 
+      #{feeCount1,jdbcType=INTEGER}, 
+      #{feeCount2,jdbcType=INTEGER}, #{feeCount3,jdbcType=INTEGER}, #{feeCount4,jdbcType=INTEGER}, 
+      #{feeCount5,jdbcType=INTEGER}, #{feeCount6,jdbcType=INTEGER}, #{feeCount7,jdbcType=INTEGER}, 
+      #{feeCount8,jdbcType=INTEGER}, #{feeCount9,jdbcType=INTEGER}, #{feeCount10,jdbcType=INTEGER},
+      #{feeCount11,jdbcType=INTEGER},
+      #{feeTime1,jdbcType=INTEGER}, #{feeTime2,jdbcType=INTEGER}, #{feeTime3,jdbcType=INTEGER}, 
+      #{feeTime4,jdbcType=INTEGER}, #{feeTime5,jdbcType=INTEGER}, #{feeTime6,jdbcType=INTEGER}, 
+      #{feeTime7,jdbcType=INTEGER}, #{feeTime8,jdbcType=INTEGER}, #{feeTime9,jdbcType=INTEGER}, 
+      #{feeTime10,jdbcType=INTEGER},#{feeTime11,jdbcType=INTEGER}, #{sumFee,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.CdrFeeMonthSum" >
+    insert into cdr_fee_month_sum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dateTime != null" >
+        DATE_TIME,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="sumFeeBs1 != null" >
+        SUM_FEE_BS_1,
+      </if>
+      <if test="sumFeeBs2 != null" >
+        SUM_FEE_BS_2,
+      </if>
+      <if test="sumFeeBs3 != null" >
+        SUM_FEE_BS_3,
+      </if>
+      <if test="sumFeeBs4 != null" >
+        SUM_FEE_BS_4,
+      </if>
+      <if test="sumFeeBs5 != null" >
+        SUM_FEE_BS_5,
+      </if>
+      <if test="sumFeeBs6 != null" >
+        SUM_FEE_BS_6,
+      </if>
+      <if test="sumFeeBs7 != null" >
+        SUM_FEE_BS_7,
+      </if>
+      <if test="sumFeeBs8 != null" >
+        SUM_FEE_BS_8,
+      </if>
+      <if test="sumFeeBs9 != null" >
+        SUM_FEE_BS_9,
+      </if>
+      <if test="sumFeeBs10 != null" >
+        SUM_FEE_BS_10,
+      </if>
+      <if test="sumFeeBs11 != null" >
+        SUM_FEE_BS_11,
+      </if>
+      <if test="feeRate1 != null" >
+        FEE_RATE_1,
+      </if>
+      <if test="feeRate2 != null" >
+        FEE_RATE_2,
+      </if>
+      <if test="feeRate3 != null" >
+        FEE_RATE_3,
+      </if>
+      <if test="feeRate4 != null" >
+        FEE_RATE_4,
+      </if>
+      <if test="feeRate5 != null" >
+        FEE_RATE_5,
+      </if>
+      <if test="feeRate6 != null" >
+        FEE_RATE_6,
+      </if>
+      <if test="feeRate7 != null" >
+        FEE_RATE_7,
+      </if>
+      <if test="feeRate8 != null" >
+        FEE_RATE_8,
+      </if>
+      <if test="feeRate9 != null" >
+        FEE_RATE_9,
+      </if>
+      <if test="feeRate10 != null" >
+        FEE_RATE_10,
+      </if>
+      <if test="feeRate11 != null" >
+        FEE_RATE_11,
+      </if>
+      <if test="feeCount1 != null" >
+        FEE_COUNT_1,
+      </if>
+      <if test="feeCount2 != null" >
+        FEE_COUNT_2,
+      </if>
+      <if test="feeCount3 != null" >
+        FEE_COUNT_3,
+      </if>
+      <if test="feeCount4 != null" >
+        FEE_COUNT_4,
+      </if>
+      <if test="feeCount5 != null" >
+        FEE_COUNT_5,
+      </if>
+      <if test="feeCount6 != null" >
+        FEE_COUNT_6,
+      </if>
+      <if test="feeCount7 != null" >
+        FEE_COUNT_7,
+      </if>
+      <if test="feeCount8 != null" >
+        FEE_COUNT_8,
+      </if>
+      <if test="feeCount9 != null" >
+        FEE_COUNT_9,
+      </if>
+      <if test="feeCount10 != null" >
+        FEE_COUNT_10,
+      </if>
+      <if test="feeCount11 != null" >
+        FEE_COUNT_11,
+      </if>
+      <if test="feeTime1 != null" >
+        FEE_TIME_1,
+      </if>
+      <if test="feeTime2 != null" >
+        FEE_TIME_2,
+      </if>
+      <if test="feeTime3 != null" >
+        FEE_TIME_3,
+      </if>
+      <if test="feeTime4 != null" >
+        FEE_TIME_4,
+      </if>
+      <if test="feeTime5 != null" >
+        FEE_TIME_5,
+      </if>
+      <if test="feeTime6 != null" >
+        FEE_TIME_6,
+      </if>
+      <if test="feeTime7 != null" >
+        FEE_TIME_7,
+      </if>
+      <if test="feeTime8 != null" >
+        FEE_TIME_8,
+      </if>
+      <if test="feeTime9 != null" >
+        FEE_TIME_9,
+      </if>
+      <if test="feeTime10 != null" >
+        FEE_TIME_10,
+      </if>
+      <if test="feeTime11 != null" >
+        FEE_TIME_11,
+      </if>
+      <if test="sumFee != null" >
+        SUM_FEE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dateTime != null" >
+        #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sumFeeBs1 != null" >
+        #{sumFeeBs1,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs2 != null" >
+        #{sumFeeBs2,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs3 != null" >
+        #{sumFeeBs3,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs4 != null" >
+        #{sumFeeBs4,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs5 != null" >
+        #{sumFeeBs5,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs6 != null" >
+        #{sumFeeBs6,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs7 != null" >
+        #{sumFeeBs7,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs8 != null" >
+        #{sumFeeBs8,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs9 != null" >
+        #{sumFeeBs9,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs10 != null" >
+        #{sumFeeBs10,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs11 != null" >
+        #{sumFeeBs11,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate1 != null" >
+        #{feeRate1,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate2 != null" >
+        #{feeRate2,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate3 != null" >
+        #{feeRate3,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate4 != null" >
+        #{feeRate4,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate5 != null" >
+        #{feeRate5,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate6 != null" >
+        #{feeRate6,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate7 != null" >
+        #{feeRate7,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate8 != null" >
+        #{feeRate8,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate9 != null" >
+        #{feeRate9,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate10 != null" >
+        #{feeRate10,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate11 != null" >
+        #{feeRate11,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount1 != null" >
+        #{feeCount1,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount2 != null" >
+        #{feeCount2,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount3 != null" >
+        #{feeCount3,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount4 != null" >
+        #{feeCount4,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount5 != null" >
+        #{feeCount5,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount6 != null" >
+        #{feeCount6,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount7 != null" >
+        #{feeCount7,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount8 != null" >
+        #{feeCount8,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount9 != null" >
+        #{feeCount9,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount10 != null" >
+        #{feeCount10,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount11 != null" >
+        #{feeCount11,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime1 != null" >
+        #{feeTime1,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime2 != null" >
+        #{feeTime2,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime3 != null" >
+        #{feeTime3,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime4 != null" >
+        #{feeTime4,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime5 != null" >
+        #{feeTime5,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime6 != null" >
+        #{feeTime6,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime7 != null" >
+        #{feeTime7,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime8 != null" >
+        #{feeTime8,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime9 != null" >
+        #{feeTime9,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime10 != null" >
+        #{feeTime10,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime11 != null" >
+        #{feeTime11,jdbcType=INTEGER},
+      </if>
+      <if test="sumFee != null" >
+        #{sumFee,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.CdrFeeMonthSum" >
+    update cdr_fee_month_sum
+    <set >
+      <if test="dateTime != null" >
+        DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sumFeeBs1 != null" >
+        SUM_FEE_BS_1 = #{sumFeeBs1,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs2 != null" >
+        SUM_FEE_BS_2 = #{sumFeeBs2,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs3 != null" >
+        SUM_FEE_BS_3 = #{sumFeeBs3,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs4 != null" >
+        SUM_FEE_BS_4 = #{sumFeeBs4,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs5 != null" >
+        SUM_FEE_BS_5 = #{sumFeeBs5,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs6 != null" >
+        SUM_FEE_BS_6 = #{sumFeeBs6,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs7 != null" >
+        SUM_FEE_BS_7 = #{sumFeeBs7,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs8 != null" >
+        SUM_FEE_BS_8 = #{sumFeeBs8,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs9 != null" >
+        SUM_FEE_BS_9 = #{sumFeeBs9,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs10 != null" >
+        SUM_FEE_BS_10 = #{sumFeeBs10,jdbcType=INTEGER},
+      </if>
+      <if test="sumFeeBs11 != null" >
+        SUM_FEE_BS_11 = #{sumFeeBs11,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate1 != null" >
+        FEE_RATE_1 = #{feeRate1,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate2 != null" >
+        FEE_RATE_2 = #{feeRate2,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate3 != null" >
+        FEE_RATE_3 = #{feeRate3,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate4 != null" >
+        FEE_RATE_4 = #{feeRate4,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate5 != null" >
+        FEE_RATE_5 = #{feeRate5,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate6 != null" >
+        FEE_RATE_6 = #{feeRate6,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate7 != null" >
+        FEE_RATE_7 = #{feeRate7,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate8 != null" >
+        FEE_RATE_8 = #{feeRate8,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate9 != null" >
+        FEE_RATE_9 = #{feeRate9,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate10 != null" >
+        FEE_RATE_10 = #{feeRate10,jdbcType=INTEGER},
+      </if>
+      <if test="feeRate11 != null" >
+        FEE_RATE_11 = #{feeRate11,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount1 != null" >
+        FEE_COUNT_1 = #{feeCount1,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount2 != null" >
+        FEE_COUNT_2 = #{feeCount2,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount3 != null" >
+        FEE_COUNT_3 = #{feeCount3,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount4 != null" >
+        FEE_COUNT_4 = #{feeCount4,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount5 != null" >
+        FEE_COUNT_5 = #{feeCount5,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount6 != null" >
+        FEE_COUNT_6 = #{feeCount6,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount7 != null" >
+        FEE_COUNT_7 = #{feeCount7,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount8 != null" >
+        FEE_COUNT_8 = #{feeCount8,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount9 != null" >
+        FEE_COUNT_9 = #{feeCount9,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount10 != null" >
+        FEE_COUNT_10 = #{feeCount10,jdbcType=INTEGER},
+      </if>
+      <if test="feeCount11 != null" >
+        FEE_COUNT_11 = #{feeCount11,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime1 != null" >
+        FEE_TIME_1 = #{feeTime1,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime2 != null" >
+        FEE_TIME_2 = #{feeTime2,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime3 != null" >
+        FEE_TIME_3 = #{feeTime3,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime4 != null" >
+        FEE_TIME_4 = #{feeTime4,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime5 != null" >
+        FEE_TIME_5 = #{feeTime5,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime6 != null" >
+        FEE_TIME_6 = #{feeTime6,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime7 != null" >
+        FEE_TIME_7 = #{feeTime7,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime8 != null" >
+        FEE_TIME_8 = #{feeTime8,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime9 != null" >
+        FEE_TIME_9 = #{feeTime9,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime10 != null" >
+        FEE_TIME_10 = #{feeTime10,jdbcType=INTEGER},
+      </if>
+      <if test="feeTime11 != null" >
+        FEE_TIME_11 = #{feeTime11,jdbcType=INTEGER},
+      </if>
+      <if test="sumFee != null" >
+        SUM_FEE = #{sumFee,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.CdrFeeMonthSum" >
+    update cdr_fee_month_sum
+    set DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+      API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      SUM_FEE_BS_1 = #{sumFeeBs1,jdbcType=INTEGER},
+      SUM_FEE_BS_2 = #{sumFeeBs2,jdbcType=INTEGER},
+      SUM_FEE_BS_3 = #{sumFeeBs3,jdbcType=INTEGER},
+      SUM_FEE_BS_4 = #{sumFeeBs4,jdbcType=INTEGER},
+      SUM_FEE_BS_5 = #{sumFeeBs5,jdbcType=INTEGER},
+      SUM_FEE_BS_6 = #{sumFeeBs6,jdbcType=INTEGER},
+      SUM_FEE_BS_7 = #{sumFeeBs7,jdbcType=INTEGER},
+      SUM_FEE_BS_8 = #{sumFeeBs8,jdbcType=INTEGER},
+      SUM_FEE_BS_9 = #{sumFeeBs9,jdbcType=INTEGER},
+      SUM_FEE_BS_10 = #{sumFeeBs10,jdbcType=INTEGER},
+      SUM_FEE_BS_11 = #{sumFeeBs11,jdbcType=INTEGER},
+      FEE_RATE_1 = #{feeRate1,jdbcType=INTEGER},
+      FEE_RATE_2 = #{feeRate2,jdbcType=INTEGER},
+      FEE_RATE_3 = #{feeRate3,jdbcType=INTEGER},
+      FEE_RATE_4 = #{feeRate4,jdbcType=INTEGER},
+      FEE_RATE_5 = #{feeRate5,jdbcType=INTEGER},
+      FEE_RATE_6 = #{feeRate6,jdbcType=INTEGER},
+      FEE_RATE_7 = #{feeRate7,jdbcType=INTEGER},
+      FEE_RATE_8 = #{feeRate8,jdbcType=INTEGER},
+      FEE_RATE_9 = #{feeRate9,jdbcType=INTEGER},
+      FEE_RATE_10 = #{feeRate10,jdbcType=INTEGER},
+      FEE_RATE_11 = #{feeRate11,jdbcType=INTEGER},
+      FEE_COUNT_1 = #{feeCount1,jdbcType=INTEGER},
+      FEE_COUNT_2 = #{feeCount2,jdbcType=INTEGER},
+      FEE_COUNT_3 = #{feeCount3,jdbcType=INTEGER},
+      FEE_COUNT_4 = #{feeCount4,jdbcType=INTEGER},
+      FEE_COUNT_5 = #{feeCount5,jdbcType=INTEGER},
+      FEE_COUNT_6 = #{feeCount6,jdbcType=INTEGER},
+      FEE_COUNT_7 = #{feeCount7,jdbcType=INTEGER},
+      FEE_COUNT_8 = #{feeCount8,jdbcType=INTEGER},
+      FEE_COUNT_9 = #{feeCount9,jdbcType=INTEGER},
+      FEE_COUNT_10 = #{feeCount10,jdbcType=INTEGER},
+      FEE_COUNT_11 = #{feeCount11,jdbcType=INTEGER},
+      FEE_TIME_1 = #{feeTime1,jdbcType=INTEGER},
+      FEE_TIME_2 = #{feeTime2,jdbcType=INTEGER},
+      FEE_TIME_3 = #{feeTime3,jdbcType=INTEGER},
+      FEE_TIME_4 = #{feeTime4,jdbcType=INTEGER},
+      FEE_TIME_5 = #{feeTime5,jdbcType=INTEGER},
+      FEE_TIME_6 = #{feeTime6,jdbcType=INTEGER},
+      FEE_TIME_7 = #{feeTime7,jdbcType=INTEGER},
+      FEE_TIME_8 = #{feeTime8,jdbcType=INTEGER},
+      FEE_TIME_9 = #{feeTime9,jdbcType=INTEGER},
+      FEE_TIME_10 = #{feeTime10,jdbcType=INTEGER},
+      FEE_TIME_11 = #{feeTime11,jdbcType=INTEGER},
+      SUM_FEE = #{sumFee,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <!-- 根据实体对象查询列表 月账单-->
+  <select id="queryCdrFeeMonthByEntity" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultMap="BaseResultMap">
+	select 
+	*
+	from (
+			SELECT 
+			    ${tablesuffix} as dateTime,
+			    W.API_ACCOUNT as apiAccount,
+				SUM(W.SUM_FEE_BS_1) as sumFeeBs1,SUM(W.SUM_FEE_BS_2) as sumFeeBs2,SUM(W.SUM_FEE_BS_3) as sumFeeBs3,
+				SUM(W.SUM_FEE_BS_4) as sumFeeBs4,SUM(W.SUM_FEE_BS_5) as sumFeeBs5,SUM(W.SUM_FEE_BS_6) as sumFeeBs6,
+				SUM(W.SUM_FEE_BS_7) as sumFeeBs7,SUM(W.SUM_FEE_BS_8) as sumFeeBs8,SUM(W.SUM_FEE_BS_9) as sumFeeBs9,
+				SUM(W.SUM_FEE_BS_10) as sumFeeBs10,SUM(W.SUM_FEE_BS_11) as sumFeeBs11,
+				R.BUSINESS_NAME as businessName,
+				R.MERCHANT_PHONE as merchantPhone
+			FROM 
+				zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R 
+			ON W.API_ACCOUNT=R.API_ACCOUNT
+			<include refid="queryCdrFeeMonthEntityCondition"/>
+			GROUP BY  W.API_ACCOUNT
+			ORDER BY  W.ID DESC
+		) F
+	WHERE
+	   F.sumFeeBs1!=0 OR F.sumFeeBs2!=0  OR F.sumFeeBs3!=0   OR F.sumFeeBs4!=0   OR F.sumFeeBs5!=0   OR F.sumFeeBs6!=0 
+                     OR F.sumFeeBs7!=0   OR F.sumFeeBs8!=0   OR F.sumFeeBs9!=0   OR F.sumFeeBs10!=0 OR F.sumFeeBs11!=0 	
+	limit
+	#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  
+   <!-- 根据实体对象查询列表 月账单-->
+  <select id="queryExportFeeMonthByEntity" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultMap="BaseResultMap">
+	SELECT 
+	    ${tablesuffix} as dateTime,
+	    R.BUSINESS_NAME as businessName,R.MERCHANT_PHONE as merchantPhone,
+		SUM(W.SUM_FEE_BS_1) as sumFeeBs1,SUM(W.SUM_FEE_BS_2) as sumFeeBs2,
+		SUM(W.SUM_FEE_BS_3) as sumFeeBs3,SUM(W.SUM_FEE_BS_4) as sumFeeBs4,
+		SUM(W.SUM_FEE_BS_5) as sumFeeBs5,SUM(W.SUM_FEE_BS_6) as sumFeeBs6,
+		SUM(W.SUM_FEE_BS_7) as sumFeeBs7,SUM(W.SUM_FEE_BS_8) as sumFeeBs8,
+		SUM(W.SUM_FEE_BS_9) as sumFeeBs9,SUM(W.SUM_FEE_BS_10) as sumFeeBs10,
+		SUM(W.SUM_FEE_BS_11) as sumFeeBs11,
+		SUM(W.FEE_COUNT_1) as feeCount1,SUM(W.FEE_COUNT_2) as feeCount2,
+		SUM(W.FEE_COUNT_3) as feeCount3,SUM(W.FEE_COUNT_4) as feeCount4,
+		SUM(W.FEE_COUNT_5) as feeCount5,SUM(W.FEE_COUNT_6) as feeCount6,
+		SUM(W.FEE_COUNT_7) as feeCount7,SUM(W.FEE_COUNT_8) as feeCount8,
+		SUM(W.FEE_COUNT_9) as feeCount9,SUM(W.FEE_COUNT_10) as feeCount10,
+		SUM(W.FEE_COUNT_11) as feeCount11,
+		FEE_RATE_1 as feeRate1,FEE_RATE_2 as feeRate2,FEE_RATE_3 as feeRate3,
+		FEE_RATE_4 as feeRate4,FEE_RATE_5 as feeRate5,FEE_RATE_6 as feeRate6,
+		FEE_RATE_7 as feeRate7,FEE_RATE_8 as feeRate8,FEE_RATE_9 as feeRate9,
+		FEE_RATE_10 as feeRate10,FEE_RATE_11 as feeRate11,
+		SUM(FEE_TIME_1) as feeTime1,SUM(FEE_TIME_2) as feeTime2,
+		SUM(FEE_TIME_3) as feeTime3,SUM(FEE_TIME_4) as feeTime4,
+		SUM(FEE_TIME_5) as feeTime5,SUM(FEE_TIME_6) as feeTime6,
+		SUM(FEE_TIME_7) as feeTime7,SUM(FEE_TIME_8) as feeTime8,
+		SUM(FEE_TIME_9) as feeTime9,SUM(FEE_TIME_10) as feeTime10,
+		SUM(FEE_TIME_11) as feeTime11
+	FROM 
+		zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R 
+	ON W.API_ACCOUNT=R.API_ACCOUNT
+	<include refid="queryCdrFeeMonthEntityCondition"/>
+	GROUP BY w.API_ACCOUNT
+	ORDER BY  W.ID DESC
+  </select>
+	
+  <!-- 根据实体对象查询符合条件的记录数 月账单-->
+  <select id="queryCdrFeeMonthAccount" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultType="int">
+	SELECT 
+		COUNT(1) 
+	FROM (
+	    SELECT 
+		  COUNT(1),SUM(W.SUM_FEE_BS_1) AS sumFeeBs1,SUM(W.SUM_FEE_BS_2) AS sumFeeBs2,
+		  SUM(W.SUM_FEE_BS_3) AS sumFeeBs3,SUM(W.SUM_FEE_BS_4) AS sumFeeBs4,
+		  SUM(W.SUM_FEE_BS_5) AS sumFeeBs5,SUM(W.SUM_FEE_BS_6) AS sumFeeBs6,
+		  SUM(W.SUM_FEE_BS_7) AS sumFeeBs7,SUM(W.SUM_FEE_BS_8) AS sumFeeBs8,
+		  SUM(W.SUM_FEE_BS_9) AS sumFeeBs9,SUM(W.SUM_FEE_BS_10) AS sumFeeBs10,
+		  SUM(W.SUM_FEE_BS_11) AS sumFeeBs11 
+	    FROM
+	      zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R
+		ON W.API_ACCOUNT=R.API_ACCOUNT
+		<include refid="queryCdrFeeMonthEntityCondition"/>
+		GROUP BY W.API_ACCOUNT
+	) F
+	WHERE 
+       F.sumFeeBs1!=0 OR F.sumFeeBs2!=0  OR F.sumFeeBs3!=0   OR F.sumFeeBs4!=0   OR F.sumFeeBs5!=0   OR F.sumFeeBs6!=0 
+       OR F.sumFeeBs7!=0   OR F.sumFeeBs8!=0   OR F.sumFeeBs9!=0   OR F.sumFeeBs10!=0 OR F.sumFeeBs11!=0 	
+  </select>
+  
+   <!-- 根据实体对象查询符合条件的月统计记录数 -->
+  <select id="queryCdrMonthStatisticsCount" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultType="com.zy.cms.vo.manager.CdrFeeMonthResult">
+		SELECT 
+		   SUM(W.SUM_FEE_BS_1) as sumFeeBs1,SUM(W.SUM_FEE_BS_2) as sumFeeBs2,
+		   SUM(W.SUM_FEE_BS_3) as sumFeeBs3,SUM(W.SUM_FEE_BS_4) as sumFeeBs4,
+		   SUM(W.SUM_FEE_BS_5) as sumFeeBs5,SUM(W.SUM_FEE_BS_6) as sumFeeBs6,
+		   SUM(W.SUM_FEE_BS_7) as sumFeeBs7,SUM(W.SUM_FEE_BS_8) as sumFeeBs8,
+		   SUM(W.SUM_FEE_BS_9) as sumFeeBs9,SUM(W.SUM_FEE_BS_10) as sumFeeBs10,
+		   SUM(W.SUM_FEE_BS_11) as sumFeeBs11
+	    FROM 
+		   zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R 
+	    ON W.API_ACCOUNT=R.API_ACCOUNT
+	    <include refid="queryCdrFeeMonthEntityCondition"/>
+  </select>
+  
+  <!-- 根据实体对象查询列表 日账单 -->
+  <select id="queryCdrFeeDailyByEntity" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultMap="BaseResultMap">
+	SELECT
+	*
+	From (
+		SELECT 
+		    W.DATE_TIME as dateTime,  
+			W.SUM_FEE_BS_1 as sumFeeBs1,W.SUM_FEE_BS_2 as sumFeeBs2,W.SUM_FEE_BS_3 as sumFeeBs3,
+			W.SUM_FEE_BS_4 as sumFeeBs4,W.SUM_FEE_BS_5 as sumFeeBs5,W.SUM_FEE_BS_6 as sumFeeBs6,
+			W.SUM_FEE_BS_7 as sumFeeBs7,W.SUM_FEE_BS_8 as sumFeeBs8,W.SUM_FEE_BS_9 as sumFeeBs9,
+			W.SUM_FEE_BS_10 as sumFeeBs10,W.SUM_FEE_BS_11 as sumFeeBs11,
+			R.BUSINESS_NAME as businessName,
+			R.MERCHANT_PHONE as merchantPhone
+		FROM 
+			zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R 
+		ON W.API_ACCOUNT=R.API_ACCOUNT
+		<include refid="queryCdrFeeDailyEntityCondition"/>
+	) F
+	WHERE
+	F.sumFeeBs1!=0 or F.sumFeeBs2!=0 or F.sumFeeBs3!=0 or F.sumFeeBs4!=0 or F.sumFeeBs5!=0 or F.sumFeeBs6!=0
+	or F.sumFeeBs7!=0 or F.sumFeeBs8!=0 or F.sumFeeBs9!=0 or F.sumFeeBs10!=0 or F.sumFeeBs11!=0
+	ORDER BY  F.dateTime ASC
+	limit
+	#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  
+  <!-- 根据实体对象查询列表 日账单 -->
+  <select id="queryExportFeeDailyByEntity" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultMap="BaseResultMap">
+	SELECT 
+	    W.DATE_TIME as dateTime,  
+	    R.BUSINESS_NAME as businessName,
+		R.MERCHANT_PHONE as merchantPhone,
+		W.SUM_FEE_BS_1 as sumFeeBs1,W.SUM_FEE_BS_2 as sumFeeBs2,W.SUM_FEE_BS_3 as sumFeeBs3,
+		W.SUM_FEE_BS_4 as sumFeeBs4,W.SUM_FEE_BS_5 as sumFeeBs5,W.SUM_FEE_BS_6 as sumFeeBs6,
+		W.SUM_FEE_BS_7 as sumFeeBs7,W.SUM_FEE_BS_8 as sumFeeBs8,W.SUM_FEE_BS_9 as sumFeeBs9,
+		W.SUM_FEE_BS_10 as sumFeeBs10,W.SUM_FEE_BS_11 as sumFeeBs11,
+		W.FEE_COUNT_1 as feeCount1,W.FEE_COUNT_2 as feeCount2,
+		W.FEE_COUNT_3 as feeCount3,W.FEE_COUNT_4 as feeCount4,
+		W.FEE_COUNT_5 as feeCount5,W.FEE_COUNT_6 as feeCount6,
+		W.FEE_COUNT_7 as feeCount7,W.FEE_COUNT_8 as feeCount8,
+		W.FEE_COUNT_9 as feeCount9,W.FEE_COUNT_10 as feeCount10,
+		W.FEE_COUNT_11 as feeCount11,
+		FEE_RATE_1 as feeRate1,FEE_RATE_2 as feeRate2,FEE_RATE_3 as feeRate3,
+		FEE_RATE_4 as feeRate4,FEE_RATE_5 as feeRate5,FEE_RATE_6 as feeRate6,
+		FEE_RATE_7 as feeRate7,FEE_RATE_8 as feeRate8,FEE_RATE_9 as feeRate9,
+		FEE_RATE_10 as feeRate10,FEE_RATE_11 as feeRate11,
+		FEE_TIME_1 as feeTime1,FEE_TIME_2 as feeTime2,
+		FEE_TIME_3 as feeTime3,FEE_TIME_4 as feeTime4,
+		FEE_TIME_5 as feeTime5,FEE_TIME_6 as feeTime6,
+		FEE_TIME_7 as feeTime7,FEE_TIME_8 as feeTime8,
+		FEE_TIME_9 as feeTime9,FEE_TIME_10 as feeTime10,
+		FEE_TIME_11 as feeTime11
+	FROM 
+		zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R 
+	ON W.API_ACCOUNT=R.API_ACCOUNT
+	<include refid="queryCdrFeeDailyEntityCondition"/>
+	ORDER BY  W.DATE_TIME ASC
+  </select>
+	
+  <!-- 根据实体对象查询符合条件的记录数  日账单-->
+  <select id="queryCdrFeeDailyAccount" parameterType="com.zy.cms.vo.query.CdrFeeMonthSumQuery" resultType="int">
+	SELECT 
+		COUNT(*) 
+	FROM 
+		zy_db_manager.cdr_fee_month_sum_${tablesuffix} W left JOIN zy_db_paas.VOICE_MERCHANT_ACCOUNT R
+	ON W.API_ACCOUNT=R.API_ACCOUNT
+	<include refid="queryCdrFeeDailyEntityCondition"/>
+  </select>
+  
+</mapper>

@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.sms.SmsSlaveChannelMonitorMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.entity.SmsChannelMonitor" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SMS_CHANNEL_ID" property="smsChannelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME_RANGE1" property="noticeTimeRange1" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN1" property="successRateDown1" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP1" property="failtRateUp1" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP1" property="unknownRateUp1" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP1" property="averageSendUp1" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP1" property="averageReveiveUp1" jdbcType="INTEGER" />
+    <result column="NOTICE_TIME_RANGE2" property="noticeTimeRange2" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN2" property="successRateDown2" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP2" property="failtRateUp2" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP2" property="unknownRateUp2" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP2" property="averageSendUp2" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP2" property="averageReveiveUp2" jdbcType="INTEGER" />
+    <result column="NOTICE_TIME_RANGE3" property="noticeTimeRange3" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN3" property="successRateDown3" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP3" property="failtRateUp3" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP3" property="unknownRateUp3" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP3" property="averageSendUp3" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP3" property="averageReveiveUp3" jdbcType="INTEGER" />
+    <result column="START_FLAG" property="startFlag" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <resultMap id="ResultMap" type="com.zy.cms.entity.SmsChannelMonitor" >
+    <id column="CHANNEL_MAIN_CODE" property="channelMainCode" jdbcType="VARCHAR" />
+    <id column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SMS_CHANNEL_ID" property="smsChannelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME_RANGE1" property="noticeTimeRange1" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN1" property="successRateDown1" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP1" property="failtRateUp1" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP1" property="unknownRateUp1" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP1" property="averageSendUp1" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP1" property="averageReveiveUp1" jdbcType="INTEGER" />
+    <result column="NOTICE_TIME_RANGE2" property="noticeTimeRange2" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN2" property="successRateDown2" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP2" property="failtRateUp2" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP2" property="unknownRateUp2" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP2" property="averageSendUp2" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP2" property="averageReveiveUp2" jdbcType="INTEGER" />
+    <result column="NOTICE_TIME_RANGE3" property="noticeTimeRange3" jdbcType="VARCHAR" />
+    <result column="SUCCESS_RATE_DOWN3" property="successRateDown3" jdbcType="DOUBLE" />
+    <result column="FAILT_RATE_UP3" property="failtRateUp3" jdbcType="DOUBLE" />
+    <result column="UNKNOWN_RATE_UP3" property="unknownRateUp3" jdbcType="DOUBLE" />
+    <result column="AVERAGE_SEND_UP3" property="averageSendUp3" jdbcType="INTEGER" />
+    <result column="AVERAGE_REVEIVE_UP3" property="averageReveiveUp3" jdbcType="INTEGER" />
+    <result column="START_FLAG" property="startFlag" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="SmsChannelMonitorVOResultMap" type="com.zy.cms.vo.SmsChannelMonitorVO" >
+    <result column="smsChannelId" property="smsChannelId"  />
+    <result column="sendCount" property="sendCount"  />
+    <result column="successCount" property="successCount"  />
+    <result column="failtCount" property="failtCount" />
+    <result column="unknownCount" property="unknownCount"  />
+    <result column="successRate" property="successRate"  />
+    <result column="failtRate" property="failtRate"  />
+    <result column="unknownRate" property="unknownRate"  />
+    <result column="averageReveive" property="averageReveive"  />
+    <result column="averageSend" property="averageSend"  />
+   
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SMS_CHANNEL_ID, CHANNEL_NAME, NOTICE_TIME_RANGE1, SUCCESS_RATE_DOWN1, FAILT_RATE_UP1, 
+    UNKNOWN_RATE_UP1, AVERAGE_SEND_UP1, AVERAGE_REVEIVE_UP1, NOTICE_TIME_RANGE2, SUCCESS_RATE_DOWN2, 
+    FAILT_RATE_UP2, UNKNOWN_RATE_UP2, AVERAGE_SEND_UP2, AVERAGE_REVEIVE_UP2, NOTICE_TIME_RANGE3, 
+    SUCCESS_RATE_DOWN3, FAILT_RATE_UP3, UNKNOWN_RATE_UP3, AVERAGE_SEND_UP3, AVERAGE_REVEIVE_UP3, 
+    START_FLAG, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel_monitor
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_channel_monitor
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.entity.SmsChannelMonitor" >
+    insert into sms_channel_monitor (ID, SMS_CHANNEL_ID, CHANNEL_NAME, 
+      NOTICE_TIME_RANGE1, SUCCESS_RATE_DOWN1, FAILT_RATE_UP1, 
+      UNKNOWN_RATE_UP1, AVERAGE_SEND_UP1, AVERAGE_REVEIVE_UP1, 
+      NOTICE_TIME_RANGE2, SUCCESS_RATE_DOWN2, FAILT_RATE_UP2, 
+      UNKNOWN_RATE_UP2, AVERAGE_SEND_UP2, AVERAGE_REVEIVE_UP2, 
+      NOTICE_TIME_RANGE3, SUCCESS_RATE_DOWN3, FAILT_RATE_UP3, 
+      UNKNOWN_RATE_UP3, AVERAGE_SEND_UP3, AVERAGE_REVEIVE_UP3, 
+      START_FLAG, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{smsChannelId,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
+      #{noticeTimeRange1,jdbcType=VARCHAR}, #{successRateDown1,jdbcType=INTEGER}, #{failtRateUp1,jdbcType=INTEGER}, 
+      #{unknownRateUp1,jdbcType=INTEGER}, #{averageSendUp1,jdbcType=INTEGER}, #{averageReveiveUp1,jdbcType=INTEGER}, 
+      #{noticeTimeRange2,jdbcType=VARCHAR}, #{successRateDown2,jdbcType=INTEGER}, #{failtRateUp2,jdbcType=INTEGER}, 
+      #{unknownRateUp2,jdbcType=INTEGER}, #{averageSendUp2,jdbcType=INTEGER}, #{averageReveiveUp2,jdbcType=INTEGER}, 
+      #{noticeTimeRange3,jdbcType=VARCHAR}, #{successRateDown3,jdbcType=INTEGER}, #{failtRateUp3,jdbcType=INTEGER}, 
+      #{unknownRateUp3,jdbcType=INTEGER}, #{averageSendUp3,jdbcType=INTEGER}, #{averageReveiveUp3,jdbcType=INTEGER}, 
+      #{startFlag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.entity.SmsChannelMonitor" >
+    insert into sms_channel_monitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="smsChannelId != null" >
+        SMS_CHANNEL_ID,
+      </if>
+      <if test="channelName != null" >
+        CHANNEL_NAME,
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        NOTICE_TIME_RANGE1,
+      </if>
+      <if test="successRateDown1 != null" >
+        SUCCESS_RATE_DOWN1,
+      </if>
+      <if test="failtRateUp1 != null" >
+        FAILT_RATE_UP1,
+      </if>
+      <if test="unknownRateUp1 != null" >
+        UNKNOWN_RATE_UP1,
+      </if>
+      <if test="averageSendUp1 != null" >
+        AVERAGE_SEND_UP1,
+      </if>
+      <if test="averageReveiveUp1 != null" >
+        AVERAGE_REVEIVE_UP1,
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        NOTICE_TIME_RANGE2,
+      </if>
+      <if test="successRateDown2 != null" >
+        SUCCESS_RATE_DOWN2,
+      </if>
+      <if test="failtRateUp2 != null" >
+        FAILT_RATE_UP2,
+      </if>
+      <if test="unknownRateUp2 != null" >
+        UNKNOWN_RATE_UP2,
+      </if>
+      <if test="averageSendUp2 != null" >
+        AVERAGE_SEND_UP2,
+      </if>
+      <if test="averageReveiveUp2 != null" >
+        AVERAGE_REVEIVE_UP2,
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        NOTICE_TIME_RANGE3,
+      </if>
+      <if test="successRateDown3 != null" >
+        SUCCESS_RATE_DOWN3,
+      </if>
+      <if test="failtRateUp3 != null" >
+        FAILT_RATE_UP3,
+      </if>
+      <if test="unknownRateUp3 != null" >
+        UNKNOWN_RATE_UP3,
+      </if>
+      <if test="averageSendUp3 != null" >
+        AVERAGE_SEND_UP3,
+      </if>
+      <if test="averageReveiveUp3 != null" >
+        AVERAGE_REVEIVE_UP3,
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="smsChannelId != null" >
+        #{smsChannelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        #{noticeTimeRange1,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown1 != null" >
+        #{successRateDown1,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp1 != null" >
+        #{failtRateUp1,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp1 != null" >
+        #{unknownRateUp1,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp1 != null" >
+        #{averageSendUp1,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp1 != null" >
+        #{averageReveiveUp1,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        #{noticeTimeRange2,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown2 != null" >
+        #{successRateDown2,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp2 != null" >
+        #{failtRateUp2,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp2 != null" >
+        #{unknownRateUp2,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp2 != null" >
+        #{averageSendUp2,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp2 != null" >
+        #{averageReveiveUp2,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        #{noticeTimeRange3,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown3 != null" >
+        #{successRateDown3,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp3 != null" >
+        #{failtRateUp3,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp3 != null" >
+        #{unknownRateUp3,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp3 != null" >
+        #{averageSendUp3,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp3 != null" >
+        #{averageReveiveUp3,jdbcType=INTEGER},
+      </if>
+      <if test="startFlag != null" >
+        #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.entity.SmsChannelMonitor" >
+    update sms_channel_monitor
+    <set >
+      <if test="smsChannelId != null" >
+        SMS_CHANNEL_ID = #{smsChannelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null" >
+        CHANNEL_NAME = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTimeRange1 != null" >
+        NOTICE_TIME_RANGE1 = #{noticeTimeRange1,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown1 != null" >
+        SUCCESS_RATE_DOWN1 = #{successRateDown1,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp1 != null" >
+        FAILT_RATE_UP1 = #{failtRateUp1,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp1 != null" >
+        UNKNOWN_RATE_UP1 = #{unknownRateUp1,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp1 != null" >
+        AVERAGE_SEND_UP1 = #{averageSendUp1,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp1 != null" >
+        AVERAGE_REVEIVE_UP1 = #{averageReveiveUp1,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimeRange2 != null" >
+        NOTICE_TIME_RANGE2 = #{noticeTimeRange2,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown2 != null" >
+        SUCCESS_RATE_DOWN2 = #{successRateDown2,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp2 != null" >
+        FAILT_RATE_UP2 = #{failtRateUp2,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp2 != null" >
+        UNKNOWN_RATE_UP2 = #{unknownRateUp2,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp2 != null" >
+        AVERAGE_SEND_UP2 = #{averageSendUp2,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp2 != null" >
+        AVERAGE_REVEIVE_UP2 = #{averageReveiveUp2,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimeRange3 != null" >
+        NOTICE_TIME_RANGE3 = #{noticeTimeRange3,jdbcType=VARCHAR},
+      </if>
+      <if test="successRateDown3 != null" >
+        SUCCESS_RATE_DOWN3 = #{successRateDown3,jdbcType=INTEGER},
+      </if>
+      <if test="failtRateUp3 != null" >
+        FAILT_RATE_UP3 = #{failtRateUp3,jdbcType=INTEGER},
+      </if>
+      <if test="unknownRateUp3 != null" >
+        UNKNOWN_RATE_UP3 = #{unknownRateUp3,jdbcType=INTEGER},
+      </if>
+      <if test="averageSendUp3 != null" >
+        AVERAGE_SEND_UP3 = #{averageSendUp3,jdbcType=INTEGER},
+      </if>
+      <if test="averageReveiveUp3 != null" >
+        AVERAGE_REVEIVE_UP3 = #{averageReveiveUp3,jdbcType=INTEGER},
+      </if>
+      <if test="startFlag != null" >
+        START_FLAG = #{startFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.entity.SmsChannelMonitor" >
+    update sms_channel_monitor
+    set SMS_CHANNEL_ID = #{smsChannelId,jdbcType=VARCHAR},
+      CHANNEL_NAME = #{channelName,jdbcType=VARCHAR},
+      NOTICE_TIME_RANGE1 = #{noticeTimeRange1,jdbcType=VARCHAR},
+      SUCCESS_RATE_DOWN1 = #{successRateDown1,jdbcType=INTEGER},
+      FAILT_RATE_UP1 = #{failtRateUp1,jdbcType=INTEGER},
+      UNKNOWN_RATE_UP1 = #{unknownRateUp1,jdbcType=INTEGER},
+      AVERAGE_SEND_UP1 = #{averageSendUp1,jdbcType=INTEGER},
+      AVERAGE_REVEIVE_UP1 = #{averageReveiveUp1,jdbcType=INTEGER},
+      NOTICE_TIME_RANGE2 = #{noticeTimeRange2,jdbcType=VARCHAR},
+      SUCCESS_RATE_DOWN2 = #{successRateDown2,jdbcType=INTEGER},
+      FAILT_RATE_UP2 = #{failtRateUp2,jdbcType=INTEGER},
+      UNKNOWN_RATE_UP2 = #{unknownRateUp2,jdbcType=INTEGER},
+      AVERAGE_SEND_UP2 = #{averageSendUp2,jdbcType=INTEGER},
+      AVERAGE_REVEIVE_UP2 = #{averageReveiveUp2,jdbcType=INTEGER},
+      NOTICE_TIME_RANGE3 = #{noticeTimeRange3,jdbcType=VARCHAR},
+      SUCCESS_RATE_DOWN3 = #{successRateDown3,jdbcType=INTEGER},
+      FAILT_RATE_UP3 = #{failtRateUp3,jdbcType=INTEGER},
+      UNKNOWN_RATE_UP3 = #{unknownRateUp3,jdbcType=INTEGER},
+      AVERAGE_SEND_UP3 = #{averageSendUp3,jdbcType=INTEGER},
+      AVERAGE_REVEIVE_UP3 = #{averageReveiveUp3,jdbcType=INTEGER},
+      START_FLAG = #{startFlag,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="monitorFlagChange" parameterType="com.zy.cms.entity.SmsChannelMonitor" >
+    update sms_channel_monitor
+     set  START_FLAG = #{startFlag,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <select id="querySmsChannelMonitorList" parameterType="com.zy.cms.entity.SmsChannelMonitor" resultMap="ResultMap" >
+	
+ SELECT 
+     a.CHANNEL_MAIN_CODE,
+      a.CHANNEL_NAME,
+     a.CHANNEL_ID,
+      c.ID, 
+      c.SMS_CHANNEL_ID, 
+      c.NOTICE_TIME_RANGE1,
+      c.SUCCESS_RATE_DOWN1,
+      c.FAILT_RATE_UP1, 
+     c.UNKNOWN_RATE_UP1,
+     c.AVERAGE_SEND_UP1, 
+     c.AVERAGE_REVEIVE_UP1, 
+     c.NOTICE_TIME_RANGE2, 
+     c.SUCCESS_RATE_DOWN2, 
+     c.FAILT_RATE_UP2,
+     c.UNKNOWN_RATE_UP2,
+     c.AVERAGE_SEND_UP2,
+     c.AVERAGE_REVEIVE_UP2,
+     c.NOTICE_TIME_RANGE3, 
+     c.SUCCESS_RATE_DOWN3,
+     c.FAILT_RATE_UP3,
+     c.UNKNOWN_RATE_UP3,
+     c.AVERAGE_SEND_UP3,
+     c.AVERAGE_REVEIVE_UP3, 
+     c.START_FLAG, 
+     c.CREATE_TIME,
+     c.UPDATE_TIME
+		  
+		FROM
+		  (SELECT 
+		   `CHANNEL_ID`,
+		   `CHANNEL_MAIN_CODE`,
+		    `CHANNEL_NAME`,
+		    `STATUS`
+		  FROM
+		    `zy_db_paas`.`sms_channel` 
+		  WHERE STATUS = 1
+		   <if test="channelName != null and channelName !=''">
+			 AND CHANNEL_NAME like CONCAT('%','${channelName}','%') 
+			</if>
+		   <if test="channelId != null  and channelId !=''">
+			 AND CHANNEL_ID like CONCAT('%','${channelId}','%')
+			</if>
+		  ) AS a 
+		  LEFT JOIN 
+		    (SELECT 
+		      * 
+		    FROM
+		      `sms_channel_monitor` 
+		    WHERE 1=1 
+		    
+		    <if test="startFlag != null  and startFlag !=''">
+			 AND START_FLAG = #{startFlag}
+			</if>
+		   
+		    
+		    ) AS c 
+		    ON a.`CHANNEL_ID` = c.`SMS_CHANNEL_ID`    
+   
+  </select>
+   <select id="querySmsChannelMonitorListByStartFlag" parameterType="com.zy.cms.entity.SmsChannelMonitor" resultMap="ResultMap" >
+	SELECT 
+	 y.CHANNEL_MAIN_CODE,
+      y.CHANNEL_NAME,
+     y.CHANNEL_ID,
+      y.ID, 
+      y.SMS_CHANNEL_ID, 
+      y.NOTICE_TIME_RANGE1,
+      y.SUCCESS_RATE_DOWN1,
+      y.FAILT_RATE_UP1, 
+     y.UNKNOWN_RATE_UP1,
+     y.AVERAGE_SEND_UP1, 
+     y.AVERAGE_REVEIVE_UP1, 
+     y.NOTICE_TIME_RANGE2, 
+     y.SUCCESS_RATE_DOWN2, 
+     y.FAILT_RATE_UP2,
+     y.UNKNOWN_RATE_UP2,
+     y.AVERAGE_SEND_UP2,
+     y.AVERAGE_REVEIVE_UP2,
+     y.NOTICE_TIME_RANGE3, 
+     y.SUCCESS_RATE_DOWN3,
+     y.FAILT_RATE_UP3,
+     y.UNKNOWN_RATE_UP3,
+     y.AVERAGE_SEND_UP3,
+     y.AVERAGE_REVEIVE_UP3, 
+     y.START_FLAG, 
+     y.CREATE_TIME,
+     y.UPDATE_TIME
+	
+	FROM 
+	
+	(
+ SELECT 
+     a.CHANNEL_MAIN_CODE,
+      a.CHANNEL_NAME,
+     a.CHANNEL_ID,
+      c.ID, 
+      c.SMS_CHANNEL_ID, 
+      c.NOTICE_TIME_RANGE1,
+      c.SUCCESS_RATE_DOWN1,
+      c.FAILT_RATE_UP1, 
+     c.UNKNOWN_RATE_UP1,
+     c.AVERAGE_SEND_UP1, 
+     c.AVERAGE_REVEIVE_UP1, 
+     c.NOTICE_TIME_RANGE2, 
+     c.SUCCESS_RATE_DOWN2, 
+     c.FAILT_RATE_UP2,
+     c.UNKNOWN_RATE_UP2,
+     c.AVERAGE_SEND_UP2,
+     c.AVERAGE_REVEIVE_UP2,
+     c.NOTICE_TIME_RANGE3, 
+     c.SUCCESS_RATE_DOWN3,
+     c.FAILT_RATE_UP3,
+     c.UNKNOWN_RATE_UP3,
+     c.AVERAGE_SEND_UP3,
+     c.AVERAGE_REVEIVE_UP3, 
+     c.START_FLAG, 
+     c.CREATE_TIME,
+     c.UPDATE_TIME
+		  
+		FROM
+		  (SELECT 
+		   `CHANNEL_ID`,
+		   `CHANNEL_MAIN_CODE`,
+		    `CHANNEL_NAME`,
+		    `STATUS`
+		  FROM
+		    `zy_db_paas`.`sms_channel` 
+		  WHERE STATUS = 1
+		   <if test="channelName != null and channelName !=''">
+			 AND CHANNEL_NAME like CONCAT('%','${channelName}','%') 
+			</if>
+		   <if test="channelId != null  and channelId !=''">
+			 AND CHANNEL_ID like CONCAT('%','${channelId}','%')
+			</if>
+		  ) AS a 
+		  LEFT JOIN 
+		    (SELECT 
+		      * 
+		    FROM
+		      `sms_channel_monitor` 
+		    
+		    ) AS c 
+		    ON a.`CHANNEL_ID` = c.`SMS_CHANNEL_ID`    
+		    ) y where 1=1 
+		    <if test="startFlag != null  and startFlag !=''">
+			 AND y.START_FLAG = #{startFlag}
+			</if>
+   
+  </select>
+  
+   <select id="findSmsChannelMonitor" parameterType="com.zy.cms.entity.SmsChannelMonitor" resultMap="ResultMap" >
+ SELECT 
+     a.CHANNEL_MAIN_CODE,
+      a.CHANNEL_NAME,
+     a.CHANNEL_ID,
+      c.ID, 
+      c.SMS_CHANNEL_ID, 
+      c.NOTICE_TIME_RANGE1,
+      c.SUCCESS_RATE_DOWN1,
+      c.FAILT_RATE_UP1, 
+     c.UNKNOWN_RATE_UP1,
+     c.AVERAGE_SEND_UP1, 
+     c.AVERAGE_REVEIVE_UP1, 
+     c.NOTICE_TIME_RANGE2, 
+     c.SUCCESS_RATE_DOWN2, 
+     c.FAILT_RATE_UP2,
+     c.UNKNOWN_RATE_UP2,
+     c.AVERAGE_SEND_UP2,
+     c.AVERAGE_REVEIVE_UP2,
+     c.NOTICE_TIME_RANGE3, 
+     c.SUCCESS_RATE_DOWN3,
+     c.FAILT_RATE_UP3,
+     c.UNKNOWN_RATE_UP3,
+     c.AVERAGE_SEND_UP3,
+     c.AVERAGE_REVEIVE_UP3, 
+     c.START_FLAG, 
+     c.CREATE_TIME,
+     c.UPDATE_TIME
+		  
+		FROM
+		  (SELECT 
+		   `CHANNEL_ID`,
+		   `CHANNEL_MAIN_CODE`,
+		    `CHANNEL_NAME`,
+		    `STATUS`
+		  FROM
+		    `zy_db_paas`.`sms_channel` 
+		  WHERE STATUS = 1
+		   <if test="channelId != null and channelId !=''">
+				 AND CHANNEL_ID = #{channelId}
+			</if>
+		  
+		  ) AS a 
+		  LEFT JOIN 
+		    (SELECT 
+		      * 
+		    FROM
+		      `sms_channel_monitor` 
+		    WHERE 1=1 
+		    
+		    <if test="startFlag != null and startFlag !=''">
+				 AND START_FLAG = #{startFlag}
+			</if>
+		    
+		    ) AS c 
+		    ON a.`CHANNEL_ID` = c.`SMS_CHANNEL_ID`    limit 1
+   
+  </select>
+  
+   <select id="querySmsChannelMonitorVOList" parameterType="com.zy.cms.entity.SmsChannelMonitor"  resultMap="SmsChannelMonitorVOResultMap">
+   <![CDATA[
+		SELECT
+		  a.smsChannelId AS smsChannelId,
+		  a.send AS sendCount,
+		  a.success AS successCount,
+		  a.failt AS failtCount,
+		  a.unknow AS unknownCount,
+		  a.success *100/ a.send  AS successRate,
+		  a.failt *100/ a.send  AS failtRate,
+		  a.unknow *100/ a.send  AS unknownRate,
+		  a.rtime / a.send AS averageReveive,
+		  a.htime / a.send AS averageSend 
+	FROM
+		  (SELECT 
+		  SMS_CHANNEL_ID AS smsChannelId,
+		    SUM(
+		      CASE
+		        SEND_RESULT 
+		        WHEN 0 
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ) AS send,
+		    SUM(
+		      CASE
+		        RECEIVE_STATUS 
+		        WHEN 0 
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ) AS success,
+		    SUM(
+		      CASE
+		        RECEIVE_STATUS 
+		        WHEN 1 
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ) AS failt,
+		    SUM(
+		      CASE
+		        RECEIVE_STATUS 
+		        WHEN 2 
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ) AS unknow,
+		    SUM(
+		      UNIX_TIMESTAMP(RECEIVE_TIME) - UNIX_TIMESTAMP(CREATE_TIME)
+		    ) AS rtime,
+		    SUM(
+		      UNIX_TIMESTAMP(UPDATE_TIME) - UNIX_TIMESTAMP(CREATE_TIME)
+		    ) AS htime 
+		  FROM
+		    zy_db_sms.sms_merchant_send_${tablesuffix}
+		  WHERE CREATE_TIME >=  #{startTime,jdbcType=TIMESTAMP}
+		    AND CREATE_TIME <=  #{endTime,jdbcType=TIMESTAMP}
+		  GROUP BY SMS_CHANNEL_ID) a 
+		WHERE a.send > 0 
+	]]>  
+	 <if test="channelId != null and channelId !=''">
+				 AND a.smsChannelId = #{channelId}
+	 </if>
+  </select>
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.AccountBindInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.AccountBindInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="FULLNAME" property="fullname" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="DEPT_NO" property="deptNo" jdbcType="INTEGER" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="BIND_COUNT" property="bindCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, API_ACCOUNT, FULLNAME, DEPARTMENT, DEPT_NO, BUSINESS_NAME, MERCHANT_PHONE, 
+    MERCHANT_TYPE, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_bind_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account_bind_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.AccountBindInfo" >
+    insert into account_bind_info (ID, USER_NAME, API_ACCOUNT, 
+      FULLNAME, DEPARTMENT, DEPT_NO, 
+      BUSINESS_NAME, MERCHANT_PHONE, MERCHANT_TYPE, 
+      REMARK, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{apiAccount,jdbcType=VARCHAR}, 
+      #{fullname,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{deptNo,jdbcType=INTEGER}, 
+      #{businessName,jdbcType=VARCHAR}, #{merchantPhone,jdbcType=VARCHAR}, #{merchantType,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.AccountBindInfo" >
+    insert into account_bind_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="fullname != null" >
+        FULLNAME,
+      </if>
+      <if test="department != null" >
+        DEPARTMENT,
+      </if>
+      <if test="deptNo != null" >
+        DEPT_NO,
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME,
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE,
+      </if>
+      <if test="merchantType != null" >
+        MERCHANT_TYPE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null" >
+        #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null" >
+        #{deptNo,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantType != null" >
+        #{merchantType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.AccountBindInfo" >
+    update account_bind_info
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null" >
+        FULLNAME = #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null" >
+        DEPT_NO = #{deptNo,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null" >
+        BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantType != null" >
+        MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.AccountBindInfo" >
+    update account_bind_info
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      FULLNAME = #{fullname,jdbcType=VARCHAR},
+      DEPARTMENT = #{department,jdbcType=VARCHAR},
+      DEPT_NO = #{deptNo,jdbcType=INTEGER},
+      BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCountByQuery" resultType="java.lang.Integer">
+  	select count(*) 
+  	FROM 
+  	(select * from account_bind_info a GROUP BY USER_NAME ) 
+  	record
+  </select>
+  <select id="selectListByQuery" resultMap="BaseResultMap">
+  	select USER_NAME, FULLNAME, DEPARTMENT, DEPT_NO,
+  	(select count(*) from account_bind_info
+  		 where USER_NAME = a.USER_NAME
+  	) BIND_COUNT 
+  	from account_bind_info a 
+  	<include refid="queryCondition"/>
+  	GROUP BY USER_NAME
+  	ORDER BY a.UPDATE_TIME desc 
+  	limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <sql id="queryCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+		    <if test="userName != null and userName !=''">
+				AND USER_NAME like CONCAT('%','${userName}','%') 
+			</if>
+			<if test="fullName != null and fullName != ''">
+				AND FULLNAME like CONCAT('%','${fullName}','%')
+			</if>
+			<if test="deptNo != null and deptNo !=''">
+			    AND DEPT_NO = #{deptNo, jdbcType=INTEGER}
+			</if>
+		</trim>	
+  </sql>
+  
+  <select id="selectAccBindCountByQuery" resultType="Integer">
+  	select count(*)
+    from account_bind_info
+    where USER_NAME = #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAccBindListByQuery" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List" />
+    from account_bind_info
+    where USER_NAME = #{userName,jdbcType=VARCHAR}
+    <!-- limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} -->
+  </select>
+  <delete id="deleteByPrimaryUserName">
+  	delete from account_bind_info
+    where USER_NAME = #{username,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByUsernameApiAccount" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List" />
+  	from account_bind_info
+    where USER_NAME = #{username,jdbcType=VARCHAR}
+    and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </select>
+	
+  <select id="getApiAccountByBusName" resultType="java.lang.String">
+  	select API_ACCOUNT
+  	from account_bind_info a 
+  	where 
+  	a.USER_NAME=#{businessName, jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByUserName" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+    from account_bind_info
+    where USER_NAME = #{username,jdbcType=VARCHAR}
+  </select>
+</mapper>

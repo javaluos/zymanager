@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.SmsStatisticsDayMapper">
+    <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.SmsDailyStatistics">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR"/>
+        <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_SMS_ID" property="channelSmsId" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR"/>
+        <result column="SMS_CATEGORY" property="smsCategory" jdbcType="VARCHAR"/>
+        <result column="SEND_COUNT" property="sendCount" jdbcType="INTEGER"/>
+        <result column="SUCCESS_COUNT" property="successCount" jdbcType="INTEGER"/>
+        <result column="FAILED_COUNT" property="failedCount" jdbcType="INTEGER"/>
+        <result column="NOREPORT_COUNT" property="noreportCount" jdbcType="INTEGER"/>
+        <result column="FEE_COUNT" property="feeCount" jdbcType="INTEGER"/>
+        <result column="SD_US10S_COUNT" property="sdUs10sCount" jdbcType="INTEGER"/>
+        <result column="SD_US50S_COUNT" property="sdUs50sCount" jdbcType="INTEGER"/>
+        <result column="SD_USGT50S_COUNT" property="sdUsgt50sCount" jdbcType="INTEGER"/>
+        <result column="ST_BK24H_COUNT" property="stBk24hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK48H_COUNT" property="stBk48hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK72H_COUNT" property="stBk72hCount" jdbcType="INTEGER"/>
+        <result column="AVG_SEND_TIME" property="avgSendTime" jdbcType="INTEGER"/>
+        <result column="AVG_STATUS_TIME" property="avgStatusTime" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="successSendRate" property="successSendRate" jdbcType="DOUBLE"/>
+        <result column="failSendRate" property="failSendRate" jdbcType="DOUBLE"/>
+        <result column="noreportRate" property="noreportRate" jdbcType="DOUBLE"/>
+        <result column="sdUs10sCountRate" property="sdUs10sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUs50sCountRate" property="sdUs50sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUsgt50sCountRate" property="sdUsgt50sCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk24hCountRate" property="stBk24hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk48hCountRate" property="stBk48hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk72hCountRate" property="stBk72hCountRate" jdbcType="DOUBLE"/>
+    </resultMap>
+    
+    <select id="selectTodayTotalByQuery" resultType="java.lang.Integer">
+        SELECT 
+          COUNT(sms.API_ACCOUNT)
+        FROM (
+	        SELECT 
+			sds.API_ACCOUNT
+			FROM zy_db_manager.cdr_monitor_stat_${tableName} sds 
+			WHERE 1=1
+            AND sds.STATIS_TYPE = 3
+            AND sds.STATISTICAL_TIME = #{statTime}
+	        <include refid="outterConditions"/>
+	        GROUP BY sds.API_ACCOUNT, sds.BUSINESS_ID
+        ) sms
+        
+    </select>
+    
+    <select id="selectTodayListByQuery" resultMap="BaseResultMap">
+        SELECT 
+        sms.API_ACCOUNT,
+        sms.SMS_CATEGORY,
+        sms.SEND_COUNT,
+        sms.SUCCESS_COUNT,
+        sms.FAILED_COUNT,
+        sms.NOREPORT_COUNT,
+        sms.FEE_COUNT,
+        (sms.SUCCESS_COUNT / sms.SEND_COUNT) successSendRate,
+        (sms.FAILED_COUNT / sms.SEND_COUNT) failSendRate,
+        (sms.NOREPORT_COUNT / sms.SEND_COUNT) noreportRate
+        FROM(
+	        SELECT
+	        	sds.API_ACCOUNT AS API_ACCOUNT,
+				sds.BUSINESS_ID AS SMS_CATEGORY,
+				SUM(sds.TOTAL_CALL_COUNT) AS SEND_COUNT,
+				SUM(sds.RING_COUNTA) AS SUCCESS_COUNT,
+				SUM(sds.RING_COUNTB) AS FAILED_COUNT,
+				SUM(sds.RESPONSE_COUNTA) AS NOREPORT_COUNT,
+				SUM(sds.CALL_COUNTA) AS FEE_COUNT
+	        FROM
+	        zy_db_manager.cdr_monitor_stat_${tableName} sds
+	        WHERE 1=1
+            AND sds.STATIS_TYPE = 3
+            AND sds.STATISTICAL_TIME = #{statTime}
+            <include refid="outterConditions"/>
+	        GROUP BY sds.API_ACCOUNT, sds.BUSINESS_ID
+	    ) sms
+        ORDER BY
+        <if test="sortColumn != null and sortColumn != ''" >
+            <choose>
+                <when test="sortColumn == 0" >
+                    sms.SEND_COUNT
+                </when>
+                <when test="sortColumn == 1" >
+                    sms.SUCCESS_COUNT
+                </when>
+                <when test="sortColumn == 2" >
+                    sms.FEE_COUNT
+                </when>
+                <when test="sortColumn == 3" >
+                    sms.FAILED_COUNT
+                </when>
+                <when test="sortColumn == 4" >
+                    sms.NOREPORT_COUNT
+                </when>
+                <when test="sortColumn == 5" >
+                    successSendRate
+                </when>
+                <when test="sortColumn == 6" >
+                    failSendRate
+                </when>
+                <when test="sortColumn == 7" >
+                    noreportRate
+                </when>
+            </choose>
+            <choose>
+                <when test="sortType == 0">
+                    ASC,
+                </when>
+                <otherwise>
+                    DESC,
+                </otherwise>
+            </choose>
+        </if>
+        sms.API_ACCOUNT ASC, sms.SMS_CATEGORY ASC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+    
+    <sql id="outterConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sds.API_ACCOUNT = #{apiAccount}
+        </if>
+        <!--<if test="starttime != null and starttime !=''">
+            AND sds.STATISTICAL_TIME &gt;= #{starttime}
+        </if>
+        <if test="endtime != null and endtime !=''">
+            AND sds.STATISTICAL_TIME &lt;= #{endtime}
+        </if>-->
+        <if test="category != null and category !=''">
+            AND sds.BUSINESS_ID = #{category}
+        </if>
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            AND sds.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+    
+    <select id="statTodaySmsDailyTotal" resultMap="BaseResultMap">
+        SELECT
+			SUM(sds.TOTAL_CALL_COUNT) AS SEND_COUNT,
+			SUM(sds.RING_COUNTA) AS SUCCESS_COUNT,
+			SUM(sds.RING_COUNTB) AS FAILED_COUNT,
+			SUM(sds.RESPONSE_COUNTA) AS NOREPORT_COUNT,
+			SUM(sds.CALL_COUNTA) AS FEE_COUNT,
+			(SUM(sds.RING_COUNTA) / SUM(sds.TOTAL_CALL_COUNT)) successSendRate,
+	        (SUM(sds.RING_COUNTB) / SUM(sds.TOTAL_CALL_COUNT)) failSendRate,
+	        (SUM(sds.RESPONSE_COUNTA) / SUM(sds.TOTAL_CALL_COUNT)) noreportRate
+        FROM
+        zy_db_manager.cdr_monitor_stat_${tableName} sds
+        WHERE 1=1
+        AND sds.STATIS_TYPE = 3
+        AND sds.STATISTICAL_TIME = #{statTime}
+        <include refid="outterConditions"/>
+    </select>
+    
+    <select id="selectTodayViewTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM (
+	        SELECT
+            sds.API_ACCOUNT,
+            sds.APP_ID AS CHANNEL_SMS_ID
+	        FROM
+	        zy_db_manager.cdr_monitor_stat_${tableName} sds
+	        WHERE 1=1
+            AND sds.STATIS_TYPE = 4
+            AND sds.STATISTICAL_TIME &gt;= #{statTime}
+	        <include refid="viewConditions"/>
+	        GROUP BY APP_ID
+        ) record
+    </select>
+    
+    <select id="selectTodayViewListByQuery" resultMap="BaseResultMap">
+       SELECT
+            sds.API_ACCOUNT,
+            sds.APP_ID AS CHANNEL_SMS_ID,
+			SUM(sds.TOTAL_CALL_COUNT) AS SEND_COUNT,
+			SUM(sds.RING_COUNTA) AS SUCCESS_COUNT,
+			SUM(sds.RING_COUNTB) AS FAILED_COUNT,
+			SUM(sds.RESPONSE_COUNTA) AS NOREPORT_COUNT,
+			SUM(sds.CALL_COUNTA) AS FEE_COUNT,
+			(SUM(sds.RING_COUNTA) / SUM(sds.TOTAL_CALL_COUNT)) successSendRate,
+	        (SUM(sds.RING_COUNTB) / SUM(sds.TOTAL_CALL_COUNT)) failSendRate,
+	        (SUM(sds.RESPONSE_COUNTA) / SUM(sds.TOTAL_CALL_COUNT)) noreportRate
+        FROM
+        zy_db_manager.cdr_monitor_stat_${tableName} sds
+        WHERE 1=1
+        AND sds.STATIS_TYPE = 4
+        AND sds.STATISTICAL_TIME &gt;= #{statTime}
+        <include refid="viewConditions"/>
+        group by sds.APP_ID
+    </select>
+    
+
+    <sql id="viewConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sds.API_ACCOUNT = #{apiAccount}
+        </if>
+        <if test="category != null and category !=''">
+            AND sds.BUSINESS_ID = #{category}
+        </if>
+        <!--<if test="sTime != null and sTime !=''">
+            AND sds.STATISTICAL_TIME &gt;= #{sTime}
+        </if>
+        <if test="eTime != null and eTime !=''">
+            AND sds.STATISTICAL_TIME &lt;= #{eTime}
+        </if>-->
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            and sds.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+</mapper>

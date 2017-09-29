@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.VoiceWhiteListInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.VoiceWhiteListInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseVoMap" type="com.zy.cms.vo.VoiceWhiteListVo" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, OPERATOR, ADD_TIME, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_white_list_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from voice_white_list_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.VoiceWhiteListInfo" >
+    insert into voice_white_list_info (ID, API_ACCOUNT, OPERATOR, 
+      ADD_TIME, REMARK, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{apiAccount,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.VoiceWhiteListInfo" >
+    insert into voice_white_list_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.VoiceWhiteListInfo" >
+    update voice_white_list_info
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.VoiceWhiteListInfo" >
+    update voice_white_list_info
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCountByEntity" resultType="INTEGER">
+  	select 
+  		count(*)
+  	from voice_white_list_info w LEFT JOIN voice_merchant_account a 
+  	on a.API_ACCOUNT = w.API_ACCOUNT
+  	<include refid="query_where_clause"/>
+  </select>
+  <select id="selectListByEntity" parameterType="com.zy.cms.vo.query.VoiceWhiteListQuery" resultMap="BaseVoMap">
+  	select 
+  		w.ID, a.BUSINESS_NAME, a.MERCHANT_PHONE,a.MERCHANT_TYPE,
+  		w.ADD_TIME,w.OPERATOR,w.REMARK 
+  	from voice_white_list_info w LEFT JOIN voice_merchant_account a 
+  	on a.API_ACCOUNT = w.API_ACCOUNT
+  	<include refid="query_where_clause"/>
+  	order by w.ADD_TIME desc
+  	limit
+	 #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  <sql id="query_where_clause">
+		<where>
+			<if test="businessname != null and businessname !=''">
+				and a.BUSINESS_NAME like concat('%', #{businessname}, '%') 
+			</if>
+			<if test="merchantphone != null and merchantphone !=''">
+				and a.MERCHANT_PHONE = #{merchantphone,jdbcType=VARCHAR}
+			</if>
+			<if test="operator != null and operator !=''">
+				and w.OPERATOR= #{operator,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime !=''">
+			    AND <![CDATA[ DATE_FORMAT(w.ADD_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{starttime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="endtime != null and endtime !=''">
+			   AND <![CDATA[ DATE_FORMAT(w.ADD_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{endtime}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+		</where>
+  </sql>
+  <select id="selectByApiAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_white_list_info
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+li {
+	list-style-type: none;
+}
+
+.ibox-info {
+	margin: 0 0 7px;
+	padding: 0;
+	text-overflow: ellipsis;
+}
+.ibox-info p{
+	margin-left: 15px;
+}
+
+.input {
+	font-size: 14px;
+	padding: 3px;
+	border: solid 1px #ddd;
+	width: 100%;
+	height: 24px;
+	line-height: 20px;
+	display: block;
+	border-radius: 4px;
+	-webkit-appearance: none;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+}
+
+.button {
+	border: solid 1px #ddd;
+	background: transparent;
+	border-radius: 4px;
+	font-size: 14px;
+	padding: 6px 15px;
+	margin: 0;
+	display: inline-block;
+	line-height: 20px;
+	transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+}
+
+.input20 {
+	font-size: 14px;
+	padding: 3px;
+	border: solid 1px #ddd;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	display: block;
+	-webkit-appearance: none;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+}
+
+.button20 {
+	border: solid 1px #ddd;
+	background: #1fbba6;
+	font-size: 14px;
+	padding: 3px 15px;
+	margin: 0;
+	display: inline-block;
+	line-height: 20px;
+	transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+}
+
+.pgnum .button20:hover {
+	background-color: #eb6d48;
+	color: #FFF;
+}
+
+.pgnum li {
+	text-align: center;
+	display: inline-block;
+	padding: 0px 5px;
+}
+
+.pagination {
+	margin: 0px 0px;
+}
+
+.table th {
+	text-align: center;
+}
+
+.table td {
+	padding: 0px 8px;
+}
+
+.table .fr {
+	text-align: right;
+	padding-top: 6px;
+	height: 28px;
+	line-height: 28px;
+	display: inline-block;
+}
+
+.noborder {
+	border: 0px
+}
+
+.noborder tr {
+	border: 0px
+}
+
+.noborder .noline td {
+	border: 0px;
+	padding: 3px;
+}
+
+.online input, label {
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	font-weight: 100;
+}
+
+.expopul {	
+}
+.expopul li{
+   text-align:center;
+   line-height: 32px;
+}
+.expopul li #ers{	
+   display: none;
+}
+
+.expopul li #etips{
+  width: 32px;
+  height: 32px;
+  display: inline-block;	
+}
+
+.expopul li #eurl{	
+  text-decoration: underline;
+}
+
+.expopul li #einfo{
+  vertical-align:10px;
+}
+.rs_sucss{
+  background-image: url("/images/common/success.png");
+
+}
+.rs_error{
+  background-image: url("/images/common/failed.png");		
+}
+
+.clsadd2{
+	width: 48%;display: inline-block;
+	height: 100%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.graphic {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+#line-chart{  
+  width: 99%;  
+  height: 85%;  
+}  
+
+.list_inner input {
+  border: 1px solid #e5e6e7;
+}

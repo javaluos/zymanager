@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>zy_paas_manager</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-application-context.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>AuthenticatFilter</filter-name>
+		<filter-class>com.zy.cms.web.filter.AuthenticatFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>spring-mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/account/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/moneybag/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/voiceAccountBusinessInfo/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/cdrfeemonth/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/audit/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/merchantAccountAuth/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/signaudit/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/smstemplate/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/callBackRecord/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/directlyCallRecord/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/voiceRecord/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/numberSecurity/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/cdrDailyStatistics/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/sms_send/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/sms_send_stat/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/smschannel/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/channel_bind/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/channelSummary/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/user/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/account_bind/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/voice_white_list/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>AuthenticatFilter</filter-name>
+		<url-pattern>/sms_reply/*</url-pattern>
+	</filter-mapping>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/tags</taglib-uri>
+			<taglib-location>/WEB-INF/dtd/datetag.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>

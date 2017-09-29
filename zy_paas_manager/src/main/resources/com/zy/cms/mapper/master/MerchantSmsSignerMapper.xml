@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.MerchantSmsSignerMapper" >
+   <resultMap id="BaseResultMap" type="com.zy.cms.vo.MerchantSmsSigner" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IS_NOTICE" property="isNotice" jdbcType="SMALLINT" />
+    <result column="NOTICE_PHONE" property="noticePhone" jdbcType="VARCHAR" />
+    <result column="AUTH_USER" property="authUser" jdbcType="VARCHAR" />
+    <result column="AUTH_SUBMIT_TIME" property="authSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="AUTH_RESULT_TIME" property="authResultTime" jdbcType="TIMESTAMP" />
+    <association property="merchantAccount" javaType="com.zy.cms.vo.MerchantAccount">
+			<result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+		    <result column="API_KEY" property="apikey" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_EMAIL" property="merchantEmail" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PWD" property="merchantPwd" jdbcType="VARCHAR" />
+		    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+		    <result column="AUTH_FLAG" property="authFlag" jdbcType="INTEGER" />
+		    <result column="IS_LOCKED" property="isLocked" jdbcType="SMALLINT" />
+		    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		    <result column="BALANCE" property="currentFee" jdbcType="INTEGER" />
+	</association>
+  </resultMap>
+  
+   <resultMap id="BaseResultMapVo" type="com.zy.cms.vo.MerchantSmsSignerVo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="IS_LOCKED" property="isLocked" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IS_NOTICE" property="isNotice" jdbcType="SMALLINT" />
+    <result column="NOTICE_PHONE" property="noticePhone" jdbcType="VARCHAR" />
+    <result column="AUTH_USER" property="authUser" jdbcType="VARCHAR" />
+    <result column="AUTH_SUBMIT_TIME" property="authSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="AUTH_RESULT_TIME" property="authResultTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <!-- 批量查询条件 -->
+  <sql id="query_where_clause">
+		<where>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="isLocked != null">
+				and IS_LOCKED = #{isLocked,jdbcType=INTEGER}
+			</if>
+			<if test="id != null">
+				and ID = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null">
+				and CONTENT like CONCAT('%','${content}','%')
+			</if>
+			<if test="status != null">
+				and STATUS IN (${status}) 
+			</if>
+		</where>
+		<if test="pageNum != null and pageSize != null">
+				limit #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+  </sql>
+  
+  <!-- 批量查询条件 -->
+  <sql id="query_where_clause2">
+		<where>
+			<if test="apiAccount != null and apiAccount !=''">
+				and W.API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="isLocked != null and isLocked !=''">
+				and W.IS_LOCKED = #{isLocked,jdbcType=INTEGER}
+			</if>
+			<if test="id != null and id !=''">
+				and W.ID = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content !=''">
+				and W.CONTENT like CONCAT('%','${content}','%')
+			</if>
+			<if test="status != null and status !='' and status !='0'">
+				and W.STATUS= #{status,jdbcType=INTEGER}
+			</if>
+			<if test="merchantPhone != null and merchantPhone !=''">
+				and R.MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantAccount != null and merchantAccount !=''">
+				and R.BUSINESS_NAME = #{merchantAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="authUser != null and authUser !=''">
+				and W.AUTH_USER = #{authUser,jdbcType=VARCHAR}
+			</if>
+			<if test="authResultTimeStart != null and authResultTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{authResultTimeStart}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="authResultTimeEnd != null and authResultTimeEnd !=''">
+			   AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{authResultTimeEnd}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	          and w.api_account in  
+	          <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	             #{item}  
+	          </foreach>  
+      		</if>  
+		</where>
+		<!-- <if test="pageNum != null and pageSize != null">
+				limit #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if> -->
+  </sql>
+  
+  
+  <sql id="where_clause">
+		<where>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="id != null">
+				and ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="isLocked != null">
+				and IS_LOCKED = #{isLocked,jdbcType=INTEGER}
+			</if>
+			<if test="content != null">
+				and CONTENT like CONCAT('%','${content}','%')
+			</if>
+			<if test="conten != null">
+				and CONTENT =#{conten,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and STATUS IN (${status}) 
+			</if>
+		</where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CONTENT, API_ACCOUNT,CATEGORY,STATUS, REASON, IS_LOCKED, UPDATE_TIME, CREATE_TIME, 
+    IS_NOTICE, NOTICE_PHONE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_signer
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sms_merchant_signer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.MerchantSmsSigner" useGeneratedKeys="true" keyProperty="id">
+	insert into sms_merchant_signer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE,
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE,
+      </if>
+       <if test="authUser != null" >
+        AUTH_USER,
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME,
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        #{isNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticePhone != null" >
+        #{noticePhone,jdbcType=VARCHAR},
+      </if>
+       <if test="authUser != null" >
+        #{authUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSubmitTime != null" >
+        #{authSubmitTime,jdbcType=SMALLINT},
+      </if>
+      <if test="authResultTime != null" >
+        #{authResultTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.MerchantSmsSigner" >
+    insert into sms_merchant_signer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE,
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE,
+      </if>
+       <if test="authUser != null" >
+        AUTH_USER,
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME,
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        #{isNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticePhone != null" >
+        #{noticePhone,jdbcType=VARCHAR},
+      </if>
+       <if test="authUser != null" >
+        #{authUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSubmitTime != null" >
+        #{authSubmitTime,jdbcType=SMALLINT},
+      </if>
+      <if test="authResultTime != null" >
+        #{authResultTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.MerchantSmsSignerVo" >
+    update sms_merchant_signer
+    <set >
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        CATEGORY= #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE = #{isNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE = #{noticePhone,jdbcType=VARCHAR},
+      </if>
+       <if test="authUser != null" >
+        AUTH_USER=#{authUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSubmitTime != null" >
+       AUTH_SUBMIT_TIME= #{authSubmitTime,jdbcType=SMALLINT},
+      </if>
+      <if test="authResultTime != null" >
+       AUTH_RESULT_TIME=#{authResultTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.MerchantSmsSignerVo" >
+    update sms_merchant_signer
+    <set >
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        CATEGORY= #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isNotice != null" >
+        IS_NOTICE = #{isNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticePhone != null" >
+        NOTICE_PHONE = #{noticePhone,jdbcType=VARCHAR},
+      </if>
+       <if test="authUser != null" >
+        AUTH_USER=#{authUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSubmitTime != null" >
+       AUTH_SUBMIT_TIME= #{authSubmitTime,jdbcType=SMALLINT},
+      </if>
+      <if test="authResultTime != null" >
+       AUTH_RESULT_TIME=#{authResultTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <where>
+		<if test="apiAccount != null">
+			and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+		</if>
+		<if test="id != null">
+			and ID = #{id,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </update>
+  
+  <select id="getMerchantSmsSigners" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_signer
+    <include refid="query_where_clause" />
+  </select>
+  
+  <select id="getCounts" resultType="java.lang.Integer" parameterType="Map" >
+    select  count(*) 
+    from sms_merchant_signer
+    <include refid="where_clause" />
+  </select>
+  
+  <select id="getMerchantSmsSigner" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_signer
+      <include refid="where_clause" />
+      limit 1
+  </select>
+  
+  <select id="getCheckFailMerchantSmsSigners" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_signer where IS_LOCKED=1 and STATUS in (0,1)
+  </select>
+  
+   <!-- 根据实体对象查询列表 -->
+   <select id="queryListByEntity" parameterType="com.zy.cms.vo.query.MerchantSmsSignerQuery" resultMap="BaseResultMap">
+	 select W.*,R.*
+     from sms_merchant_signer W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+     <include refid="query_where_clause2"/>
+     ORDER BY W.UPDATE_TIME DESC
+	 limit
+	 #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryCountByEntity" parameterType="com.zy.cms.vo.query.MerchantSmsSignerQuery" resultType="int">
+		SELECT COUNT(*) FROM sms_merchant_signer W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+		<include refid="query_where_clause2"/>
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findMerchantSmsSigner" parameterType="com.zy.cms.vo.query.MerchantSmsSignerQuery" resultMap="BaseResultMap">
+		SELECT *
+		FROM sms_merchant_signer W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+		WHERE W.ID = #{id} AND W.API_ACCOUNT = #{apiAccount}
+	</select>
+  
+     <!-- 根据主键ID获取数据 -->
+	<select id="findMerchantSmsSignerVo" parameterType="com.zy.cms.vo.query.MerchantSmsSignerQuery" resultMap="BaseResultMapVo">
+		SELECT *
+		FROM sms_merchant_signer W 
+		WHERE W.ID = #{id} AND W.API_ACCOUNT = #{apiAccount}
+	</select>
+</mapper>

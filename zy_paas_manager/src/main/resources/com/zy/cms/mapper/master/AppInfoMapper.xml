@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.AppInfoMapper">
+	<resultMap id="BaseResultMap" type="com.zy.cms.vo.AppInfo">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+		<result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+		<result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+		<result column="TOKEN" property="token" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="REASON" property="reason" jdbcType="SMALLINT" />
+		<result column="BUSINESS_IDS" property="businessIds" jdbcType="VARCHAR" />
+		<result column="BALANCE" property="balance" jdbcType="INTEGER" />
+		<result column="INDUSTRY" property="industry" jdbcType="INTEGER" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 批量查询条件 -->
+	<sql id="query_where_clause">
+		<where>
+			<if test="appName != null">
+				and APP_NAME like CONCAT('%','${appName}','%' )
+			</if>
+			<if test="id != null">
+				and ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="isZHIYAN != null">
+				or API_ACCOUNT = 'ZHIYAN'
+			</if>
+			<if test="isDelete != null">
+				and STATUS != 5
+			</if>
+			<if test="appNm != null">
+				and APP_NAME = #{appNm,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+		ORDER BY UPDATE_TIME DESC
+		<if test="pageNum != null and pageSize != null">
+			limit
+			#{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+	<sql id="count_where_clause">
+		<where>
+			<if test="appName != null">
+				and APP_NAME like CONCAT('%','${appName}','%' )
+			</if>
+			<if test="status != null">
+				and STATUS = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="id != null">
+				and ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="apiAccount != null">
+				and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="isZHIYAN != null">
+				or API_ACCOUNT = 'ZHIYAN'
+			</if>
+			<if test="isDelete != null">
+				and STATUS != 5
+			</if>
+			<if test="appNm != null">
+				and APP_NAME = #{appNm,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 单个查询 -->
+	<sql id="where_clause">
+		<where>
+			<if test="status != null">
+				and STATUS = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="id != null">
+				and ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="token != null">
+				and TOKEN = #{token,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<sql id="Base_Column_List">
+		ID, API_ACCOUNT, APP_ID, APP_NAME, APP_TOKEN, STATUS,
+		REASON,
+		BUSINESS_IDS,
+		BALANCE, INDUSTRY, UPDATE_TIME, CREATE_TIME
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from voice_app_info
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		voice_app_info
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="delete" parameterType="Map">
+		delete from voice_app_info
+		where ID = #{id,jdbcType=INTEGER} and API_ACCOUNT =
+		#{apiAccount,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.zy.cms.vo.VoiceAppInfo">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT @@IDENTITY
+		</selectKey>
+		insert into voice_app_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="apiAccount != null">
+				API_ACCOUNT,
+			</if>
+			<if test="appId != null">
+				APP_ID,
+			</if>
+			<if test="appName != null">
+				APP_NAME,
+			</if>
+			<if test="appToken != null">
+				APP_TOKEN,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="businessIds != null">
+				BUSINESS_IDS,
+			</if>
+			<if test="balance != null">
+				BALANCE,
+			</if>
+			<if test="industry != null">
+				INDUSTRY,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="apiAccount != null">
+				#{apiAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="appToken != null">
+				#{appToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=SMALLINT},
+			</if>
+			<if test="businessIds != null">
+				#{businessIds,jdbcType=VARCHAR},
+			</if>
+			<if test="balance != null">
+				#{balance,jdbcType=INTEGER},
+			</if>
+			<if test="industry != null">
+				#{industry,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.zy.cms.vo.AppInfo">
+		insert into voice_app_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="apiAccount != null">
+				API_ACCOUNT,
+			</if>
+			<if test="appId != null">
+				APP_ID,
+			</if>
+			<if test="appName != null">
+				APP_NAME,
+			</if>
+			<if test="appToken != null">
+				APP_TOKEN,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="businessIds != null">
+				BUSINESS_IDS,
+			</if>
+			<if test="balance != null">
+				BALANCE,
+			</if>
+			<if test="industry != null">
+				INDUSTRY,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="apiAccount != null">
+				#{apiAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="appToken != null">
+				#{appToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=SMALLINT},
+			</if>
+			<if test="businessIds != null">
+				#{businessIds,jdbcType=VARCHAR},
+			</if>
+			<if test="balance != null">
+				#{balance,jdbcType=INTEGER},
+			</if>
+			<if test="industry != null">
+				#{industry,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.AppInfo">
+		update voice_app_info
+		<set>
+			<if test="appName != null">
+				APP_NAME = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="appToken != null">
+				APP_TOKEN = #{appToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				REASON = #{reason,jdbcType=SMALLINT},
+			</if>
+			<if test="businessIds != null">
+				BUSINESS_IDS = #{businessIds,jdbcType=VARCHAR},
+			</if>
+			<if test="balance != null">
+				BALANCE = #{balance,jdbcType=INTEGER},
+			</if>
+			<if test="industry != null">
+				INDUSTRY = #{industry,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where API_ACCOUNT = #{apiAccount,jdbcType=INTEGER}
+		and   APP_ID = #{appId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.AppInfo">
+		update voice_app_info
+		<set>
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				APP_NAME = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="appToken != null">
+				APP_TOKEN = #{appToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				REASON = #{reason,jdbcType=SMALLINT},
+			</if>
+			<if test="businessIds != null">
+				BUSINESS_IDS = #{businessIds,jdbcType=VARCHAR},
+			</if>
+			<if test="balance != null">
+				BALANCE = #{balance,jdbcType=INTEGER},
+			</if>
+			<if test="industry != null">
+				INDUSTRY = #{industry,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getAppInfos" resultMap="BaseResultMap"
+		parameterType="Map">
+		select
+		<include refid="Base_Column_List" />
+		from voice_app_info
+		<include refid="query_where_clause" />
+	</select>
+	<select id="getCounts" resultType="java.lang.Integer"
+		parameterType="Map">
+		select count(*) from voice_app_info
+		<include refid="count_where_clause" />
+	</select>
+
+	<select id="getAppInfo" resultMap="BaseResultMap" parameterType="Map">
+		select
+		<include refid="Base_Column_List" />
+		from voice_app_info
+		<include refid="where_clause" />
+		limit 1
+	</select>
+
+   <select id="getAppInfoCount" parameterType="Map" resultType="Integer">
+		select count(1)
+		from voice_app_info
+		<include refid="where_clause" />
+	</select>
+	
+	<select id="getAppInfoExitCount" parameterType="Map" resultType="Integer">
+		select count(1)
+		from voice_app_info
+		<where>
+			<if test="APP_ID != null">
+				and API_ACCOUNT = #{API_ACCOUNT,jdbcType=VARCHAR}
+			</if>
+			<if test="APP_ID != null">
+				and APP_ID = #{APP_ID,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getIds" parameterType="Map" resultType="Map">
+		SELECT distinct(SIGNER_ID) id FROM voice_app_info
+		WHERE STATUS!=5 and
+		SIGNER_ID in
+		<foreach collection="sids" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

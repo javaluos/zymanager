@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.cms.mapper.master.CmppAccountMapper">
+	<!-- 结果集映射 -->
+	<resultMap id="cmppAccountResultMap" type="com.zy.cms.vo.CmppAccount">
+		<id column="ID" property="id" />
+		<result column="API_ACCOUNT" property="apiAccount" />
+		<result column="APP_ID" property="appId" />
+		<result column="CLIENT_ID" property="clientId" />
+		<result column="PWD" property="pwd" />
+		<result column="MERCHANT_ACCOUNT" property="merchantAccount" />
+		<result column="REMARK" property="remark" />
+		<result column="API_KEY" property="apiKey" />
+		<result column="SMS_TYPE" property="smsType" />
+		
+		<result column="BASE_EXT_NUMBER" property="baseExtNumber" />
+		<result column="START_FLAG" property="startFlag" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="DEFAULT_EXT_NO" property="defaultExtNo" />
+		<result column="ALLOW_SESSION" property="allowSession" />
+	</resultMap>
+	
+
+	
+	<!-- 实体对象查询条件SQL -->
+	<sql id="queryCmppAccountEntityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+			<if test="id != null and id !=''">
+				AND ID = #{id}
+			</if>
+			<if test="apiAccount != null and apiAccount !=''">
+				AND API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="appId != null and appId !=''">
+				AND APP_ID = #{appId}
+			</if>
+			<if test="clientId != null and clientId !=''">
+				AND CLIENT_ID = #{clientId}
+			</if>
+			<if test="pwd != null and pwd !=''">
+				AND PWD = #{pwd}
+			</if>
+			<if test="merchantAccount != null and merchantAccount !=''">
+				AND MERCHANT_ACCOUNT = #{merchantAccount}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND REMARK = #{remark}
+			</if>
+			<if test="apiKey != null and apiKey !=''">
+				AND API_KEY = #{apiKey}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 查询列表 -->
+	<select id="queryCmppAccountList"  resultMap="cmppAccountResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, CLIENT_ID, PWD, MERCHANT_ACCOUNT, REMARK, API_KEY,SMS_TYPE,BASE_EXT_NUMBER,START_FLAG,CREATE_TIME,UPDATE_TIME,DEFAULT_EXT_NO,ALLOW_SESSION 
+		FROM CMPP_ACCOUNT
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryCmppAccountListByEntity" parameterType="com.zy.cms.vo.CmppAccount" resultMap="cmppAccountResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, CLIENT_ID, PWD, MERCHANT_ACCOUNT, REMARK, API_KEY,SMS_TYPE,BASE_EXT_NUMBER,START_FLAG,CREATE_TIME,UPDATE_TIME,DEFAULT_EXT_NO,ALLOW_SESSION 
+		FROM CMPP_ACCOUNT
+		<include refid="queryCmppAccountEntityCondition"/>
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryCmppAccountCountByEntity" parameterType="com.zy.cms.vo.CmppAccount" resultType="int">
+		SELECT COUNT(*) FROM CMPP_ACCOUNT
+		<include refid="queryCmppAccountEntityCondition"/>
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findCmppAccount" parameterType="com.zy.cms.vo.CmppAccount" resultMap="cmppAccountResultMap">
+		SELECT ID, API_ACCOUNT, APP_ID, CLIENT_ID, PWD, MERCHANT_ACCOUNT, REMARK, API_KEY,SMS_TYPE,BASE_EXT_NUMBER,START_FLAG,CREATE_TIME,UPDATE_TIME,DEFAULT_EXT_NO,ALLOW_SESSION 
+		FROM CMPP_ACCOUNT WHERE ID = #{id}
+	</select>
+	
+	<!-- 新增并设置主键ID至参数对象 -->
+	<insert id="insertCmppAccount" parameterType="com.zy.cms.vo.CmppAccount">
+		INSERT INTO CMPP_ACCOUNT
+			(ID, API_ACCOUNT, APP_ID, CLIENT_ID, PWD, MERCHANT_ACCOUNT, REMARK, API_KEY,SMS_TYPE,START_FLAG,BASE_EXT_NUMBER)
+		VALUES
+			(#{id}, #{apiAccount}, #{appId}, #{clientId}, #{pwd}, #{merchantAccount}, #{remark}, #{apiKey}, #{smsType}, #{startFlag}, #{baseExtNumber})
+	</insert>
+	
+	<!-- 修改-->
+	<update id="updateCmppAccount" parameterType="com.zy.cms.vo.CmppAccount">
+		UPDATE CMPP_ACCOUNT 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId},
+			</if>
+			<if test="clientId != null">
+				CLIENT_ID = #{clientId},
+			</if>
+			<if test="pwd != null">
+				PWD = #{pwd},
+			</if>
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT = #{merchantAccount},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark},
+			</if>
+			<if test="apiKey != null">
+				API_KEY = #{apiKey},
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE = #{smsType},
+			</if>
+			<if test="baseExtNumber != null">
+				BASE_EXT_NUMBER = #{baseExtNumber},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteCmppAccount" parameterType="com.zy.cms.vo.CmppAccount">
+		DELETE FROM CMPP_ACCOUNT
+		WHERE ID = #{id}
+	</delete>
+
+	<!-- 根据apiAccount获取数据 -->
+	<select id="findCmppByAccount" parameterType="java.lang.String" resultMap="cmppAccountResultMap">
+		SELECT 
+		  *
+		FROM
+		 CMPP_ACCOUNT 
+		WHERE 
+		 API_ACCOUNT = #{apiAccount}
+		limit 1
+	</select>
+
+    <!-- 根据clientId获取数据 -->
+	<select id="findCmppByClientId" parameterType="java.lang.String" resultMap="cmppAccountResultMap">
+		SELECT 
+		  *
+		FROM
+		 CMPP_ACCOUNT 
+		WHERE 
+		 CLIENT_ID = #{clientId}
+	</select>
+
+</mapper>

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.MerchantAccountAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.MerchantAccountAuth" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+    <result column="PL_NAME" property="plName" jdbcType="VARCHAR" />
+    <result column="PL_CRET_TYPE" property="plCretType" jdbcType="INTEGER" />
+    <result column="PL_CRET_NO" property="plCretNo" jdbcType="VARCHAR" />
+    <result column="PL_CRET_FILEURL" property="plCretFileurl" jdbcType="VARCHAR" />
+    <result column="PL_CRET_BACKURL" property="plCretBackurl" jdbcType="VARCHAR" />
+    <result column="CY_NAME" property="cyName" jdbcType="VARCHAR" />
+    <result column="CY_ADDRESS" property="cyAddress" jdbcType="VARCHAR" />
+    <result column="CY_INDUSTRY" property="cyIndustry" jdbcType="VARCHAR" />
+    <result column="CY_CRET_TYPE" property="cyCretType" jdbcType="INTEGER" />
+    <result column="CY_USCC" property="cyUscc" jdbcType="VARCHAR" />
+    <result column="CY_REGISTR_NO" property="cyRegistrNo" jdbcType="VARCHAR" />
+    <result column="CY_TRC_NO" property="cyTrcNo" jdbcType="VARCHAR" />
+    <result column="CY_TRC_FILEURL" property="cyTrcFileurl" jdbcType="VARCHAR" />
+    <result column="CY_BL_NO" property="cyBlNo" jdbcType="VARCHAR" />
+    <result column="CY_BL_FILEURL" property="cyBlFileurl" jdbcType="VARCHAR" />
+    <result column="AUTH_STATUS" property="authStatus" jdbcType="INTEGER" />
+    <result column="AUTH_USER" property="authUser" jdbcType="VARCHAR" />
+    <result column="AUTH_SUBMIT_TIME" property="authSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="AUTH_RESULT_TIME" property="authResultTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <association property="merchantAccount" javaType="com.zy.cms.vo.MerchantAccount">
+			<result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+		    <result column="API_KEY" property="apikey" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_EMAIL" property="merchantEmail" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PWD" property="merchantPwd" jdbcType="VARCHAR" />
+		    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+		    <result column="AUTH_FLAG" property="authFlag" jdbcType="INTEGER" />
+		    <result column="IS_LOCKED" property="isLocked" jdbcType="SMALLINT" />
+		    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		    <result column="BALANCE" property="currentFee" jdbcType="INTEGER" />
+	</association>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zy.cms.vo.MerchantAccountAuth" extends="BaseResultMap" >
+    <result column="AUTH_DESC" property="authDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, MERCHANT_TYPE, PL_NAME, PL_CRET_TYPE, PL_CRET_NO, PL_CRET_FILEURL, PL_CRET_BACKURL,
+    CY_NAME, CY_ADDRESS, CY_INDUSTRY, CY_CRET_TYPE, CY_USCC, CY_REGISTR_NO, CY_TRC_NO, 
+    CY_TRC_FILEURL, CY_BL_NO, CY_BL_FILEURL, AUTH_STATUS, AUTH_USER, AUTH_SUBMIT_TIME, 
+    AUTH_RESULT_TIME, UPDATE_TIME, CREATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    AUTH_DESC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from voice_merchant_account_auth
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voice_merchant_account_auth
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.MerchantAccountAuth" >
+    insert into voice_merchant_account_auth (ID, API_ACCOUNT, MERCHANT_TYPE, 
+      PL_NAME, PL_CRET_TYPE, PL_CRET_NO, 
+      PL_CRET_FILEURL,PL_CRET_BACKURL, CY_NAME, CY_ADDRESS, 
+      CY_INDUSTRY, CY_CRET_TYPE, CY_USCC, 
+      CY_REGISTR_NO, CY_TRC_NO, CY_TRC_FILEURL, 
+      CY_BL_NO, CY_BL_FILEURL, AUTH_STATUS, 
+      AUTH_USER, AUTH_SUBMIT_TIME, AUTH_RESULT_TIME, 
+      UPDATE_TIME, CREATE_TIME, AUTH_DESC
+      )
+    values (#{id,jdbcType=BIGINT}, #{apiAccount,jdbcType=VARCHAR}, #{merchantType,jdbcType=INTEGER}, 
+      #{plName,jdbcType=VARCHAR}, #{plCretType,jdbcType=INTEGER}, #{plCretNo,jdbcType=VARCHAR}, 
+      #{plCretFileurl,jdbcType=VARCHAR},#{plCretBackurl,jdbcType=VARCHAR},#{cyName,jdbcType=VARCHAR}, #{cyAddress,jdbcType=VARCHAR}, 
+      #{cyIndustry,jdbcType=VARCHAR}, #{cyCretType,jdbcType=INTEGER}, #{cyUscc,jdbcType=VARCHAR}, 
+      #{cyRegistrNo,jdbcType=VARCHAR}, #{cyTrcNo,jdbcType=VARCHAR}, #{cyTrcFileurl,jdbcType=VARCHAR}, 
+      #{cyBlNo,jdbcType=VARCHAR}, #{cyBlFileurl,jdbcType=VARCHAR}, #{authStatus,jdbcType=INTEGER}, 
+      #{authUser,jdbcType=VARCHAR}, #{authSubmitTime,jdbcType=TIMESTAMP}, #{authResultTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{authDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.MerchantAccountAuth" >
+    insert into voice_merchant_account_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="merchantType != null" >
+        MERCHANT_TYPE,
+      </if>
+      <if test="plName != null" >
+        PL_NAME,
+      </if>
+      <if test="plCretType != null" >
+        PL_CRET_TYPE,
+      </if>
+      <if test="plCretNo != null" >
+        PL_CRET_NO,
+      </if>
+      <if test="plCretFileurl != null" >
+        PL_CRET_FILEURL,
+      </if>
+      <if test="cyName != null" >
+        CY_NAME,
+      </if>
+      <if test="cyAddress != null" >
+        CY_ADDRESS,
+      </if>
+      <if test="cyIndustry != null" >
+        CY_INDUSTRY,
+      </if>
+      <if test="cyCretType != null" >
+        CY_CRET_TYPE,
+      </if>
+      <if test="cyUscc != null" >
+        CY_USCC,
+      </if>
+      <if test="cyRegistrNo != null" >
+        CY_REGISTR_NO,
+      </if>
+      <if test="cyTrcNo != null" >
+        CY_TRC_NO,
+      </if>
+      <if test="cyTrcFileurl != null" >
+        CY_TRC_FILEURL,
+      </if>
+      <if test="cyBlNo != null" >
+        CY_BL_NO,
+      </if>
+      <if test="cyBlFileurl != null" >
+        CY_BL_FILEURL,
+      </if>
+      <if test="authStatus != null" >
+        AUTH_STATUS,
+      </if>
+      <if test="authUser != null" >
+        AUTH_USER,
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME,
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="authDesc != null" >
+        AUTH_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantType != null" >
+        #{merchantType,jdbcType=INTEGER},
+      </if>
+      <if test="plName != null" >
+        #{plName,jdbcType=VARCHAR},
+      </if>
+      <if test="plCretType != null" >
+        #{plCretType,jdbcType=INTEGER},
+      </if>
+      <if test="plCretNo != null" >
+        #{plCretNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plCretFileurl != null" >
+        #{plCretFileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cyName != null" >
+        #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyAddress != null" >
+        #{cyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cyIndustry != null" >
+        #{cyIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="cyCretType != null" >
+        #{cyCretType,jdbcType=INTEGER},
+      </if>
+      <if test="cyUscc != null" >
+        #{cyUscc,jdbcType=VARCHAR},
+      </if>
+      <if test="cyRegistrNo != null" >
+        #{cyRegistrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyTrcNo != null" >
+        #{cyTrcNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyTrcFileurl != null" >
+        #{cyTrcFileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cyBlNo != null" >
+        #{cyBlNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyBlFileurl != null" >
+        #{cyBlFileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="authStatus != null" >
+        #{authStatus,jdbcType=INTEGER},
+      </if>
+      <if test="authUser != null" >
+        #{authUser,jdbcType=VARCHAR},
+      </if>
+      <if test="authSubmitTime != null" >
+        #{authSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authResultTime != null" >
+        #{authResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authDesc != null" >
+        #{authDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.MerchantAccountAuth" >
+    update voice_merchant_account_auth
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantType != null" >
+        MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      </if>
+      <if test="plName != null" >
+        PL_NAME = #{plName,jdbcType=VARCHAR},
+      </if>
+      <if test="plCretType != null" >
+        PL_CRET_TYPE = #{plCretType,jdbcType=INTEGER},
+      </if>
+      <if test="plCretNo != null" >
+        PL_CRET_NO = #{plCretNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plCretFileurl != null" >
+        PL_CRET_FILEURL = #{plCretFileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cyName != null" >
+        CY_NAME = #{cyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cyAddress != null" >
+        CY_ADDRESS = #{cyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cyIndustry != null" >
+        CY_INDUSTRY = #{cyIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="cyCretType != null" >
+        CY_CRET_TYPE = #{cyCretType,jdbcType=INTEGER},
+      </if>
+      <if test="cyUscc != null" >
+        CY_USCC = #{cyUscc,jdbcType=VARCHAR},
+      </if>
+      <if test="cyRegistrNo != null" >
+        CY_REGISTR_NO = #{cyRegistrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyTrcNo != null" >
+        CY_TRC_NO = #{cyTrcNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyTrcFileurl != null" >
+        CY_TRC_FILEURL = #{cyTrcFileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="cyBlNo != null" >
+        CY_BL_NO = #{cyBlNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cyBlFileurl != null" >
+        CY_BL_FILEURL = #{cyBlFileurl,jdbcType=VARCHAR},
+      </if>
+       <if test="plCretBackurl != null" >
+        PL_CRET_BACKURL = #{plCretBackurl,jdbcType=VARCHAR},
+      </if>
+      <if test="authStatus != null" >
+        AUTH_STATUS = #{authStatus,jdbcType=INTEGER},
+      </if>
+      <if test="authUser != null" >
+        AUTH_USER = #{authUser,jdbcType=VARCHAR},
+      </if>
+      <if test="authSubmitTime != null" >
+        AUTH_SUBMIT_TIME = #{authSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authResultTime != null" >
+        AUTH_RESULT_TIME = #{authResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authDesc != null" >
+        AUTH_DESC = #{authDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+	<update id="updateStatusByApiAccount">
+		UPDATE voice_merchant_account_auth SET auth_status =
+		#{authStatus,jdbcType=INTEGER} WHERE api_account =
+		#{apiAccount,jdbcType=VARCHAR}
+	</update>
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zy.cms.vo.MerchantAccountAuth" >
+    update voice_merchant_account_auth
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      PL_NAME = #{plName,jdbcType=VARCHAR},
+      PL_CRET_TYPE = #{plCretType,jdbcType=INTEGER},
+      PL_CRET_NO = #{plCretNo,jdbcType=VARCHAR},
+      PL_CRET_FILEURL = #{plCretFileurl,jdbcType=VARCHAR},
+      PL_CRET_BACKURL = #{plCretBackurl,jdbcType=VARCHAR},
+      CY_NAME = #{cyName,jdbcType=VARCHAR},
+      CY_ADDRESS = #{cyAddress,jdbcType=VARCHAR},
+      CY_INDUSTRY = #{cyIndustry,jdbcType=VARCHAR},
+      CY_CRET_TYPE = #{cyCretType,jdbcType=INTEGER},
+      CY_USCC = #{cyUscc,jdbcType=VARCHAR},
+      CY_REGISTR_NO = #{cyRegistrNo,jdbcType=VARCHAR},
+      CY_TRC_NO = #{cyTrcNo,jdbcType=VARCHAR},
+      CY_TRC_FILEURL = #{cyTrcFileurl,jdbcType=VARCHAR},
+      CY_BL_NO = #{cyBlNo,jdbcType=VARCHAR},
+      CY_BL_FILEURL = #{cyBlFileurl,jdbcType=VARCHAR},
+      AUTH_STATUS = #{authStatus,jdbcType=INTEGER},
+      AUTH_USER = #{authUser,jdbcType=VARCHAR},
+      AUTH_SUBMIT_TIME = #{authSubmitTime,jdbcType=TIMESTAMP},
+      AUTH_RESULT_TIME = #{authResultTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      AUTH_DESC = #{authDesc,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.MerchantAccountAuth" >
+    update voice_merchant_account_auth
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      MERCHANT_TYPE = #{merchantType,jdbcType=INTEGER},
+      PL_NAME = #{plName,jdbcType=VARCHAR},
+      PL_CRET_TYPE = #{plCretType,jdbcType=INTEGER},
+      PL_CRET_NO = #{plCretNo,jdbcType=VARCHAR},
+      PL_CRET_FILEURL = #{plCretFileurl,jdbcType=VARCHAR},
+      PL_CRET_BACKURL = #{plCretBackurl,jdbcType=VARCHAR},
+      CY_NAME = #{cyName,jdbcType=VARCHAR},
+      CY_ADDRESS = #{cyAddress,jdbcType=VARCHAR},
+      CY_INDUSTRY = #{cyIndustry,jdbcType=VARCHAR},
+      CY_CRET_TYPE = #{cyCretType,jdbcType=INTEGER},
+      CY_USCC = #{cyUscc,jdbcType=VARCHAR},
+      CY_REGISTR_NO = #{cyRegistrNo,jdbcType=VARCHAR},
+      CY_TRC_NO = #{cyTrcNo,jdbcType=VARCHAR},
+      CY_TRC_FILEURL = #{cyTrcFileurl,jdbcType=VARCHAR},
+      CY_BL_NO = #{cyBlNo,jdbcType=VARCHAR},
+      CY_BL_FILEURL = #{cyBlFileurl,jdbcType=VARCHAR},
+      AUTH_STATUS = #{authStatus,jdbcType=INTEGER},
+      AUTH_USER = #{authUser,jdbcType=VARCHAR},
+      AUTH_SUBMIT_TIME = #{authSubmitTime,jdbcType=TIMESTAMP},
+      AUTH_RESULT_TIME = #{authResultTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByApiAccount" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from voice_merchant_account_auth
+    where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 实体对象查询条件SQL -->
+  <sql id="queryMerchantAccountAuthEntityCondition">
+    <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+      <if test="businessName != null and businessName !=''" >
+          AND R.BUSINESS_NAME = #{businessName}
+      </if>
+      <if test="merchantPhone != null and merchantPhone !=''">
+		  AND R.MERCHANT_PHONE = #{merchantPhone}
+	   </if>
+	   <if test="authStatus != 0" >
+          AND w.AUTH_STATUS=#{authStatus}
+       </if>
+       <if test="apiAccount != null and apiAccount !=''" >
+          AND w.API_ACCOUNT=#{apiAccount}
+       </if>
+       <if test="authResultTimeStart != null and authResultTimeStart !=''">
+		    AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{authResultTimeStart}, '%Y-%m-%d %H:%i:%s')]]>
+		</if>
+		<if test="authResultTimeEnd != null and authResultTimeEnd !=''">
+		    AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{authResultTimeEnd}, '%Y-%m-%d %H:%i:%s')]]>
+		</if>
+       <if test="authUser != null and authUser !=''" >
+         AND w.AUTH_USER=#{authUser}
+       </if>
+       <if test="apiAccounts!=null and apiAccounts.size() > 0">  
+          and w.api_account in  
+          <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+             #{item}  
+          </foreach>  
+       </if>  
+    </trim>
+  </sql>
+  
+  <!-- 根据实体对象查询列表 -->
+  <select id="queryMerchantAccountAuthListByEntity" parameterType="com.zy.cms.vo.query.MerchantAccountAuthQuery" resultMap="BaseResultMap">
+	SELECT *
+	FROM voice_merchant_account_auth W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+	<include refid="queryMerchantAccountAuthEntityCondition"/>
+	ORDER BY  W.UPDATE_TIME DESC
+	limit
+	#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+	
+  <!-- 根据实体对象查询符合条件的记录数 -->
+  <select id="queryMerchantAccountAuthByEntity" parameterType="com.zy.cms.vo.query.MerchantAccountAuthQuery" resultType="int">
+	SELECT COUNT(*) FROM voice_merchant_account_auth W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+	<include refid="queryMerchantAccountAuthEntityCondition"/>
+  </select>
+  
+   <select id="getMerchantAccountAuthById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+     select * from voice_merchant_account_auth W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+     where ID = #{id,jdbcType=BIGINT}
+   </select>
+  
+</mapper>

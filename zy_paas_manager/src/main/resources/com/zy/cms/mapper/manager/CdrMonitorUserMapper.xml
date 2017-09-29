@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrMonitorUser" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="MONITOR_STATUS" property="monitorStatus" jdbcType="INTEGER" />
+    <result column="NOTICE_TIMES" property="noticeTimes" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <association property="merchantAccount" javaType="com.zy.cms.vo.MerchantAccount">
+			<result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+		    <result column="API_KEY" property="apikey" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_EMAIL" property="merchantEmail" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_PWD" property="merchantPwd" jdbcType="VARCHAR" />
+		    <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+		    <result column="MERCHANT_TYPE" property="merchantType" jdbcType="INTEGER" />
+		    <result column="AUTH_FLAG" property="authFlag" jdbcType="INTEGER" />
+		    <result column="IS_LOCKED" property="isLocked" jdbcType="SMALLINT" />
+		    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		    <result column="BALANCE" property="currentFee" jdbcType="INTEGER" />
+	</association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, MONITOR_STATUS, NOTICE_TIMES, UPDATE_TIME, CREATE_TIME
+  </sql>
+  
+   <!-- 分页对象查询条件SQL -->
+   <sql id="queryMonitorUserCondition">
+	   <trim prefix="WHERE" prefixOverrides="  and  | OR" suffixOverrides=",">
+	          1=1
+			  <if test="apiAccount != null  and apiAccount!=''" >
+		         AND U.API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+		      </if>
+		      <if test="monitorStatus != null" >
+		         AND  U.MONITOR_STATUS = #{monitorStatus,jdbcType=INTEGER}
+		      </if>
+		      <if test="noticeTimes != null" >
+		         AND   U.NOTICE_TIMES = #{noticeTimes,jdbcType=INTEGER}
+		      </if>
+		      <if test="updateTime != null" >
+		         AND  U.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createTime != null" >
+		         AND  U.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="businessName != null  and businessName!=''" >
+		         AND  W.business_name like CONCAT('%','${businessName}','%')
+		      </if>
+              <if test="merchantPhone != null  and merchantPhone!=''" >
+		         AND  W.merchant_phone = #{merchantPhone,jdbcType=TIMESTAMP}
+		      </if>
+              <if test="apiAccounts!=null and apiAccounts.size() > 0">
+                  AND U.API_ACCOUNT in
+                 <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                   #{item}
+                 </foreach>
+              </if>
+	   </trim>
+   </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_user
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cdr_monitor_user
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.manager.CdrMonitorUser" >
+    insert into cdr_monitor_user ( API_ACCOUNT, MONITOR_STATUS, NOTICE_TIMES, UPDATE_TIME, CREATE_TIME)
+    values (#{apiAccount,jdbcType=VARCHAR}, 
+      #{monitorStatus,jdbcType=INTEGER}, #{noticeTimes,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.CdrMonitorUser" >
+    insert into cdr_monitor_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="monitorStatus != null" >
+        MONITOR_STATUS,
+      </if>
+      <if test="noticeTimes != null" >
+        NOTICE_TIMES,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorStatus != null" >
+        #{monitorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimes != null" >
+        #{noticeTimes,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.CdrMonitorUser" >
+    update cdr_monitor_user
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorStatus != null" >
+        MONITOR_STATUS = #{monitorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTimes != null" >
+        NOTICE_TIMES = #{noticeTimes,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.CdrMonitorUser" >
+    update cdr_monitor_user
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      MONITOR_STATUS = #{monitorStatus,jdbcType=INTEGER},
+      NOTICE_TIMES = #{noticeTimes,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据实体对象查询列表 -->
+  <select id="queryMonitorUserByEntity" parameterType="com.zy.cms.vo.query.CdrMonitorUserQuery" resultMap="BaseResultMap">
+		SELECT 
+			* 
+		FROM 
+			`zy_db_paas`.`voice_merchant_account` W
+		RIGHT JOIN 
+			`zy_db_manager`.`cdr_monitor_user` U
+	    ON
+			W.`API_ACCOUNT` = U.`API_ACCOUNT`
+		<include refid="queryMonitorUserCondition"/>
+		ORDER BY  W.UPDATE_TIME DESC
+		limit
+		#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+   </select>
+	
+   <!-- 根据实体对象查询符合条件的记录数 -->
+   <select id="queryMonitorUserCountByEntity" parameterType="com.zy.cms.vo.query.CdrMonitorUserQuery" resultType="int">
+	  SELECT 
+	    COUNT(*) 
+	  FROM 
+			`zy_db_paas`.`voice_merchant_account` W 
+	  RIGHT JOIN 
+			`zy_db_manager`.`cdr_monitor_user` U
+	  ON
+			W.`API_ACCOUNT` = U.`API_ACCOUNT`
+	  <include refid="queryMonitorUserCondition"/>
+   </select>
+	
+   <select id="findMonitorUserByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      select 
+   <include refid="Base_Column_List" />
+      from cdr_monitor_user U
+      where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+   </select>
+   
+</mapper>

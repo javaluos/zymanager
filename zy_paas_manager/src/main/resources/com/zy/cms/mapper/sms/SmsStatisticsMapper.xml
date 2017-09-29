@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.sms.SmsStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.SmsDailyStatistics">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR"/>
+        <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_SMS_ID" property="channelSmsId" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR"/>
+        <result column="SMS_CATEGORY" property="smsCategory" jdbcType="VARCHAR"/>
+        <result column="SEND_COUNT" property="sendCount" jdbcType="INTEGER"/>
+        <result column="SUCCESS_COUNT" property="successCount" jdbcType="INTEGER"/>
+        <result column="FAILED_COUNT" property="failedCount" jdbcType="INTEGER"/>
+        <result column="NOREPORT_COUNT" property="noreportCount" jdbcType="INTEGER"/>
+        <result column="FEE_COUNT" property="feeCount" jdbcType="INTEGER"/>
+        <result column="SD_US10S_COUNT" property="sdUs10sCount" jdbcType="INTEGER"/>
+        <result column="SD_US50S_COUNT" property="sdUs50sCount" jdbcType="INTEGER"/>
+        <result column="SD_USGT50S_COUNT" property="sdUsgt50sCount" jdbcType="INTEGER"/>
+        <result column="ST_BK24H_COUNT" property="stBk24hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK48H_COUNT" property="stBk48hCount" jdbcType="INTEGER"/>
+        <result column="ST_BK72H_COUNT" property="stBk72hCount" jdbcType="INTEGER"/>
+        <result column="AVG_SEND_TIME" property="avgSendTime" jdbcType="INTEGER"/>
+        <result column="AVG_STATUS_TIME" property="avgStatusTime" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="successSendRate" property="successSendRate" jdbcType="DOUBLE"/>
+        <result column="failSendRate" property="failSendRate" jdbcType="DOUBLE"/>
+        <result column="noreportRate" property="noreportRate" jdbcType="DOUBLE"/>
+        <result column="sdUs10sCountRate" property="sdUs10sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUs50sCountRate" property="sdUs50sCountRate" jdbcType="DOUBLE"/>
+        <result column="sdUsgt50sCountRate" property="sdUsgt50sCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk24hCountRate" property="stBk24hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk48hCountRate" property="stBk48hCountRate" jdbcType="DOUBLE"/>
+        <result column="stBk72hCountRate" property="stBk72hCountRate" jdbcType="DOUBLE"/>
+    </resultMap>
+    <resultMap id="FailDetailMap" type="com.zy.cms.vo.manager.FailDetailVO">
+        <result column="RECEIVE_STATUS_DESC" property="receiveStatusDesc" jdbcType="VARCHAR"/>
+        <result column="GROUPCOUNT" property="groupCount" jdbcType="INTEGER"/>
+        <result column="TOTAL" property="total" jdbcType="INTEGER"/>
+        <result column="PERCENTAGE" property="percentage" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, DATE_TIME, API_ACCOUNT, CHANNEL_SMS_ID, SMS_CATEGORY, SEND_COUNT, SUCCESS_COUNT,
+        FAILED_COUNT, NOREPORT_COUNT, FEE_COUNT, SD_US10S_COUNT, SD_US50S_COUNT, SD_USGT50S_COUNT,
+        ST_BK24H_COUNT, ST_BK48H_COUNT, ST_BK72H_COUNT, AVG_SEND_TIME, AVG_STATUS_TIME, CREATE_TIME
+    </sql>
+    <select id="selectTodayTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (SELECT sds.API_ACCOUNT
+        FROM zy_db_sms.sms_merchant_send_${tableName} sds
+        where SEND_RESULT = 0
+        <include refid="outterConditions"/>
+        GROUP BY sds.API_ACCOUNT, sds.SMS_CATEGORY) record
+    </select>
+    <select id="selectTodayListByQuery" resultMap="BaseResultMap">
+        SELECT
+        sds.API_ACCOUNT,
+        sds.SMS_CATEGORY,
+        sds.SEND_COUNT ,
+        sds.SUCCESS_COUNT,
+        sds.FAILED_COUNT,
+        sds.NOREPORT_COUNT,
+        sds.FEE_COUNT,
+        (sds.SUCCESS_COUNT / sds.SEND_COUNT) successSendRate,
+        (sds.FAILED_COUNT / sds.SEND_COUNT) failSendRate,
+        (sds.NOREPORT_COUNT / sds.SEND_COUNT) noreportRate
+        FROM(
+        SELECT
+        sms.API_ACCOUNT,
+        sms.SMS_CATEGORY,
+        sms.CREATE_TIME,
+        SUM(sms.SEND_RESULT=0) AS SEND_COUNT ,
+        SUM(sms.RECEIVE_STATUS = 0 and sms.SEND_RESULT=0) AS SUCCESS_COUNT,
+        SUM(sms.RECEIVE_STATUS = 1 and sms.SEND_RESULT=0) AS FAILED_COUNT,
+        SUM(sms.RECEIVE_STATUS = 2 and sms.SEND_RESULT=0) AS NOREPORT_COUNT,
+        SUM((sms.RECEIVE_STATUS = 0 and sms.SEND_RESULT=0) * sms.SMS_NUMS) AS FEE_COUNT
+        FROM
+        sms_merchant_send_${tableName} sms
+        WHERE SEND_RESULT = 0
+        <include refid="innerConditions"/>
+        GROUP BY API_ACCOUNT, SMS_CATEGORY) sds
+        ORDER BY
+        <if test="sortColumn != null and sortColumn != ''" >
+            <choose>
+                <when test="sortColumn == 0" >
+                    sds.SEND_COUNT
+                </when>
+                <when test="sortColumn == 1" >
+                    sds.SUCCESS_COUNT
+                </when>
+                <when test="sortColumn == 2" >
+                    sds.FEE_COUNT
+                </when>
+                <when test="sortColumn == 3" >
+                    sds.FAILED_COUNT
+                </when>
+                <when test="sortColumn == 4" >
+                    sds.NOREPORT_COUNT
+                </when>
+                <when test="sortColumn == 5" >
+                    sds.successSendRate
+                </when>
+                <when test="sortColumn == 6" >
+                    sds.failSendRate
+                </when>
+                <when test="sortColumn == 7" >
+                    sds.noreportRate
+                </when>
+            </choose>
+            <choose>
+                <when test="sortType == 0">
+                    ASC,
+                </when>
+                <otherwise>
+                    DESC,
+                </otherwise>
+            </choose>
+        </if>
+        sds.API_ACCOUNT ASC, sds.SMS_CATEGORY ASC
+        limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="statTodaySmsDailyTotal" resultMap="BaseResultMap">
+        SELECT
+        SUM(sds.SEND_RESULT = 0) AS SEND_COUNT ,
+        SUM(sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) AS SUCCESS_COUNT,
+        SUM(sds.RECEIVE_STATUS = 1 and sds.SEND_RESULT=0) AS FAILED_COUNT,
+        SUM(sds.RECEIVE_STATUS = 2 and sds.SEND_RESULT=0) AS NOREPORT_COUNT,
+        SUM((sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) * sds.SMS_NUMS) AS FEE_COUNT,
+        (SUM(sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) successSendRate,
+        (SUM(sds.RECEIVE_STATUS = 1 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) failSendRate,
+        (SUM(sds.RECEIVE_STATUS = 2 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) noreportRate
+        FROM
+        sms_merchant_send_${tableName} sds
+        WHERE 1=1
+        <include refid="outterConditions"/>
+    </select>
+    <select id="selectTodayViewTotalByQuery" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM (SELECT API_ACCOUNT FROM zy_db_sms.sms_merchant_send_${tableName} sms
+        WHERE 1=1
+        <include refid="innerConditions"/>
+        GROUP BY SMS_CHANNEL_ID) record
+    </select>
+    <select id="selectTodayViewListByQuery" resultMap="BaseResultMap">
+        SELECT sds.SMS_CHANNEL_ID CHANNEL_SMS_ID,
+        sds.API_ACCOUNT,
+        SUM(sds.SEND_RESULT = 0) AS SEND_COUNT,
+        SUM(sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) AS SUCCESS_COUNT,
+        SUM(sds.RECEIVE_STATUS = 1 and sds.SEND_RESULT=0) AS FAILED_COUNT,
+        SUM(sds.RECEIVE_STATUS = 2 and sds.SEND_RESULT=0) AS NOREPORT_COUNT,
+        SUM((sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) * sds.SMS_NUMS) AS FEE_COUNT,
+        (SUM(sds.RECEIVE_STATUS = 0 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) successSendRate,
+        (SUM(sds.RECEIVE_STATUS = 1 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) failSendRate,
+        (SUM(sds.RECEIVE_STATUS = 2 and sds.SEND_RESULT=0) / SUM(sds.SEND_RESULT = 0)) noreportRate
+        FROM zy_db_sms.sms_merchant_send_${tableName} sds
+        where 1=1
+        <include refid="viewConditions"/>
+        group by sds.SMS_CHANNEL_ID
+    </select>
+    <sql id="outterConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sds.API_ACCOUNT = #{apiAccount}
+        </if>
+        <choose>
+            <when test="tableName == null">
+                <if test="starttime != null and starttime !=''">
+                    AND sds.DATE_TIME &gt;= #{starttime}
+                </if>
+                <if test="endtime != null and endtime !=''">
+                    AND sds.DATE_TIME &lt;= #{endtime}
+                </if>
+            </when>
+            <otherwise>
+                <if test="starttime != null and starttime !=''">
+                    AND sds.CREATE_TIME &gt;= #{starttime}
+                </if>
+                <if test="endtime != null and endtime !=''">
+                    AND sds.CREATE_TIME &lt;= #{endtime}
+                </if>
+            </otherwise>
+        </choose>
+        <if test="category != null and category !=''">
+            AND sds.SMS_CATEGORY = #{category}
+        </if>
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            and sds.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="viewConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sds.API_ACCOUNT = #{apiAccount}
+        </if>
+        <if test="category != null and category !=''">
+            AND sds.SMS_CATEGORY = #{category}
+        </if>
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            and sds.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="innerConditions">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND sms.API_ACCOUNT = #{apiAccount}
+        </if>
+        <if test="category != null and category !=''">
+            AND sms.SMS_CATEGORY = #{category}
+        </if>
+        <if test="starttime != null and starttime !=''">
+            AND sms.CREATE_TIME &gt;= #{starttime}
+        </if>
+        <if test="endtime != null and endtime !=''">
+            AND sms.CREATE_TIME &lt;= #{endtime}
+        </if>
+        <if test="apiAccounts!=null and apiAccounts.size() > 0">
+            and sms.API_ACCOUNT in
+            <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="querySmsFailDetailByQuery" resultMap="FailDetailMap">
+        SELECT
+        RECEIVE_STATUS_DESC,
+        GROUPCOUNT,
+        TOTAL,
+        ROUND(GROUPCOUNT/TOTAL,4) PERCENTAGE
+        FROM (
+        SELECT
+        RECEIVE_STATUS_DESC,
+        COUNT(*) AS GROUPCOUNT,
+        (SELECT COUNT(*) FROM sms_merchant_send_${tableName} WHERE receive_status = 1
+        <include refid="failDetailCondition" />
+        ) TOTAL
+        FROM sms_merchant_send_${tableName}
+        WHERE receive_status = 1
+        <include refid="failDetailCondition" />
+        GROUP BY RECEIVE_STATUS_DESC
+        ORDER BY GROUPCOUNT DESC
+        ) t
+    </select>
+    <select id="querySmsViewFailDetailByQuery" resultMap="FailDetailMap">
+        SELECT
+        RECEIVE_STATUS_DESC,
+        GROUPCOUNT,
+        TOTAL,
+        ROUND(GROUPCOUNT/TOTAL,4) PERCENTAGE
+        FROM (
+        SELECT
+        RECEIVE_STATUS_DESC,
+        COUNT(*) AS GROUPCOUNT,
+        (SELECT COUNT(*) FROM sms_merchant_send_${tableName} WHERE receive_status = 1
+        <include refid="failDetailCondition" />
+        ) TOTAL
+        FROM sms_merchant_send_${tableName}
+        WHERE receive_status = 1
+        <include refid="failDetailCondition" />
+        GROUP BY RECEIVE_STATUS_DESC
+        ORDER BY GROUPCOUNT DESC
+        ) t
+    </select>
+    <sql id="failDetailCondition">
+        <if test="apiAccount != null and apiAccount !=''">
+            AND API_ACCOUNT = #{apiAccount}
+        </if>
+        <if test="category != null and category !=''">
+            AND SMS_CATEGORY = #{category}
+        </if>
+        <if test="channelId != null and channelId !=''">
+            AND SMS_CHANNEL_ID = #{channelId}
+        </if>
+        <!--<if test="starttime != null and starttime !=''">
+            AND UPDATE_TIME &gt;= #{starttime}
+        </if>
+        <if test="endtime != null and endtime !=''">
+            AND UPDATE_TIME &lt;= #{endtime}
+        </if>-->
+    </sql>
+</mapper>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.cms.mapper.master.VoiceUploadMapper">
+	<!-- 结果集映射 -->
+	<resultMap id="voiceUploadResultMap" type="com.zy.cms.vo.VoiceUpload">
+		<result column="ID" property="id" />
+		<result column="API_ACCOUNT" property="apiAccount" />
+		<result column="DOWNLOAD_URL" property="downloadUrl" />
+		<result column="DOWNLOAD_URL_S" property="downloadUrlS" />
+		<result column="FILE_SIZE" property="fileSize" />
+		<result column="STATUS" property="status" />
+		<result column="FILE_NAME" property="fileName" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="FILE_ID" property="fileId" />
+		<result column="VOICE_TYPE" property="voiceType" />
+		<result column="CONTENT" property="content" />
+		<result column="REMARK" property="remark" />
+		<result column="APP_ID" property="appId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="VOICE_FILE_TYPE" property="voiceFileType" />
+		<result column="AUTH_STATUS" property="authStatus" />
+		<result column="AUTH_DESC" property="authDesc" />
+		<result column="AUTH_USER" property="authUser" />
+		<result column="AUTH_SUBMIT_TIME" property="authSubmitTime" />
+		<result column="AUTH_RESULT_TIME" property="authResultTime" />
+		<result column="MERCHANT_PHONE" property="merchantPhone"/>
+		<result column="BUSINESS_NAME" property="businessName"/>
+		 
+	</resultMap>
+	
+	<!-- 分页对象查询条件SQL -->
+	<sql id="queryVoiceUploadPageCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+			<if test="params.id != null and params.id !=''">
+				AND ID = #{params.id}
+			</if>
+			<if test="params.apiAccount != null and params.apiAccount !=''">
+				AND API_ACCOUNT = #{params.apiAccount}
+			</if>
+			<if test="params.downloadUrl != null and params.downloadUrl !=''">
+				AND DOWNLOAD_URL = #{params.downloadUrl}
+			</if>
+			<if test="params.fileSize != null and params.fileSize !=''">
+				AND FILE_SIZE = #{params.fileSize}
+			</if>
+			<if test="params.status != null and params.status !=''">
+				AND STATUS = #{params.status}
+			</if>
+			<if test="params.fileName != null and params.fileName !=''">
+				AND FILE_NAME = #{params.fileName}
+			</if>
+			<if test="params.startCreateTime != null and params.startCreateTime !=''">
+				AND <![CDATA[ CREATE_TIME >= TO_DATE(#{params.startCreateTime}||' 00:00:00','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.endCreateTime != null and params.endCreateTime !=''">
+				AND <![CDATA[ CREATE_TIME <= TO_DATE(#{params.endCreateTime}||' 23:59:59','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.fileId != null and params.fileId !=''">
+				AND FILE_ID = #{params.fileId}
+			</if>
+			<if test="params.voiceType != null and params.voiceType !=''">
+				AND VOICE_TYPE = #{params.voiceType}
+			</if>
+			<if test="params.content != null and params.content !=''">
+				AND CONTENT = #{params.content}
+			</if>
+			<if test="params.remark != null and params.remark !=''">
+				AND REMARK = #{params.remark}
+			</if>
+			<if test="params.appId != null and params.appId !=''">
+				AND APP_ID = #{params.appId}
+			</if>
+			<if test="params.startUpdateTime != null and params.startUpdateTime !=''">
+				AND <![CDATA[ UPDATE_TIME >= TO_DATE(#{params.startUpdateTime}||' 00:00:00','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.endUpdateTime != null and params.endUpdateTime !=''">
+				AND <![CDATA[ UPDATE_TIME <= TO_DATE(#{params.endUpdateTime}||' 23:59:59','YYYY-MM-DD HH24:MI:SS')]]>
+			</if>
+			<if test="params.voiceFileType != null and params.voiceFileType !=''">
+				AND VOICE_FILE_TYPE = #{params.voiceFileType}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 实体对象查询条件SQL -->
+	<sql id="queryVoiceUploadEntityCondition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+			<if test="id != null and id !=''">
+				AND ID = #{id}
+			</if>
+			<if test="apiAccount != null and apiAccount !=''">
+				AND API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="downloadUrl != null and downloadUrl !=''">
+				AND DOWNLOAD_URL = #{downloadUrl}
+			</if>
+			<if test="fileSize != null and fileSize !=''">
+				AND FILE_SIZE = #{fileSize}
+			</if>
+			<if test="status != null and status !=''">
+				AND STATUS = #{status}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND FILE_NAME LIKE CONCAT('%','${fileName}','%' )
+			</if>
+			<if test="createTime != null and createTime !=''">
+				AND CREATE_TIME = #{createTime}
+			</if>
+			<if test="fileId != null and fileId !=''">
+				AND FILE_ID = #{fileId}
+			</if>
+			<if test="voiceType != null and voiceType !=''">
+				AND VOICE_TYPE = #{voiceType}
+			</if>
+			<if test="content != null and content !=''">
+				AND CONTENT = #{content}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND REMARK = #{remark}
+			</if>
+			<if test="appId != null and appId !=''">
+				AND APP_ID = #{appId}
+			</if>
+			<if test="updateTime != null and updateTime !=''">
+				AND UPDATE_TIME = #{updateTime}
+			</if>
+			<if test="voiceFileType != null and voiceFileType !=''">
+				AND VOICE_FILE_TYPE = #{voiceFileType}
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	           and api_account in  
+	           <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	             #{item}  
+	           </foreach>  
+       		</if>  
+		</trim>
+	</sql>
+			
+	<!-- 实体对象查询条件SQL -->
+	<sql id="queryVoiceUploadEntityCondition2">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+		    <if test="apiAccount != null and apiAccount !=''">
+				AND W.API_ACCOUNT = #{apiAccount}
+			</if>
+			<if test="voiceType != null and voiceType !=0">
+				AND W.VOICE_TYPE = #{voiceType}
+			</if>
+			<if test="authSubmitTimeStart != null and authSubmitTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.AUTH_SUBMIT_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{authSubmitTimeStart}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="authSubmitTimeEnd != null and authSubmitTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.AUTH_SUBMIT_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{authSubmitTimeEnd}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="authResultTimeStart != null and authResultTimeStart !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{authResultTimeStart}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="authResultTimeEnd != null and authResultTimeEnd !=''">
+			    AND <![CDATA[ DATE_FORMAT(W.AUTH_RESULT_TIME, '%Y-%m-%d %H:%i:%s')<=  DATE_FORMAT(#{authResultTimeEnd}, '%Y-%m-%d %H:%i:%s')]]>
+			</if>
+			<if test="authStatus !=0">
+			    AND W.AUTH_STATUS = #{authStatus}
+			</if>
+			<if test="authStatus ==0">
+			    AND ( W.AUTH_STATUS = 1 or W.AUTH_STATUS = 4 or W.AUTH_STATUS = 3) 
+			</if>
+			<if test="apiAccounts!=null and apiAccounts.size() > 0">  
+	           and W.api_account in  
+	           <foreach  collection="apiAccounts" item="item" open="(" separator="," close=")"> 
+	             #{item}  
+	           </foreach>  
+       		</if>  
+		</trim>	
+	</sql>
+	
+	<!-- 查询列表 -->
+	<select id="queryVoiceUploadList" parameterType="map" resultMap="voiceUploadResultMap">
+		SELECT ID, API_ACCOUNT, DOWNLOAD_URL, FILE_SIZE, STATUS, FILE_NAME, CREATE_TIME, FILE_ID, VOICE_TYPE, CONTENT, REMARK, APP_ID, UPDATE_TIME, VOICE_FILE_TYPE,AUTH_STATUS,AUTH_DESC,AUTH_USER,AUTH_SUBMIT_TIME,AUTH_RESULT_TIME
+		FROM VOICE_UPLOAD_VIEW 
+		<include refid="queryVoiceUploadPageCondition"/>
+		ORDER BY UPDATE_TIME DESC
+	</select>
+	
+	<!-- 根据实体对象查询列表 -->
+	<select id="queryVoiceUploadListByEntity" parameterType="com.zy.cms.vo.query.VoiceUploadQuery" resultMap="voiceUploadResultMap">
+		SELECT  R.API_ACCOUNT ,R.BUSINESS_NAME, R.MERCHANT_PHONE, V.* FROM VOICE_MERCHANT_ACCOUNT R RIGHT JOIN
+        (
+            SELECT *
+			FROM VOICE_UPLOAD_VIEW W
+			<include refid="queryVoiceUploadEntityCondition2"/>
+			ORDER BY W.UPDATE_TIME DESC
+			limit
+			#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        ) V
+        ON R.API_ACCOUNT = V.API_ACCOUNT 
+		
+	</select>
+	
+	<!-- 根据实体对象查询符合条件的记录数 -->
+	<select id="queryVoiceUploadCountByEntity" parameterType="com.zy.cms.vo.query.VoiceUploadQuery" resultType="int">
+		SELECT COUNT(*) FROM VOICE_UPLOAD_VIEW W
+		<include refid="queryVoiceUploadEntityCondition2"/>
+	</select>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="findVoiceUpload" parameterType="com.zy.cms.vo.query.VoiceUploadQuery" resultMap="voiceUploadResultMap">
+		SELECT *
+		FROM VOICE_UPLOAD_${tableName} W INNER JOIN VOICE_MERCHANT_ACCOUNT R ON W.API_ACCOUNT=R.API_ACCOUNT
+		WHERE W.ID = #{id} AND W.API_ACCOUNT = #{apiAccount}
+	</select>
+	
+	<!-- 新增并设置主键ID至参数对象 -->
+	<insert id="insertVoiceUpload" parameterType="com.zy.cms.vo.query.VoiceUploadQuery">
+		INSERT INTO VOICE_UPLOAD_${tableName}
+			(ID, API_ACCOUNT, DOWNLOAD_URL, FILE_SIZE, STATUS, FILE_NAME, CREATE_TIME, FILE_ID, VOICE_TYPE, CONTENT, REMARK, APP_ID, UPDATE_TIME, VOICE_FILE_TYPE,AUTH_STATUS,AUTH_DESC,AUTH_USER,AUTH_SUBMIT_TIME,AUTH_RESULT_TIME)
+		VALUES
+			(null, #{apiAccount}, #{downloadUrl}, #{fileSize}, #{status}, #{fileName}, #{createTime}, #{fileId}, #{voiceType}, #{content}, #{remark}, #{appId}, #{updateTime}, #{voiceFileType},#{authStatus},#{authDesc},#{authUser},#{authSubmitTime},#{authResultTime})
+	</insert>
+	
+	<!-- 修改-->
+	<update id="updateVoiceUpload" parameterType="com.zy.cms.vo.VoiceUpload">
+		UPDATE VOICE_UPLOAD_${tableName} 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount},
+			</if>
+			<if test="downloadUrl != null">
+				DOWNLOAD_URL = #{downloadUrl},
+			</if>
+			<if test="fileSize != null">
+				FILE_SIZE = #{fileSize},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="fileName != null">
+				FILE_NAME = #{fileName},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+			<if test="fileId != null">
+				FILE_ID = #{fileId},
+			</if>
+			<if test="voiceType != null">
+				VOICE_TYPE = #{voiceType},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime},
+			</if>
+			<if test="voiceFileType != null">
+				VOICE_FILE_TYPE = #{voiceFileType},
+			</if>
+			<if test="authStatus != null">
+				AUTH_STATUS = #{authStatus},
+			</if>
+			<if test="authDesc != null">
+				AUTH_DESC = #{authDesc},
+			</if>
+			<if test="authUser != null">
+				AUTH_USER = #{authUser},
+			</if>
+			<if test="authSubmitTime != null">
+				AUTH_SUBMIT_TIME = #{authSubmitTime},
+			</if>
+			<if test="authResultTime != null">
+				AUTH_RESULT_TIME = #{authResultTime},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteVoiceUpload" parameterType="com.zy.cms.vo.query.VoiceUploadQuery">
+		DELETE FROM VOICE_UPLOAD_VIEW
+		WHERE ID = #{id}
+	</delete>
+	<select id="selectUrlByFileId" parameterType="map" resultType="map">
+	 select API_ACCOUNT,DOWNLOAD_URL,FILE_ID from voice_upload_${TABLE_NAME} where FILE_ID=#{FILE_ID}
+	</select>
+
+</mapper>

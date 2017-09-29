@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannel" >
+    <id column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_MAIN_CODE" property="channelMainCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CODE" property="channelCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ACCESS_MODE" property="channelAccessMode" jdbcType="INTEGER" />
+    <result column="CHANNEL_TYPE" property="channelType" jdbcType="INTEGER" />
+    <result column="CHANNEL_PROPERTY" property="channelProperty" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operateType" jdbcType="INTEGER" />
+    <result column="MO_FLAG" property="moFlag" jdbcType="INTEGER" />
+    <result column="LONGSMS_FLAG" property="longSmsFlag" jdbcType="INTEGER" />
+    <result column="SIGNER_AUDIT" property="signerAudit" jdbcType="INTEGER" />
+    <result column="TEMPLATE_AUDIT" property="templateAudit" jdbcType="INTEGER" />
+    <result column="DTN_PROVINCE" property="dtnProvince" jdbcType="VARCHAR" />
+    <result column="USE_PROVINCE" property="useProvince" jdbcType="INTEGER" />
+    <result column="CREST_VALUE" property="crestValue" jdbcType="INTEGER" />
+    <result column="CHARGE_TYPE" property="chargeType" jdbcType="INTEGER" />
+    <result column="CHANNEL_FEE" property="channelFee" jdbcType="VARCHAR" />
+    <result column="CHANNEL_BALANCE" property="channelBalance" jdbcType="INTEGER" />
+    <result column="BALANCE_UNIT" property="balanceUnit" jdbcType="INTEGER" />
+    <result column="BALANCE_MONITOR_FLAG" property="balanceMonitorFlag" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CHANNEL_SCORE" property="channelScore" jdbcType="INTEGER" />
+    <result column="CHANNEL_USERID" property="channelUserId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ACCOUNT" property="channelAccount" jdbcType="VARCHAR" />
+    <result column="CHANNEL_PASSWORD" property="channelPassword" jdbcType="VARCHAR" />
+    <result column="CHANNEL_URL" property="channelUrl" jdbcType="VARCHAR" />
+    <result column="CHANNEL_COMMENT" property="channelComment" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    CHANNEL_ID, CHANNEL_MAIN_CODE, CHANNEL_NAME, CHANNEL_CODE, CHANNEL_ACCESS_MODE, CHANNEL_TYPE, CHANNEL_PROPERTY,
+    OPERATOR_TYPE, MO_FLAG, LONGSMS_FLAG, SIGNER_AUDIT, TEMPLATE_AUDIT, DTN_PROVINCE, USE_PROVINCE, CREST_VALUE,
+    CHARGE_TYPE,CHANNEL_FEE,CHANNEL_BALANCE,BALANCE_UNIT,BALANCE_MONITOR_FLAG,
+    STATUS, CHANNEL_SCORE, CHANNEL_USERID, CHANNEL_ACCOUNT, CHANNEL_PASSWORD, CHANNEL_URL, 
+    CHANNEL_COMMENT, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel
+    where CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByChannelMainCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_channel
+    where CHANNEL_MAIN_CODE = #{channelMainCode,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+	 delete from sms_channel
+	    where CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.channel.SmsChannel" >
+    insert into sms_channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="channelMainCode != null" >
+        CHANNEL_MAIN_CODE,
+      </if>
+      <if test="channelName != null" >
+        CHANNEL_NAME,
+      </if>
+      <if test="channelCode != null" >
+        CHANNEL_CODE,
+      </if>
+      <if test="channelAccessMode != null" >
+        CHANNEL_ACCESS_MODE,
+      </if>
+      <if test="channelType != null" >
+        CHANNEL_TYPE,
+      </if>
+      <if test="channelProperty != null" >
+        CHANNEL_PROPERTY,
+      </if>
+      <if test="operateType != null" >
+        OPERATOR_TYPE,
+      </if>
+      <if test="moFlag != null" >
+        MO_FLAG,
+      </if>
+       <if test="longSmsFlag != null" >
+        LONGSMS_FLAG,
+      </if>
+      <if test="signerAudit != null" >
+        SIGNER_AUDIT,
+      </if>
+      <if test="templateAudit != null" >
+        TEMPLATE_AUDIT,
+      </if>
+      <if test="dtnProvince != null" >
+        DTN_PROVINCE,
+      </if>
+      <if test="useProvince != null" >
+        USE_PROVINCE,
+      </if>
+      <if test="crestValue != null" >
+        CREST_VALUE,
+      </if>
+       <if test="chargeType != null" >
+        CHARGE_TYPE,
+      </if>
+      <if test="channelFee != null" >
+        CHANNEL_FEE,
+      </if>
+       <if test="channelBalance != null" >
+        CHANNEL_BALANCE,
+      </if>
+       <if test="balanceUnit != null" >
+        BALANCE_UNIT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="channelScore != null" >
+        CHANNEL_SCORE,
+      </if>
+      <if test="channelUserId != null" >
+        CHANNEL_USERID,
+      </if>
+      <if test="channelAccount != null" >
+        CHANNEL_ACCOUNT,
+      </if>
+      <if test="channelPassword != null" >
+        CHANNEL_PASSWORD,
+      </if>
+      <if test="channelUrl != null" >
+        CHANNEL_URL,
+      </if>
+      <if test="channelComment != null" >
+        CHANNEL_COMMENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelMainCode != null" >
+        #{channelMainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelAccessMode != null" >
+        #{channelAccessMode,jdbcType=INTEGER},
+      </if>
+      <if test="channelType != null" >
+        #{channelType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelProperty != null" >
+        #{channelProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="moFlag != null" >
+        #{moFlag,jdbcType=INTEGER},
+      </if>
+      <if test="longSmsFlag != null" >
+        #{longSmsFlag,jdbcType=INTEGER},
+      </if>
+      <if test="signerAudit != null" >
+        #{signerAudit,jdbcType=INTEGER},
+      </if>
+      <if test="templateAudit != null" >
+        #{templateAudit,jdbcType=INTEGER},
+      </if>
+      <if test="dtnProvince != null" >
+        #{dtnProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="useProvince != null" >
+        #{useProvince,jdbcType=INTEGER},
+      </if>
+      <if test="crestValue != null" >
+        #{crestValue,jdbcType=INTEGER},
+      </if>
+       <if test="chargeType != null" >
+        #{chargeType,jdbcType=INTEGER},
+      </if>
+       <if test="channelFee != null" >
+        #{channelFee,jdbcType=INTEGER},
+      </if>
+       <if test="channelBalance != null" >
+        #{channelBalance,jdbcType=INTEGER},
+      </if>
+       <if test="balanceUnit != null" >
+        #{balanceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="channelScore != null" >
+        #{channelScore,jdbcType=INTEGER},
+      </if>
+      <if test="channelUserId != null" >
+        #{channelUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelAccount != null" >
+        #{channelAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPassword != null" >
+        #{channelPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="channelUrl != null" >
+        #{channelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="channelComment != null" >
+        #{channelComment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannel" >
+    update sms_channel
+    <set >
+      <if test="channelName != null" >
+        CHANNEL_NAME = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelAccessMode != null" >
+        CHANNEL_ACCESS_MODE = #{channelAccessMode,jdbcType=INTEGER},
+      </if>
+      <if test="channelType != null" >
+        CHANNEL_TYPE = #{channelType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelProperty != null" >
+        CHANNEL_PROPERTY = #{channelProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        OPERATOR_TYPE = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="moFlag != null" >
+        MO_FLAG = #{moFlag,jdbcType=INTEGER},
+      </if>
+      <if test="longSmsFlag != null" >
+        LONGSMS_FLAG = #{longSmsFlag,jdbcType=INTEGER},
+      </if>
+      <if test="signerAudit != null" >
+        SIGNER_AUDIT = #{signerAudit,jdbcType=INTEGER},
+      </if>
+      <if test="templateAudit != null" >
+        TEMPLATE_AUDIT = #{templateAudit,jdbcType=INTEGER},
+      </if>
+      <if test="dtnProvince != null" >
+        DTN_PROVINCE = #{dtnProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="useProvince != null" >
+        USE_PROVINCE = #{useProvince,jdbcType=INTEGER},
+      </if>
+      <if test="crestValue != null" >
+        CREST_VALUE = #{crestValue,jdbcType=INTEGER},
+      </if>
+       <if test="chargeType != null" >
+        CHARGE_TYPE = #{chargeType,jdbcType=INTEGER},
+      </if>
+       <if test="channelFee != null" >
+        CHANNEL_FEE = #{channelFee,jdbcType=INTEGER},
+      </if>
+       <if test="channelBalance != null" >
+        CHANNEL_BALANCE = #{channelBalance,jdbcType=INTEGER},
+      </if>
+       <if test="balanceUnit != null" >
+        BALANCE_UNIT = #{balanceUnit,jdbcType=INTEGER},
+      </if>
+       <if test="balanceMonitorFlag != null" >
+        BALANCE_MONITOR_FLAG = #{balanceMonitorFlag,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="channelScore != null" >
+        CHANNEL_SCORE = #{channelScore,jdbcType=INTEGER},
+      </if>
+      <if test="channelUserId != null" >
+        CHANNEL_USERID = #{channelUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelAccount != null" >
+        CHANNEL_ACCOUNT = #{channelAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="channelPassword != null" >
+        CHANNEL_PASSWORD = #{channelPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="channelUrl != null" >
+        CHANNEL_URL = #{channelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="channelComment != null" >
+        CHANNEL_COMMENT = #{channelComment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+  </update>
+  
+ <select id="querySmsChannelCountByEntity" parameterType="com.zy.cms.vo.query.SmsChannelQuery" resultType="java.lang.Integer">
+  	 select COUNT(*) from sms_channel sc
+  	<include refid="querySmsChannelCondition"/>
+  </select>
+  
+  <select id="querySmsChannelListByEntity" parameterType="com.zy.cms.vo.query.SmsChannelQuery" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List"/>
+  	from sms_channel sc
+  	<include refid="querySmsChannelCondition"/>
+  	order by sc.CHANNEL_SCORE DESC, sc.UPDATE_TIME DESC 
+  	<if test="pageOffset != null and pageSize != null">
+		limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</if>
+  </select>
+
+  <select id="selectAllChannels" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sms_channel sc
+  </select>
+  
+  <sql id="querySmsChannelCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	        <if test="channelMainCode != null and channelMainCode !=''">
+				AND sc.CHANNEL_MAIN_CODE like CONCAT('%','${channelMainCode}','%') 
+			</if>
+		    <if test="channelId != null and channelId !=''">
+				AND sc.CHANNEL_ID like CONCAT('%','${channelId}','%') 
+			</if>
+		    <if test="channelName != null and channelName !=''">
+				AND sc.CHANNEL_NAME like CONCAT('%','${channelName}','%') 
+			</if>
+			<if test="channelType != null and channelType !=-1">
+				AND sc.CHANNEL_TYPE = #{channelType}
+			</if>
+			<if test="operateType != null and operateType !=-1">
+				AND sc.OPERATOR_TYPE = #{operateType}
+			</if>
+			<if test="channelProperty != null and channelProperty !='' and channelProperty != 0">
+				AND sc.CHANNEL_PROPERTY = #{channelProperty}
+			</if>
+			<if test="dtnProvince != null and dtnProvince !='' ">
+				AND sc.DTN_PROVINCE = #{dtnProvince}
+			</if>
+			<if test="status != null and status !=-1">
+			    AND sc.STATUS = #{status}
+			</if>
+		    <if test="createStarttime != null and createStarttime !=''">
+			    AND sc.CREATE_TIME &gt;= #{createStarttime}
+			</if>
+			<if test="createEndtime != null and createEndtime !=''">
+			    AND sc.CREATE_TIME &lt;= #{createEndtime}
+			</if>
+		</trim>	
+  </sql>
+  <select id="selectProvinceList" resultType="java.lang.String">
+  	select DISTINCT(province) from mobile_city order by convert(province using gbk) asc
+  </select>
+  
+   <select id="queryIdsByEntity" parameterType="com.zy.cms.vo.query.SmsChannelQuery" resultType="java.lang.String">
+  	select
+    CHANNEL_ID
+  	from sms_channel sc
+  	<include refid="querySmsChannelCondition"/>
+  	order by sc.CHANNEL_SCORE DESC, sc.UPDATE_TIME DESC 
+  </select>
+  
+  <select id="queryChannelListByApis" parameterType="String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sms_channel
+		where 1=1
+		<if test="array != '' and  array.length>0">
+			AND CHANNEL_ID in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+		</if>
+	</select>
+</mapper>

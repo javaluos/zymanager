@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsChannelGroupBindMapper">
+
+	<resultMap id="BaseResultMap" type="com.zy.cms.vo.channel.SmsChannelGroupBind">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="CHANNEL_GROUP_ID" property="channelGroupId"
+			jdbcType="VARCHAR" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+		<result column="CHANNEL_SCORE" property="channelScore"
+			jdbcType="INTEGER" />
+		<result column="THRESHOLD_VALUE" property="thresholdValue"
+			jdbcType="INTEGER" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CHANNEL_GROUP_ID, CHANNEL_ID, CHANNEL_SCORE, THRESHOLD_VALUE, REMARK,
+		STATUS,
+		CREATE_TIME, UPDATE_TIME
+	</sql>
+	
+	<resultMap id="MerchantChannelGroupBindResultMap" type="com.zy.cms.vo.channel.SmsMerchantChannelGroupBind">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="API_ACCOUNT" property="apiAccount"
+			jdbcType="VARCHAR" />
+		<result column="GROUP_YD" property="groupYd" jdbcType="VARCHAR" />
+		<result column="GROUP_LT" property="groupLt" jdbcType="VARCHAR" />
+		<result column="GROUP_DX" property="groupDx" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="MERCHANT_ACCOUNT" property="merchantAccount" jdbcType="VARCHAR" />
+		<result column="MERCHANT_PHONE" property="merchantPhone" jdbcType="VARCHAR" />
+		<result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Merchant_Channel_Group_Bind_Column_List">
+		ID, API_ACCOUNT, GROUP_YD, GROUP_LT, GROUP_DX, 
+		CREATE_TIME, UPDATE_TIME
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sms_channel_group_bind
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getMerchantChannelGroupBindByApiAccount" parameterType="java.lang.String" resultMap="MerchantChannelGroupBindResultMap">
+		SELECT <include refid="Merchant_Channel_Group_Bind_Column_List" /> 
+	    FROM SMS_MERCHANT_CHANNEL_GROUP_BIND	WHERE API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getMerchantChannelGroupBindById" parameterType="java.lang.Integer" resultMap="MerchantChannelGroupBindResultMap">
+		SELECT smcgb.ID, smcgb.API_ACCOUNT, smcgb.GROUP_YD, smcgb.GROUP_LT, smcgb.GROUP_DX, 
+		smcgb.CREATE_TIME, smcgb.UPDATE_TIME,vmc.BUSINESS_NAME,vmc.MERCHANT_PHONE FROM zy_db_paas.voice_merchant_account  vmc 
+		RIGHT JOIN zy_db_paas.sms_merchant_channel_group_bind smcgb on vmc.API_ACCOUNT = smcgb.API_ACCOUNT  
+	    WHERE smcgb.ID = #{id}
+	</select>
+	
+	<sql id="queryChannelGroupBindCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	        <if test="merchantPhone != null and merchantPhone !=''">
+				AND vmc.MERCHANT_PHONE like CONCAT('%','${merchantPhone}','%') 
+			</if>
+			<if test="businessName != null and businessName !=''">
+				AND vmc.BUSINESS_NAME like CONCAT('%','${businessName}','%') 
+			</if>
+			<if test="startTime != null and startTime !=''">
+			    AND smcgb.UPDATE_TIME &gt;= #{startTime} 
+			</if>
+			<if test="endTime != null and endTime !=''">
+			    AND smcgb.UPDATE_TIME &lt;= #{endTime} 
+			</if>
+		</trim>	
+    </sql>
+	
+	<select id="listMerchantChannelGroupBind" parameterType="com.zy.cms.vo.query.SmsChannelGroupBindQuery" resultMap="MerchantChannelGroupBindResultMap">
+		SELECT smcgb.ID, smcgb.API_ACCOUNT, smcgb.GROUP_YD, smcgb.GROUP_LT, smcgb.GROUP_DX, 
+		smcgb.CREATE_TIME, smcgb.UPDATE_TIME,vmc.BUSINESS_NAME,vmc.MERCHANT_PHONE FROM zy_db_paas.voice_merchant_account  vmc 
+		RIGHT JOIN zy_db_paas.sms_merchant_channel_group_bind smcgb on vmc.API_ACCOUNT = smcgb.API_ACCOUNT 
+		<include refid="queryChannelGroupBindCondition"/>
+	  	ORDER BY  smcgb.UPDATE_TIME DESC 
+	  	<if test="pageOffset != null and pageSize != null">
+			limit #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="listMerchantChannelGroupBindCount" parameterType="com.zy.cms.vo.query.SmsChannelGroupBindQuery" resultType="java.lang.Integer">
+  	   	SELECT COUNT(*) FROM zy_db_paas.voice_merchant_account  vmc 
+		RIGHT JOIN zy_db_paas.sms_merchant_channel_group_bind smcgb on vmc.API_ACCOUNT = smcgb.API_ACCOUNT 
+  		   <include refid="queryChannelGroupBindCondition"/>
+    </select>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sms_channel_group_bind
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByIds">
+		DELETE FROM SMS_CHANNEL_GROUP_BIND WHERE ID IN 
+	   <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+	</delete>
+	
+	<delete id="deleteMerchantGroupBind" parameterType="java.lang.Integer">
+		DELETE FROM SMS_MERCHANT_CHANNEL_GROUP_BIND WHERE ID = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zy.cms.vo.channel.SmsChannelGroupBind">
+		insert into sms_channel_group_bind (ID, CHANNEL_GROUP_ID, CHANNEL_ID,
+		CHANNEL_SCORE, THRESHOLD_VALUE, REMARK,
+		STATUS, CREATE_TIME, UPDATE_TIME
+		)
+		values (#{id,jdbcType=INTEGER}, #{channelGroupId,jdbcType=VARCHAR},
+		#{channelId,jdbcType=VARCHAR},
+		#{channelScore,jdbcType=INTEGER}, #{thresholdValue,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<insert id="insertChannelGroupBindList" parameterType="java.util.List">
+        INSERT INTO SMS_CHANNEL_GROUP_BIND 
+        	(CHANNEL_GROUP_ID, CHANNEL_ID, CHANNEL_SCORE, THRESHOLD_VALUE, REMARK, CREATE_TIME, UPDATE_TIME)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.channelGroupId,jdbcType=VARCHAR}, #{item.channelId,jdbcType=VARCHAR},
+             #{item.channelScore,jdbcType=INTEGER}, #{item.thresholdValue,jdbcType=INTEGER}, 
+             #{item.remark,jdbcType=VARCHAR},
+             current_timestamp(),current_timestamp())
+        </foreach>
+	</insert>
+	
+	<insert id="insertMerchantChannelGroupBind" parameterType="java.util.List">
+        INSERT INTO SMS_MERCHANT_CHANNEL_GROUP_BIND 
+        	(API_ACCOUNT, GROUP_YD, GROUP_LT, GROUP_DX, CREATE_TIME, UPDATE_TIME) 
+        VALUES 
+         <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.apiAccount,jdbcType=VARCHAR}, #{item.groupYd,jdbcType=VARCHAR},
+             #{item.groupLt,jdbcType=VARCHAR}, #{item.groupDx,jdbcType=VARCHAR},
+             current_timestamp(),current_timestamp())
+        </foreach>
+	</insert>
+	
+	
+	<update id="updateMerchantGroupBindById" parameterType="com.zy.cms.vo.channel.SmsMerchantChannelGroupBind">
+		UPDATE SMS_MERCHANT_CHANNEL_GROUP_BIND
+		<set>
+			<if test="apiAccount != null">
+				API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="groupYd != null">
+				GROUP_YD = #{groupYd,jdbcType=VARCHAR},
+			</if>
+			<if test="groupLt != null">
+				GROUP_LT = #{groupLt,jdbcType=INTEGER},
+			</if>
+			<if test="groupDx != null">
+				GROUP_DX = #{groupDx,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}, 
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}, 
+			</if>
+		</set>
+		  WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.channel.SmsChannelGroupBind">
+		update sms_channel_group_bind
+		<set>
+			<if test="channelGroupId != null">
+				CHANNEL_GROUP_ID = #{channelGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelScore != null">
+				CHANNEL_SCORE = #{channelScore,jdbcType=INTEGER},
+			</if>
+			<if test="thresholdValue != null">
+				THRESHOLD_VALUE = #{thresholdValue,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.channel.SmsChannelGroupBind">
+		update sms_channel_group_bind
+		set CHANNEL_GROUP_ID = #{channelGroupId,jdbcType=VARCHAR},
+		CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+		CHANNEL_SCORE = #{channelScore,jdbcType=INTEGER},
+		THRESHOLD_VALUE = #{thresholdValue,jdbcType=INTEGER},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="countGroupBindByGroupId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT count(ID) FROM SMS_MERCHANT_CHANNEL_GROUP_BIND WHERE  #{channelGroupId} IN (GROUP_YD,GROUP_LT,GROUP_DX)
+	</select>
+	
+	<select id="listGroupIdByChannelId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+		 CHANNEL_GROUP_ID
+	    from
+	     sms_channel_group_bind
+	  	where
+	  	 CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

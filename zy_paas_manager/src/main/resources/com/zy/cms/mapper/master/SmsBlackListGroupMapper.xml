@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.SmsBlackListGroupMapper">
+    <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsBlackListGroup">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, GROUP_NAME, REMARK, CREATE_TIME, UPDATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sms_black_list_group
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sms_black_list_group
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zy.cms.vo.SmsBlackListGroup">
+        insert into sms_black_list_group (ID, GROUP_NAME, REMARK,
+        CREATE_TIME, UPDATE_TIME)
+        values (#{id,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsBlackListGroup">
+        insert into sms_black_list_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="groupName != null">
+                GROUP_NAME,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="groupName != null">
+                #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsBlackListGroup">
+        update sms_black_list_group
+        <set>
+            <if test="groupName != null">
+                GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsBlackListGroup">
+        update sms_black_list_group
+        set GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+        REMARK = #{remark,jdbcType=VARCHAR},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectCountByQuery" resultType="java.lang.Integer">
+        select count(*) from sms_black_list_group
+        <include refid="query_where_clause"/>
+    </select>
+
+    <select id="selectListByQuery" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sms_black_list_group
+        <include refid="query_where_clause"/>
+        order by ID desc
+        <if test="pageOffset != null and pageSize != null">
+            limit
+            #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+    <sql id="query_where_clause">
+        <where>
+            <if test="groupName != null and groupName !=''">
+                and GROUP_NAME like concat('%', #{groupName}, '%')
+            </if>
+        </where>
+    </sql>
+</mapper>

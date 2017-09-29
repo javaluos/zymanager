@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.cdrs.CdrsMapper" >
+
+
+  <sql id="Base_Column_List" >
+    API_ACCOUNT, CALL_TYPE, CALL_ID,CONTENT_TYPE,CONTENT,VERIFY_CODE
+  </sql>
+  
+  <select id="getCdrsDetail" resultType="Map" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_proxy_cdr_${TABLE_NAME} where CALL_ID=#{callId,jdbcType=VARCHAR}
+  </select>
+</mapper>

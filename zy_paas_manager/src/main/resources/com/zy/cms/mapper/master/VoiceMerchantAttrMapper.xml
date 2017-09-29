@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.VoiceMerchantAttrMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.VoiceMerchantAttr" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="ATTR_NAME" property="attrName" jdbcType="VARCHAR" />
+    <result column="ATTR_VALUE" property="attrValue" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, BUSINESS_ID, ATTR_NAME, ATTR_VALUE, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_merchant_attr
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voice_merchant_attr
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.VoiceMerchantAttr" >
+    insert into voice_merchant_attr (ID, API_ACCOUNT, BUSINESS_ID, 
+      ATTR_NAME, ATTR_VALUE, REMARK, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{apiAccount,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, 
+      #{attrName,jdbcType=VARCHAR}, #{attrValue,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.VoiceMerchantAttr" >
+    insert into voice_merchant_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="attrName != null" >
+        ATTR_NAME,
+      </if>
+      <if test="attrValue != null" >
+        ATTR_VALUE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null" >
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrValue != null" >
+        #{attrValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.VoiceMerchantAttr" >
+    update voice_merchant_attr
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null" >
+        ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrValue != null" >
+        ATTR_VALUE = #{attrValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.VoiceMerchantAttr" >
+    update voice_merchant_attr
+    set API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+      ATTR_VALUE = #{attrValue,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 实体对象查询条件SQL -->
+  <sql id="queryMerchantAttr">
+    <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+      <if test="apiAccount != null and apiAccount !=''" >
+          AND API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="businessId != null and businessId !=''">
+		  AND BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+	   </if>
+	  <if test="attrName != null and attrName !=''">
+          AND ATTR_NAME=#{attrName,jdbcType=VARCHAR}
+       </if>
+       <if test="attrValue != null and attrValue !=''" >
+          AND ATTR_VALUE=#{attrValue,jdbcType=VARCHAR}
+       </if>
+    </trim>
+  </sql>
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from voice_merchant_attr
+   <include refid="queryMerchantAttr"/>
+  </select>
+  
+  <insert id="batchInsert" parameterType="com.zy.cms.vo.VoiceMerchantAttr" >
+     insert into voice_merchant_attr (
+          API_ACCOUNT,
+          BUSINESS_ID,
+          ATTR_NAME,
+          ATTR_VALUE,
+          REMARK
+     )
+     values
+	 <foreach collection="list" item="record" index ="index" separator=",">
+	  (
+	     #{record.apiAccount,jdbcType=VARCHAR}, 
+	     #{record.businessId,jdbcType=VARCHAR},
+	     #{record.attrName,jdbcType=VARCHAR}, 
+	     #{record.attrValue,jdbcType=VARCHAR}, 
+	     #{record.remark,jdbcType=VARCHAR}
+	  )  
+	 </foreach>  
+   </insert>
+   
+   <delete id="batchDelete" parameterType="String" >
+     delete from voice_merchant_attr
+     where API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+   </delete>
+  
+  
+  
+</mapper>

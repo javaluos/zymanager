@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.master.VoiceAppInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.VoiceAppInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="API_ACCOUNT" property="apiAccount" jdbcType="VARCHAR" />
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+    <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="APP_TOKEN" property="appToken" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="SMALLINT" />
+    <result column="BUSINESS_IDS" property="businessIds" jdbcType="VARCHAR" />
+    <result column="BALANCE" property="balance" jdbcType="INTEGER" />
+    <result column="INDUSTRY" property="industry" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, API_ACCOUNT, APP_ID, APP_NAME, APP_TOKEN, STATUS, REASON, BUSINESS_IDS, 
+    BALANCE, INDUSTRY, UPDATE_TIME, CREATE_TIME
+  </sql>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.VoiceAppInfo" >
+    insert into voice_app_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="apiAccount != null" >
+        API_ACCOUNT,
+      </if>
+      <if test="appId != null" >
+        APP_ID,
+      </if>
+      <if test="appName != null" >
+        APP_NAME,
+      </if>
+      <if test="appToken != null" >
+        APP_TOKEN,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="businessIds != null" >
+        BUSINESS_IDS,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="industry != null" >
+        INDUSTRY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="apiAccount != null" >
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null" >
+        #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=SMALLINT},
+      </if>
+      <if test="businessIds != null" >
+        #{businessIds,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="update" parameterType="com.zy.cms.vo.VoiceAppInfo" >
+    update voice_app_info
+    <set >
+      <if test="apiAccount != null" >
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        APP_NAME = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null" >
+        APP_TOKEN = #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=SMALLINT},
+      </if>
+      <if test="businessIds != null" >
+        BUSINESS_IDS = #{businessIds,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        BALANCE = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        INDUSTRY = #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.cms.mapper.master.SmsBlackGroupBindMapper">
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.SmsBlackGroupBind">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="GROUP_ID" jdbcType="INTEGER" property="groupId" />
+    <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName" />
+    <result column="API_ACCOUNT" jdbcType="VARCHAR" property="apiAccount" />
+    <result column="MERCHANT_PHONE" jdbcType="VARCHAR" property="merchantPhone" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, GROUP_ID, GROUP_NAME, API_ACCOUNT, MERCHANT_PHONE, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sms_black_group_bind
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sms_black_group_bind
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zy.cms.vo.SmsBlackGroupBind">
+    insert into sms_black_group_bind (ID, GROUP_ID, GROUP_NAME, 
+      API_ACCOUNT, MERCHANT_PHONE, REMARK, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, 
+      #{apiAccount,jdbcType=VARCHAR}, #{merchantPhone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.SmsBlackGroupBind">
+    insert into sms_black_group_bind
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="apiAccount != null">
+        API_ACCOUNT,
+      </if>
+      <if test="merchantPhone != null">
+        MERCHANT_PHONE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null">
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null">
+        #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.SmsBlackGroupBind">
+    update sms_black_group_bind
+    <set>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null">
+        API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null">
+        MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.SmsBlackGroupBind">
+    update sms_black_group_bind
+    set GROUP_ID = #{groupId,jdbcType=INTEGER},
+      GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR},
+      MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCountByQuery" resultType="java.lang.Integer">
+    select count(*) from sms_black_group_bind
+    <include refid="query_where_clause"/>
+  </select>
+
+  <select id="selectListByQuery" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sms_black_group_bind
+    <include refid="query_where_clause"/>
+    order by ID desc
+    <if test="pageOffset != null and pageSize != null">
+      limit
+      #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </if>
+
+  </select>
+
+  <sql id="query_where_clause">
+    <where>
+      <if test="apiAccount != null and apiAccount !=''">
+        and API_ACCOUNT = #{apiAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="groupName != null and groupName !=''">
+        and GROUP_NAME like concat('%', #{groupName}, '%')
+      </if>
+      <if test="groupId != null and groupId !=''">
+        and GROUP_ID = #{groupId,jdbcType=INTEGER}
+      </if>
+      <if test="merchantPhone != null and merchantPhone !=''">
+        and MERCHANT_PHONE = #{merchantPhone,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+</mapper>

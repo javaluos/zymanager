@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.cms.mapper.manager.CdrMonitorNoticeLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zy.cms.vo.manager.CdrMonitorNoticeLog" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="MONITOR_BODY" property="monitorBody" jdbcType="VARCHAR" />
+    <result column="MONITOR_TYPE" property="monitorType" jdbcType="VARCHAR" />
+    <result column="MONITOR_CONTENT" property="monitorContent" jdbcType="VARCHAR" />
+    <result column="DEAL_USER" property="dealUser" jdbcType="VARCHAR" />
+    <result column="STATISTICAL_TIME" property="statisticalTime" jdbcType="TIMESTAMP" />
+    <result column="IS_UP_MONITOR" property="isUpMonitor" jdbcType="VARCHAR" />
+     <result column="IS_DEAL" property="isDeal" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, MONITOR_BODY, MONITOR_TYPE, MONITOR_CONTENT, DEAL_USER, STATISTICAL_TIME, IS_UP_MONITOR, IS_DEAL,CREATE_TIME, 
+    UPDATE_TIME
+  </sql>
+  
+  
+  <!-- 实体对象查询条件SQL -->
+  <sql id="queryCdrMonitorLogEntityCondition">
+	     <trim prefix="WHERE" prefixOverrides="AND | OR" suffixOverrides=",">
+	        <if test="monitorBody != null and monitorBody !=''">
+				AND MONITOR_BODY = #{monitorBody}
+			</if>
+			<if test="monitorType != null and monitorType !='' and monitorType !=0">
+				AND MONITOR_TYPE = #{monitorType}
+			</if>
+			<if test="starttime != null and starttime !=''">
+			    AND <![CDATA[ DATE_FORMAT(STATISTICAL_TIME, '%Y%m%d %H%i%S')>=  DATE_FORMAT(#{starttime}, '%Y%m%d %H%i%S')]]>
+			</if>
+			<if test="endtime != null and endtime !=''">
+			    AND <![CDATA[ DATE_FORMAT(STATISTICAL_TIME, '%Y%m%d %H%i%S')<=  DATE_FORMAT(#{endtime}, '%Y%m%d %H%i%S')]]>
+			</if>
+			<if test="isDeal != null and isDeal !='' and isDeal !=0">
+				AND IS_DEAL = #{isDeal}
+			</if>
+			<if test="isUpMonitor != null and isUpMonitor !='' and isUpMonitor !=0">
+				AND IS_UP_MONITOR = #{isUpMonitor}
+			</if>
+		</trim>	
+	</sql>
+	
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cdr_monitor_notice_log
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cdr_monitor_notice_log
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeLog" >
+    insert into cdr_monitor_notice_log 
+    ( ID, MONITOR_BODY, MONITOR_TYPE, MONITOR_CONTENT, DEAL_USER, STATISTICAL_TIME,
+      IS_UP_MONITOR, IS_DEAL,CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{monitorBody,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, 
+            #{monitorContent,jdbcType=VARCHAR}, #{dealUser,jdbcType=VARCHAR}, #{statisticalTime,jdbcType=TIMESTAMP}, 
+            #{isUpMonitor,jdbcType=VARCHAR},#{isDeal,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeLog" >
+    insert into cdr_monitor_notice_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="monitorBody != null" >
+        MONITOR_BODY,
+      </if>
+      <if test="monitorType != null" >
+        MONITOR_TYPE,
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT,
+      </if>
+      <if test="dealUser != null" >
+        DEAL_USER,
+      </if>
+      <if test="statisticalTime != null" >
+        STATISTICAL_TIME,
+      </if>
+      <if test="isUpMonitor != null" >
+        IS_UP_MONITOR,
+      </if>
+       <if test="isDeal != null" >
+        IS_DEAL,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="monitorBody != null" >
+        #{monitorBody,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticalTime != null" >
+        #{statisticalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpMonitor != null" >
+        #{isUpMonitor,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeal != null" >
+        #{isDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeLog" >
+    update cdr_monitor_notice_log
+    <set >
+      <if test="monitorBody != null" >
+        MONITOR_BODY = #{monitorBody,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        MONITOR_TYPE = #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorContent != null" >
+        MONITOR_CONTENT = #{monitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        DEAL_USER = #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="statisticalTime != null" >
+        STATISTICAL_TIME = #{statisticalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpMonitor != null" >
+        IS_UP_MONITOR = #{isUpMonitor,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeal != null" >
+        IS_DEAL = #{isDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zy.cms.vo.manager.CdrMonitorNoticeLog" >
+    update cdr_monitor_notice_log
+    set 
+      MONITOR_BODY = #{monitorBody,jdbcType=VARCHAR},
+      MONITOR_TYPE = #{monitorType,jdbcType=VARCHAR},
+      MONITOR_CONTENT = #{dealUser,jdbcType=VARCHAR},
+      DEAL_USER = #{content,jdbcType=VARCHAR},
+      STATISTICAL_TIME = #{statisticalTime,jdbcType=TIMESTAMP},
+      IS_UP_MONITOR = #{isUpMonitor,jdbcType=VARCHAR},
+      IS_DEAL = #{isDeal,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <!-- 根据实体对象查询符合条件的月统计记录数 -->
+  <select id="queryCdrMonitorLogCount" parameterType="com.zy.cms.vo.query.CdrMonitorNoticeLogQuery" resultType="int">
+	 SELECT 
+	    count(*)
+     FROM 
+	    cdr_monitor_notice_log
+     <include refid="queryCdrMonitorLogEntityCondition"/>
+  </select>
+  
+  <!-- 根据实体对象查询列表 日账单 -->
+  <select id="queryCdrMonitorLogByEntity" parameterType="com.zy.cms.vo.query.CdrMonitorNoticeLogQuery" resultMap="BaseResultMap">
+	SELECT
+	<include refid="Base_Column_List"/>
+	FROM
+	cdr_monitor_notice_log
+	<include refid="queryCdrMonitorLogEntityCondition"/>
+	order by CREATE_TIME DESC,IS_DEAL ASC
+	limit 
+	#{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据实体对象查询列表 日账单 -->
+  <select id="queryCdrMonitorLogByParam" parameterType="String" resultMap="BaseResultMap">
+	SELECT
+	<include refid="Base_Column_List"/>
+	FROM
+	  cdr_monitor_notice_log
+	WHERE
+	  MONITOR_BODY = #{monitorBody,jdbcType=VARCHAR}
+	  AND
+	  MONITOR_TYPE = #{monitorType,jdbcType=VARCHAR}
+	  AND
+	  CREATE_TIME   &gt;=  #{startTime,jdbcType=VARCHAR}
+	  AND 
+	  CREATE_TIME  &lt;=   #{endTime,jdbcType=VARCHAR}
+	  AND
+	  IS_DEAL='1'
+	order by CREATE_TIME DESC
+  </select>
+  
+   <update id="updateLog" parameterType="string">
+	    update 
+	        cdr_monitor_notice_log
+	    set 
+	        IS_DEAL='2',
+	        DEAL_USER = #{dealUser,jdbcType=VARCHAR}
+	    where 
+	        ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateAll" parameterType="string">
+	    update 
+	        cdr_monitor_notice_log
+	    set 
+	        IS_DEAL='2',
+	        DEAL_USER = #{dealUser,jdbcType=VARCHAR}
+	    where 
+	       IS_DEAL='1'
+  </update>
+  
+</mapper>
